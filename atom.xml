@@ -4,7 +4,7 @@
   <subtitle><![CDATA[极简,至深]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xboos.github.io/"/>
-  <updated>2015-10-21T09:56:38.000Z</updated>
+  <updated>2015-10-21T09:56:51.000Z</updated>
   <id>http://xboos.github.io/</id>
   
   <author>
@@ -18,8 +18,8 @@
     <title><![CDATA[GDB 7.7版本以上OSO archive file问题]]></title>
     <link href="http://xboos.github.io/2015/10/21/gdb-upgrade/"/>
     <id>http://xboos.github.io/2015/10/21/gdb-upgrade/</id>
-    <published>2015-10-21T09:56:38.000Z</published>
-    <updated>2015-10-21T09:56:38.000Z</updated>
+    <published>2015-10-21T09:56:52.000Z</published>
+    <updated>2015-10-21T09:56:51.000Z</updated>
     <content type="html"><![CDATA[<h1>尚未解决</h1>
 <p>用homebrew 直接install了最新版的gdb(7.10),在用的时候就遭遇了问题.
 run 的时候会出现如下的warning</p>
