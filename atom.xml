@@ -4,7 +4,7 @@
   <subtitle><![CDATA[极简,至深]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://xboos.github.io/"/>
-  <updated>2015-10-19T18:09:00.000Z</updated>
+  <updated>2015-10-21T09:56:38.000Z</updated>
   <id>http://xboos.github.io/</id>
   
   <author>
@@ -15,11 +15,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[GDB 7.7版本以上OSO archive file问题]]></title>
+    <link href="http://xboos.github.io/2015/10/21/gdb-upgrade/"/>
+    <id>http://xboos.github.io/2015/10/21/gdb-upgrade/</id>
+    <published>2015-10-21T09:56:38.000Z</published>
+    <updated>2015-10-21T09:56:38.000Z</updated>
+    <content type="html"><![CDATA[<h1>尚未解决</h1>
+<p>用homebrew 直接install了最新版的gdb(7.10),在用的时候就遭遇了问题.
+run 的时候会出现如下的warning</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/libcorecrypto_static.a"</span></span><br><span class="line">warning: `/BinaryCache/coreTLS/coreTLS-<span class="number">35.1</span>.<span class="number">2</span>~<span class="number">1</span>/Objects/coretls.build/coretls.build/Objects-normal/x86_64/system_coretls_vers.o<span class="string">': can'</span>t open to <span class="built_in">read</span> symbols: No such file or directory.</span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_ciphersuites.a"</span></span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_handshake.a"</span></span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_record.a"</span></span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_stream_parser.a"</span></span><br></pre></td></tr></table></figure></p>
+<p>这个问题尚未得到解决,在github上被推到upstream问题,可以去<a href="https://github.com/Homebrew/homebrew-dupes/issues/357" target="_blank" rel="external">这里</a>看这个问题的相关情况,subscribe看之后的解决情况.</p>
+<p>如果还想用gdb只有downgrade回去7.7版本了</p>
+<h1>brew install old version of gdb</h1>
+<p>它的ruby脚本在<a href="https://gist.github.com/ymyzk/10ad2b74af9235eddb2c" target="_blank" rel="external">这里</a></p>
+<p>可以直接</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install https://gist.githubusercontent.com/ymyzk/<span class="number">10</span>ad2b74af9235eddb2c/raw/<span class="number">9</span>d0b9734ea01f9753a5f54dd221acd99ee7e53e8/gdb.rb</span><br></pre></td></tr></table></figure></p>
+<p>来安装.</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1>尚未解决</h1>
+<p>用homebrew 直接install了最新版的gdb(7.10),在用的时候就遭遇了问题.
+run 的时候会出现如下的warning</p>
+<p><figure class="highlight bash"><table><tr><td cl]]>
+    </summary>
+    
+      <category term="C" scheme="http://xboos.github.io/tags/C/"/>
+    
+      <category term="tools" scheme="http://xboos.github.io/tags/tools/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[白日行]]></title>
     <link href="http://xboos.github.io/2015/10/04/bairixing/"/>
     <id>http://xboos.github.io/2015/10/04/bairixing/</id>
     <published>2015-10-04T06:06:14.000Z</published>
-    <updated>2015-10-19T18:09:00.000Z</updated>
+    <updated>2015-10-19T18:29:49.000Z</updated>
     <content type="html"><![CDATA[<h1>开博之篇</h1>
 <p>说来有些惭愧,距离师兄帮助我搭起来博客已经有不短的日子了.一直有写技术博客的想法,但有时总会觉得自己道行之浅有班门弄斧之嫌.这个想法在看了很多别人的博客之后有很大改观.人为什么要写博客,这与著书立说不同,未必是一个无懈可击数经考证的结论,而可以是自己思想的整个孵化过程记载.目的本身生发自与同自我的交互,然后才是读者(而且是否有读者都是后话),是同自我对话的地方.而且随着自媒体发展和社交成本的降低,我们分享信息的方法也越来越亲民,譬如博客.所以还是像很多博主说的一样,博客即在于总结与分享.</p>
 <h1>我和XBoOS</h1>

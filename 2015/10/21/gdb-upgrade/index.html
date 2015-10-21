@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="English,Chinese"><head><meta charset="UTF-8"><meta name="author" content="Bing Xu"><meta name="desciption" content="白日行在编程世界中,一个执著的程序非猿"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GDB 7.7版本以上OSO archive file问题</title><link rel="stylesheet" type="text/css" href="//dn-staticfile.qbox.me/normalize/3.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="/css/carbon.css"></head><body><div id="container"><div id="banner"><h1 id="site-title"><a href="/">XBoOS</a></h1><p id="site-subtitle">极简,至深</p></div><div id="content"><div class="meta"><h2 class="article-title"><a href="/2015/10/21/gdb-upgrade/">GDB 7.7版本以上OSO archive file问题</a></h2><div class="article-date"><a href="javascript:void(0);" class="extra-switch">2015-10-21</a></div></div><div class="extra">Tags: C tools </div><div class="extra">Categorias: 無</div><div class="article-content"><div class="gallery"></div><h1>尚未解决</h1>
+<p>用homebrew 直接install了最新版的gdb(7.10),在用的时候就遭遇了问题.
+run 的时候会出现如下的warning</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/libcorecrypto_static.a"</span></span><br><span class="line">warning: `/BinaryCache/coreTLS/coreTLS-<span class="number">35.1</span>.<span class="number">2</span>~<span class="number">1</span>/Objects/coretls.build/coretls.build/Objects-normal/x86_64/system_coretls_vers.o<span class="string">': can'</span>t open to <span class="built_in">read</span> symbols: No such file or directory.</span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_ciphersuites.a"</span></span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_handshake.a"</span></span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_record.a"</span></span><br><span class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_stream_parser.a"</span></span><br></pre></td></tr></table></figure></p>
+<p>这个问题尚未得到解决,在github上被推到upstream问题,可以去<a href="https://github.com/Homebrew/homebrew-dupes/issues/357" target="_blank" rel="external">这里</a>看这个问题的相关情况,subscribe看之后的解决情况.</p>
+<p>如果还想用gdb只有downgrade回去7.7版本了</p>
+<h1>brew install old version of gdb</h1>
+<p>它的ruby脚本在<a href="https://gist.github.com/ymyzk/10ad2b74af9235eddb2c" target="_blank" rel="external">这里</a></p>
+<p>可以直接</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install https://gist.githubusercontent.com/ymyzk/<span class="number">10</span>ad2b74af9235eddb2c/raw/<span class="number">9</span>d0b9734ea01f9753a5f54dd221acd99ee7e53e8/gdb.rb</span><br></pre></td></tr></table></figure></p>
+<p>来安装.</p>
+</div><div id="disqus_thread" class="comments"><script>//fix for permalink in pages
+var path = '2015/10/21/gdb-upgrade/'.replace('/index.html', '');
+var disqus_shortname = 'xboos';
+var disqus_identifier = path;
+var disqus_title = 'GDB 7.7版本以上OSO archive file问题';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</noscript></div><nav class="pagination"><a id="right-navigator" href="/2015/10/04/bairixing/">白日行</a></nav><!--mathjax config similar to math.stackexchange--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+  }
+});</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});</script><script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></div><nav id="footer"><ul id="footer-links"><li><a href="/about">關於</a></li><li><a href="/archives">所有文章</a></li><li><a href="/atom.xml" class="out-site">RSS</a></li><li><a href="https://icylogic.net" class="out-site">Theme.Carbon</a></li><li><a href="https://github.com/hexojs/hexo" class="out-site">Hexo</a></li></ul></nav></div></body><script src="//dn-staticfile.qbox.me/jquery/2.1.1/jquery.min.js"></script><script src="//dn-staticfile.qbox.me/jquery.pjax/1.9.2/jquery.pjax.min.js"></script><script src="/js/carbon.js"></script></html>
