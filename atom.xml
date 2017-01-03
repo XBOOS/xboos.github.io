@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-03T03:43:54.000Z</updated>
+  <updated>2017-01-03T03:56:33.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,88 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>迷茫的引擎之递归查询</title>
+    <link href="http://yoursite.com/2016/12/31/recursiveQuery/"/>
+    <id>http://yoursite.com/2016/12/31/recursiveQuery/</id>
+    <published>2016-12-31T03:46:26.000Z</published>
+    <updated>2017-01-03T03:56:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<img src="/2016/12/31/recursiveQuery/tworoads.jpg" alt="tworoads.jpg" title="">   
+<p>今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.<br>类似于这种SQL (隐去公司业务相关性)<br>我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表<br>table <code>lovelydog</code></p>
+<table>
+<thead>
+<tr>
+<th>dogId</th>
+<th>name</th>
+<th>description</th>
+<th>intelligenceRank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Labrador Retriever(拉布拉多)</td>
+<td>cheerful,gentle friendly,intelligent</td>
+<td>7</td>
+</tr>
+<tr>
+<td>2</td>
+<td>German Shepherd (德牧羊)</td>
+<td>courageous,intelligent,loyal,watchful</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Golden Retriever (金毛)</td>
+<td>Intelligent,Kind,Friendly,Confident</td>
+<td>4</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bulldog (沙皮)</td>
+<td>Frendly,docile,Willful,Gregarious</td>
+<td>77</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Beagle(比格)</td>
+<td>Gentle,Intelligent,Even Tempered,Determined</td>
+<td>72</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="sql">
+<span class="keyword">delete</span> <span class="keyword">from</span> <span class="string">`lovelydog`</span> <span class="keyword">where</span> intelligenceRank 
+<span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">max</span>(intelligenceRank)<span class="keyword">from</span> <span class="string">`lovelydog`</span> )
+</code></pre>
+<p>非常简单,我从表中剔除最笨的一种狗狗.<br>但是执行数据变更的时候报出 MYSQL error “You can’t specify target table X for update in FROM clause”.<br>为什么流程不和我们想象的一样顺化,先从表中找出智力的最小值,然后把智力为该值的狗狗从表中delete.<br>google了一番发现了如下几个没有思考过的问题.</p>
+<h3 id="Recursive-Query-查询递归"><a href="#Recursive-Query-查询递归" class="headerlink" title="Recursive Query 查询递归"></a>Recursive Query 查询递归</h3><p>Mysql 引擎不允许我们在做DML(delete/insert/update)的时候在subquery里面去reference当前table. 这一点在mysql 的手册UPDATE下面最后一行有指出.”You cannot update a table and select from the same table in a subquery.”<br>为什么呢?   </p>
+<p>因为这里有一个query cycle.<br>在stackoverflow上有如下解释</p>
+<blockquote>
+<p>Think about the semantics. Either MySQL has to keep a copy of the table before the update started, or the inner query might use data that has already been updated by the query as it’s in progress. Neither of these side-effects is necessarily desirable, so the safest bet is to force you to specify what will happen using an extra table. – siride    </p>
+<p>This is because your update could be cyclical… what if updating that record causes something to happen which made the WHERE condition FALSE? You know that isn’t the case, but the engine doesn’t. There also could be opposing locks on the table in the operation.<br>所以这是一个reasonable design decision.   </p>
+</blockquote>
+<p>引擎在两难的困境不知道怎么做,所以把这个顺序决定权交在了user手中.</p>
+<h3 id="解决-创造新的视图"><a href="#解决-创造新的视图" class="headerlink" title="解决:创造新的视图"></a>解决:创造新的视图</h3><p>这个问题的解决方式是一个简单的变通,我们在subquery中创建一个新的视图,从而force engine来首先进行subquery.</p>
+<pre><code class="sql">
+<span class="keyword">delete</span> <span class="keyword">from</span> <span class="string">`lovelydog`</span> <span class="keyword">where</span> intelligenceRank 
+<span class="keyword">in</span> (<span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">max</span>(intelligenceRank)<span class="keyword">from</span> <span class="string">`lovelydog`</span> )<span class="keyword">AS</span> X )
+</code></pre>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;/2016/12/31/recursiveQuery/tworoads.jpg&quot; alt=&quot;tworoads.jpg&quot; title=&quot;&quot;&gt;   
+&lt;p&gt;今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.&lt;br&gt;类似于这种SQL (隐去公司业
+    
+    </summary>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>你所以为,未必是事实 -论事务与分布式事务(一)</title>
