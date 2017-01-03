@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-03T03:56:33.000Z</updated>
+  <updated>2017-01-03T04:57:43.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,91 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>&lt;&lt;情圣&gt;&gt;跨年之动态链接</title>
+    <link href="http://yoursite.com/2017/01/01/dynamicLinking1/"/>
+    <id>http://yoursite.com/2017/01/01/dynamicLinking1/</id>
+    <published>2017-01-01T04:42:00.000Z</published>
+    <updated>2017-01-03T04:57:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>昨晚去看电影跨年,<strong><em>血战钢锯岭</em></strong>没票了,只好随机找个片子看,不过结果还不错,<strong><em>情圣</em></strong>里面邀请了一众笑星,虽不高雅,但博大家一笑的目的算是达到了. </p>
+<p>林语堂的<strong><em>论幽默</em></strong>中有一句话,” 人之智慧已启,对付各种问题之外,尚有余力,从容出之,遂有幽默”,指出幽默只是一种从容不迫的豁达态度. 事实确实如此,回顾近年的贺岁档中,愈是自黑丑恶,急急将窘迫慌张暴露给你的,往往俗不可耐,只生悲凉而无笑意,超哥自导的几部片子便毁于此. 而那些真正幽默的大师,都是在丰富人生阅历之中沉淀了无数智慧的,比如卓别林,崔永元.他们经历的太多,只是将某种从容的调逗点出,观众自会捧腹,而他们自己从来都不会笑.</p>
+<p>今天来聊聊比较底层的动态链接.也因为有了动态链接,我们程序员能够更加从容的进行程序开发和发布. 节约静态链接中因为重复载入静态/共享库而浪费的磁盘和内存,同时也避免了程序中某个模块的升级而带来的整个程序的重新链接和发布,并且由于可以在运行时动态加载模块而增加了程序的扩展性.  </p>
+<h3 id="背景知识补充"><a href="#背景知识补充" class="headerlink" title="背景知识补充"></a>背景知识补充</h3><p>程序的运行过程包括: ( 见下图 )<br><img src="/2017/01/01/dynamicLinking1/build.png" alt="build.png" title="">   </p>
+<h3 id="动态链接-vs-静态链接"><a href="#动态链接-vs-静态链接" class="headerlink" title="动态链接 vs 静态链接"></a>动态链接 vs 静态链接</h3><p>它的基本思想是,程序像静态链接一样可以被拆成相互比较独立的模块,然而不同的是,在程序运行时刻才链接在一起形成一个完整的程序,而不是像静态链接一样把所有的程序模块都链接成一个单独的可执行文件.</p>
+<p>具体到过程则是,前面部分, OS会读取可执行文件的头部(header),检查文件的合法性,然后从header中的” Program Header” 中读取每个 Segment的虚拟地址, 文件地址和属性,并将他们映射到进程虚拟空间的相应位置.<br>可以用这个命令来读header.    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$readelf</span> <span class="_">-l</span> Lib.so</div></pre></td></tr></table></figure>
+<p>但是在静态链接下,之后OS会将控制权交给可执行文件的入口地址,而动态链接下会将控制权交给动态链接器.(因为这个时候可执行文件中还有很多对于外部共享文件的引用处于无效地址状态,还没有和共享文件中的实际位置链接起来.)  </p>
+<p>当动态链接器取得控制权后,开始执行自身一系列初始化操作,然后根据当前环境参数对饿执行文件进行动态链接工作,动态链接工作完成后,将控制权再转交给可执行文件入口,程序开始正式执行.</p>
+<p>所以一句话总结动态链接的本质就是</p>
+<blockquote>
+<blockquote>
+<p>将链接从装载前推迟到了装载时.   </p>
+</blockquote>
+</blockquote>
+<h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><p>有如下源文件 Program1.c, Program2.c  Lib.c 和Lib.h.   </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*Program1.c*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lib.h"</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    foobar(<span class="number">1</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"><span class="comment">/*Program2.c*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lib.h"</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    foobar(<span class="number">2</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;  </div><div class="line">    </div><div class="line"><span class="comment">/* Lib.c*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foobar</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">    pringf(<span class="string">"Printing from Lib.so %d\n"</span>,i);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*Lib.h*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LIB_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB_H</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foobar</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$gcc</span> <span class="_">-f</span>PIC -shared -o Lib.so Lib.c //生成Lib.so</div><div class="line"></div><div class="line"><span class="variable">$gcc</span> -o Program1 Program1.c ./链接器Lib.so</div><div class="line"><span class="variable">$gcc</span> -o Program2 Program2.c ./Lib.so</div></pre></td></tr></table></figure>
+<p>在静态链接中,Program1.o 会和Lib.o一起被链接生成可执行文件 Program1.  </p>
+<p>而动态链接中, Lib.o没有被链接进来,但是为什么命令行中有Lib.so的参与? 因为它提供了完整的符号信息来指示每个symbol到底是静态符号还是动态符号. 如果是一个静态符号,链接器会按照静态链接的规则将Program1.o中的foobar地址引用重定位,但是如果是定义在动态共享对象中的函数,链接器就会将这个符号的引用标记为一个动态链接的符号,而不对它进行地址重定位,把这个过程留到装载时再进行.</p>
+<p>还有一个区别是,动态共享对象在编译时候是不知道最终装载地址的,因为静态链接只要装载一个可执行文件,而动态链接要装载很多不同的”动态单元”,包括可执行对象和许多共享对象. 操作系统会按照当前地址空间的空闲情况,将一块足够大小的虚拟地址动态分给相应的共享对象.</p>
+<p>那么问题来了,这许多”动态单元”装载地址怎么处理?<br>我们不同进程间想最大限度的共用代码,而且每次装载地址都是未知的.<br>针对需求的两个方案就是</p>
+<ol>
+<li><p>装载时重定位<br> 当模块的装载地址确定,即目标地址确定,那么系统就对程序中所有的绝对地址引用进行重定位. 比如函数foobar位于代码段的其实地址是0x100, 当模块被装载到0x10000000,(假设代码段位于模块开头),那么foobar的地址就是0x10000100.之后系统遍历模块中的重定位表,把所有对foobar的地址引用都重定位到0x10000100.</p>
+</li>
+<li><p>地址无关代码技术<br>在上述装载时重定位中的一个未解决问题是.我们希望模块中共享的指令部分不因为装载的地址发生变化而变化.而映射进虚拟进程空间之后,经历重定位,不同进程间就没法使用同一份指令. 解决办法依旧是一样的, 把可变的部分抽离出来.即把指令中哪些需要被修改的地方分离出来跟数据部分放在一起,因为数据是每个进程有一个独立副本的.</p>
+<p>针对四种不同的地址引用都可以实现地址无关性:    </p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>指令跳转,函数调用</th>
+<th>数据访问</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模块内部</td>
+<td>(1) 相对跳转和调用</td>
+<td>(2)相对地址访问</td>
+</tr>
+<tr>
+<td>模块外部</td>
+<td>(3) 间接跳转和调用(GOT)</td>
+<td>(4) 间接访问(GOT)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="步骤和实现"><a href="#步骤和实现" class="headerlink" title="步骤和实现"></a>步骤和实现</h3><h4 id="鸡生蛋-蛋生鸡-动态链接器bootstrap"><a href="#鸡生蛋-蛋生鸡-动态链接器bootstrap" class="headerlink" title="鸡生蛋,蛋生鸡 - 动态链接器bootstrap"></a>鸡生蛋,蛋生鸡 - 动态链接器bootstrap</h4><p>因为动态链接器自己就是一个共享对象(蛋),OS同样通过映射的方式把它加载进进程的地址空间中.而其它共享对象都有赖于动态链接器来完成重定位工作和链接与装载.(鸡)  </p>
+<p>那么为了打破鸡生蛋,蛋生鸡的无线循环,动态链接器中有一段bootstrap的代码. 动态链接器本身不可以依赖于其它共享对象,锁需要的全局和金泰变量重定位工作由自己完成.而且使用PIC模式(地址无关代码)编译的共享对象对于模块内部的函数调用也采用和调用外部函数一样的方式,即使用GOT/PLT的方式. 所以GOT重定位/PIT之前,这些都不可用. </p>
+<p>这段自力更生,自强不息的bootstrap代码是这样的,当操作系统将进程控制权交给动态链接器时,先找到它自己的GOT,然后第一个入口为”.dynamic”段的偏移地址,通过其中的信息,可以活得动态链接器本身的重定位表和符号表等,从而可以得到动态链接器本身的重定位入口,先将他们全部重定位.  这里开始便可以开始使用自己的全局变量和静态变量.</p>
+<p>Glibc 2.6.1 源代码中 elf/rtld.c中在bootstrap代码的末尾写道:</p>
+<blockquote>
+<blockquote>
+<p>Now life is sane,we can call functions and access global data. Set up to use the operating system facilities,and find out from the operating system’s program loader where to find the program header table in core. Put the rest of _dl_start into a separate function ,that way the compiler cannot put accesses to the GOT before ELF_DYNAMIC_RELOCATE.</p>
+</blockquote>
+</blockquote>
+<h4 id="装载共享对象"><a href="#装载共享对象" class="headerlink" title="装载共享对象"></a>装载共享对象</h4><p>链接器从.dynamic 中DT_NEEDED里面获取改可执行对象(或共享对象)所依赖的共享对象,将所有名字放入一个装载集合中,然后从集合中取出一个,找到相应的文件后打开,读取ELF file header 和.dynamic segment,将它相应的代码段和数据段映射到进程空间.如果这个ELF shared object 还依赖与其它共享对象, 则也把其名字放入装载集合.循环知道所有依赖的共享对象都被装载. </p>
+<p>这个装载过程相当与一个依赖图的遍历过车工,比较常见使用广度优先遍历.</p>
+<h4 id="重定位和初始化"><a href="#重定位和初始化" class="headerlink" title="重定位和初始化"></a>重定位和初始化</h4><p>链接器开始遍历可执行文件和每个共享对象的重定位表,将他们的GOT/PLT 的每个需要重定位的未知进行修正.<br>并且会对有”.init” 段的共享队形进行初始化.</p>
+<h4 id="权利移交"><a href="#权利移交" class="headerlink" title="权利移交"></a>权利移交</h4><p>在做完这些工作之后,所需要的共享对象也都已经装载并且链接完成了,链接器可以将权利转交给程序的入口并开始执行. 功成身退.</p>
+<p>没有涉及到的问题和细节下次再续. To be continued…</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;昨晚去看电影跨年,&lt;strong&gt;&lt;em&gt;血战钢锯岭&lt;/em&gt;&lt;/strong&gt;没票了,只好随机找个片子看,不过结果还不错,&lt;strong&gt;&lt;em&gt;情圣&lt;/em&gt;&lt;/strong&gt;里面邀请了一众笑星,虽不高雅,但博大家一笑的目的算是达到了. &lt;/p&gt;
+&lt;p&gt;林语堂的&lt;str
+    
+    </summary>
+    
+    
+      <category term="computerSystem" scheme="http://yoursite.com/tags/computerSystem/"/>
+    
+  </entry>
   
   <entry>
     <title>迷茫的引擎之递归查询</title>
