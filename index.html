@@ -344,73 +344,16 @@
 
       
         
-          
-            <p>昨晚去看电影跨年,<strong><em>血战钢锯岭</em></strong>没票了,只好随机找个片子看,不过结果还不错,<strong><em>情圣</em></strong>里面邀请了一众笑星,虽不高雅,但博大家一笑的目的算是达到了. </p>
+          <p>昨晚去看电影跨年,<strong><em>血战钢锯岭</em></strong>没票了,只好随机找个片子看,不过结果还不错,<strong><em>情圣</em></strong>里面邀请了一众笑星,虽不高雅,但博大家一笑的目的算是达到了. </p>
 <p>林语堂的<strong><em>论幽默</em></strong>中有一句话,” 人之智慧已启,对付各种问题之外,尚有余力,从容出之,遂有幽默”,指出幽默只是一种从容不迫的豁达态度. 事实确实如此,回顾近年的贺岁档中,愈是自黑丑恶,急急将窘迫慌张暴露给你的,往往俗不可耐,只生悲凉而无笑意,超哥自导的几部片子便毁于此. 而那些真正幽默的大师,都是在丰富人生阅历之中沉淀了无数智慧的,比如卓别林,崔永元.他们经历的太多,只是将某种从容的调逗点出,观众自会捧腹,而他们自己从来都不会笑.</p>
-<p>今天来聊聊比较底层的动态链接.也因为有了动态链接,我们程序员能够更加从容的进行程序开发和发布. 节约静态链接中因为重复载入静态/共享库而浪费的磁盘和内存,同时也避免了程序中某个模块的升级而带来的整个程序的重新链接和发布,并且由于可以在运行时动态加载模块而增加了程序的扩展性.  </p>
-<h3 id="背景知识补充"><a href="#背景知识补充" class="headerlink" title="背景知识补充"></a>背景知识补充</h3><p>程序的运行过程包括: ( 见下图 )<br><img src="/2017/01/01/dynamicLinking1/build.png" alt="build.png" title="">   </p>
-<h3 id="动态链接-vs-静态链接"><a href="#动态链接-vs-静态链接" class="headerlink" title="动态链接 vs 静态链接"></a>动态链接 vs 静态链接</h3><p>它的基本思想是,程序像静态链接一样可以被拆成相互比较独立的模块,然而不同的是,在程序运行时刻才链接在一起形成一个完整的程序,而不是像静态链接一样把所有的程序模块都链接成一个单独的可执行文件.</p>
-<p>具体到过程则是,前面部分, OS会读取可执行文件的头部(header),检查文件的合法性,然后从header中的” Program Header” 中读取每个 Segment的虚拟地址, 文件地址和属性,并将他们映射到进程虚拟空间的相应位置.<br>可以用这个命令来读header.    </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$readelf</span> <span class="_">-l</span> Lib.so</div></pre></td></tr></table></figure>
-<p>但是在静态链接下,之后OS会将控制权交给可执行文件的入口地址,而动态链接下会将控制权交给动态链接器.(因为这个时候可执行文件中还有很多对于外部共享文件的引用处于无效地址状态,还没有和共享文件中的实际位置链接起来.)  </p>
-<p>当动态链接器取得控制权后,开始执行自身一系列初始化操作,然后根据当前环境参数对饿执行文件进行动态链接工作,动态链接工作完成后,将控制权再转交给可执行文件入口,程序开始正式执行.</p>
-<p>所以一句话总结动态链接的本质就是</p>
-<blockquote>
-<blockquote>
-<p>将链接从装载前推迟到了装载时.   </p>
-</blockquote>
-</blockquote>
-<h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><p>有如下源文件 Program1.c, Program2.c  Lib.c 和Lib.h.   </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*Program1.c*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lib.h"</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    foobar(<span class="number">1</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"><span class="comment">/*Program2.c*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Lib.h"</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    foobar(<span class="number">2</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;  </div><div class="line">    </div><div class="line"><span class="comment">/* Lib.c*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foobar</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</div><div class="line">    pringf(<span class="string">"Printing from Lib.so %d\n"</span>,i);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*Lib.h*/</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> LIB_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> LIB_H</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foobar</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$gcc</span> <span class="_">-f</span>PIC -shared -o Lib.so Lib.c //生成Lib.so</div><div class="line"></div><div class="line"><span class="variable">$gcc</span> -o Program1 Program1.c ./链接器Lib.so</div><div class="line"><span class="variable">$gcc</span> -o Program2 Program2.c ./Lib.so</div></pre></td></tr></table></figure>
-<p>在静态链接中,Program1.o 会和Lib.o一起被链接生成可执行文件 Program1.  </p>
-<p>而动态链接中, Lib.o没有被链接进来,但是为什么命令行中有Lib.so的参与? 因为它提供了完整的符号信息来指示每个symbol到底是静态符号还是动态符号. 如果是一个静态符号,链接器会按照静态链接的规则将Program1.o中的foobar地址引用重定位,但是如果是定义在动态共享对象中的函数,链接器就会将这个符号的引用标记为一个动态链接的符号,而不对它进行地址重定位,把这个过程留到装载时再进行.</p>
-<p>还有一个区别是,动态共享对象在编译时候是不知道最终装载地址的,因为静态链接只要装载一个可执行文件,而动态链接要装载很多不同的”动态单元”,包括可执行对象和许多共享对象. 操作系统会按照当前地址空间的空闲情况,将一块足够大小的虚拟地址动态分给相应的共享对象.</p>
-<p>那么问题来了,这许多”动态单元”装载地址怎么处理?<br>我们不同进程间想最大限度的共用代码,而且每次装载地址都是未知的.<br>针对需求的两个方案就是</p>
-<ol>
-<li><p>装载时重定位<br> 当模块的装载地址确定,即目标地址确定,那么系统就对程序中所有的绝对地址引用进行重定位. 比如函数foobar位于代码段的其实地址是0x100, 当模块被装载到0x10000000,(假设代码段位于模块开头),那么foobar的地址就是0x10000100.之后系统遍历模块中的重定位表,把所有对foobar的地址引用都重定位到0x10000100.</p>
-</li>
-<li><p>地址无关代码技术<br>在上述装载时重定位中的一个未解决问题是.我们希望模块中共享的指令部分不因为装载的地址发生变化而变化.而映射进虚拟进程空间之后,经历重定位,不同进程间就没法使用同一份指令. 解决办法依旧是一样的, 把可变的部分抽离出来.即把指令中哪些需要被修改的地方分离出来跟数据部分放在一起,因为数据是每个进程有一个独立副本的.</p>
-<p>针对四种不同的地址引用都可以实现地址无关性:    </p>
-</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>指令跳转,函数调用</th>
-<th>数据访问</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>模块内部</td>
-<td>(1) 相对跳转和调用</td>
-<td>(2)相对地址访问</td>
-</tr>
-<tr>
-<td>模块外部</td>
-<td>(3) 间接跳转和调用(GOT)</td>
-<td>(4) 间接访问(GOT)</td>
-</tr>
-</tbody>
-</table>
-<h3 id="步骤和实现"><a href="#步骤和实现" class="headerlink" title="步骤和实现"></a>步骤和实现</h3><h4 id="鸡生蛋-蛋生鸡-动态链接器bootstrap"><a href="#鸡生蛋-蛋生鸡-动态链接器bootstrap" class="headerlink" title="鸡生蛋,蛋生鸡 - 动态链接器bootstrap"></a>鸡生蛋,蛋生鸡 - 动态链接器bootstrap</h4><p>因为动态链接器自己就是一个共享对象(蛋),OS同样通过映射的方式把它加载进进程的地址空间中.而其它共享对象都有赖于动态链接器来完成重定位工作和链接与装载.(鸡)  </p>
-<p>那么为了打破鸡生蛋,蛋生鸡的无线循环,动态链接器中有一段bootstrap的代码. 动态链接器本身不可以依赖于其它共享对象,锁需要的全局和金泰变量重定位工作由自己完成.而且使用PIC模式(地址无关代码)编译的共享对象对于模块内部的函数调用也采用和调用外部函数一样的方式,即使用GOT/PLT的方式. 所以GOT重定位/PIT之前,这些都不可用. </p>
-<p>这段自力更生,自强不息的bootstrap代码是这样的,当操作系统将进程控制权交给动态链接器时,先找到它自己的GOT,然后第一个入口为”.dynamic”段的偏移地址,通过其中的信息,可以活得动态链接器本身的重定位表和符号表等,从而可以得到动态链接器本身的重定位入口,先将他们全部重定位.  这里开始便可以开始使用自己的全局变量和静态变量.</p>
-<p>Glibc 2.6.1 源代码中 elf/rtld.c中在bootstrap代码的末尾写道:</p>
-<blockquote>
-<blockquote>
-<p>Now life is sane,we can call functions and access global data. Set up to use the operating system facilities,and find out from the operating system’s program loader where to find the program header table in core. Put the rest of _dl_start into a separate function ,that way the compiler cannot put accesses to the GOT before ELF_DYNAMIC_RELOCATE.</p>
-</blockquote>
-</blockquote>
-<h4 id="装载共享对象"><a href="#装载共享对象" class="headerlink" title="装载共享对象"></a>装载共享对象</h4><p>链接器从.dynamic 中DT_NEEDED里面获取改可执行对象(或共享对象)所依赖的共享对象,将所有名字放入一个装载集合中,然后从集合中取出一个,找到相应的文件后打开,读取ELF file header 和.dynamic segment,将它相应的代码段和数据段映射到进程空间.如果这个ELF shared object 还依赖与其它共享对象, 则也把其名字放入装载集合.循环知道所有依赖的共享对象都被装载. </p>
-<p>这个装载过程相当与一个依赖图的遍历过车工,比较常见使用广度优先遍历.</p>
-<h4 id="重定位和初始化"><a href="#重定位和初始化" class="headerlink" title="重定位和初始化"></a>重定位和初始化</h4><p>链接器开始遍历可执行文件和每个共享对象的重定位表,将他们的GOT/PLT 的每个需要重定位的未知进行修正.<br>并且会对有”.init” 段的共享队形进行初始化.</p>
-<h4 id="权利移交"><a href="#权利移交" class="headerlink" title="权利移交"></a>权利移交</h4><p>在做完这些工作之后,所需要的共享对象也都已经装载并且链接完成了,链接器可以将权利转交给程序的入口并开始执行. 功成身退.</p>
-<p>没有涉及到的问题和细节下次再续. To be continued…</p>
-
-          
+<p>今天来聊聊比较底层的动态链接.也因为有了动态链接,我们程序员能够更加从容的进行程序开发和发布. 节约静态链接中因为重复载入静态/共享库而浪费的磁盘和内存,同时也避免了程序中某个模块的升级而带来的整个程序的重新链接和发布,并且由于可以在运行时动态加载模块而增加了程序的扩展性.<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/01/01/dynamicLinking1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -542,70 +485,15 @@
 
       
         
-          
-            <img src="/2016/12/31/recursiveQuery/tworoads.jpg" alt="tworoads.jpg" title="">   
-<p>今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.<br>类似于这种SQL (隐去公司业务相关性)<br>我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表<br>table <code>lovelydog</code></p>
-<table>
-<thead>
-<tr>
-<th>dogId</th>
-<th>name</th>
-<th>description</th>
-<th>intelligenceRank</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Labrador Retriever(拉布拉多)</td>
-<td>cheerful,gentle friendly,intelligent</td>
-<td>7</td>
-</tr>
-<tr>
-<td>2</td>
-<td>German Shepherd (德牧羊)</td>
-<td>courageous,intelligent,loyal,watchful</td>
-<td>3</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Golden Retriever (金毛)</td>
-<td>Intelligent,Kind,Friendly,Confident</td>
-<td>4</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Bulldog (沙皮)</td>
-<td>Frendly,docile,Willful,Gregarious</td>
-<td>77</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Beagle(比格)</td>
-<td>Gentle,Intelligent,Even Tempered,Determined</td>
-<td>72</td>
-</tr>
-</tbody>
-</table>
-<pre><code class="sql">
-<span class="keyword">delete</span> <span class="keyword">from</span> <span class="string">`lovelydog`</span> <span class="keyword">where</span> intelligenceRank 
-<span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">max</span>(intelligenceRank)<span class="keyword">from</span> <span class="string">`lovelydog`</span> )
-</code></pre>
-<p>非常简单,我从表中剔除最笨的一种狗狗.<br>但是执行数据变更的时候报出 MYSQL error “You can’t specify target table X for update in FROM clause”.<br>为什么流程不和我们想象的一样顺化,先从表中找出智力的最小值,然后把智力为该值的狗狗从表中delete.<br>google了一番发现了如下几个没有思考过的问题.</p>
-<h3 id="Recursive-Query-查询递归"><a href="#Recursive-Query-查询递归" class="headerlink" title="Recursive Query 查询递归"></a>Recursive Query 查询递归</h3><p>Mysql 引擎不允许我们在做DML(delete/insert/update)的时候在subquery里面去reference当前table. 这一点在mysql 的手册UPDATE下面最后一行有指出.”You cannot update a table and select from the same table in a subquery.”<br>为什么呢?   </p>
-<p>因为这里有一个query cycle.<br>在stackoverflow上有如下解释</p>
-<blockquote>
-<p>Think about the semantics. Either MySQL has to keep a copy of the table before the update started, or the inner query might use data that has already been updated by the query as it’s in progress. Neither of these side-effects is necessarily desirable, so the safest bet is to force you to specify what will happen using an extra table. – siride    </p>
-<p>This is because your update could be cyclical… what if updating that record causes something to happen which made the WHERE condition FALSE? You know that isn’t the case, but the engine doesn’t. There also could be opposing locks on the table in the operation.<br>所以这是一个reasonable design decision.   </p>
-</blockquote>
-<p>引擎在两难的困境不知道怎么做,所以把这个顺序决定权交在了user手中.</p>
-<h3 id="解决-创造新的视图"><a href="#解决-创造新的视图" class="headerlink" title="解决:创造新的视图"></a>解决:创造新的视图</h3><p>这个问题的解决方式是一个简单的变通,我们在subquery中创建一个新的视图,从而force engine来首先进行subquery.</p>
-<pre><code class="sql">
-<span class="keyword">delete</span> <span class="keyword">from</span> <span class="string">`lovelydog`</span> <span class="keyword">where</span> intelligenceRank 
-<span class="keyword">in</span> (<span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">max</span>(intelligenceRank)<span class="keyword">from</span> <span class="string">`lovelydog`</span> )<span class="keyword">AS</span> X )
-</code></pre>
-
-          
+          <img src="/2016/12/31/recursiveQuery/tworoads.jpg" alt="tworoads.jpg" title="">   
+<p>今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.<br>类似于这种SQL (隐去公司业务相关性)<br>我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表<br>table <code>lovelydog</code><br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/31/recursiveQuery/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -737,42 +625,16 @@
 
       
         
-          
-            <p><img src="/images/island.jpg" alt=""></p>
+          <p><img src="/images/island.jpg" alt=""></p>
 <p>近期看了三个比较印象深刻的电影, 我把他们归结为同一类型,这就是今天的主题– 你所以为,你所目睹,你所相信,未必是事实.</p>
-<p>其一是刚刚实至名归获得奥斯卡小金人的莱昂纳多主演的<strong><em>禁闭岛</em></strong>,当年泰坦尼克号里面的Jack也算迷倒众生的形象了, 纵然大叔颜值不复当年,可小李子靠着<strong><em>荒野猎人</em></strong>里面”辛苦的”演技(比如熊斗,吃生肉,爬雪地)终于在无数个擦肩而过之后将小金人收入囊中.<strong><em>禁闭岛</em></strong>中的演技你也可大呼高超, 足足到电影结尾你或者猛然惊醒,或者即便怀疑多个细节也未必可知真相. 在这里就不做剧透了,看过的必知我在说什么,没看过的元旦也可以宅在家里好好玩味一番.</p>
-<p>其二是推理悬疑豆瓣高分榜的不可或缺之作 <strong><em>致命ID</em></strong>, 在美国偏僻地方的一个汽车旅馆发生的死亡故事. 故事背后的原理其实并不陌生, 也许大家都知道多重人格这种心理现象. 具有这种精神特质的人会演化出多个从性格到技能完全不同的多种人格, 而这几个人格又会随着外界环境刺激或者自身感情变化来回轮换. 你所看到的汽车旅馆的七个人的死亡际会,其实只是一个多重人格的人的人格间角逐争斗的外围映射.</p>
-<p>其三是美国电影 <strong><em>不明身份</em></strong>,讲述一个杀手在和杀手伙伴一起实施行动过程中意外发生车祸而失忆,忘记自己的真实身份,只记得并且坚信自己是当初为了展开杀手行动而伪造的一个身份, 而最终变成了行动的反对和组织者的故事,在不断的求证求真的过程中, 他知道了自己的真实身份,也恢复了部分记忆,但他最终选择了不再做一个杀手,成功保护了险些被暗杀的发现粮食增产方法的植物学家,造福了人类社会.</p>
-<p>这三个电影都在结尾才昭示真相,让观众恍然大悟而意犹未尽. 其实本质运用的手法都是–视角不同,或者说维度不同. 片子的观众被安排在了主人公的视角里只能看到这种维度的世界,也就是你所目睹和你所以为的世界, 而这个视角下的世界未必是真实的世界. 倘若你拥有了上帝视角,那么这几部片子对你而言就不再是悬疑片,而成为了枯燥的纪录片. </p>
-<p>当这种视角的限制和变换给你带来乐趣,给作家带来写作工具的时候, 它在计算机领域也给我们带来了一些问题. </p>
-<p>化学史上很长一段时间内分子是不可再分的,人们像笃信地心说一样笃信分子是最小的结构. 但当越来越多的实验现象用这种理论无法解释的时候,人们才开始探求并打破这个认识,认识到比分子更小的还有原子..(当然比原子小的还有夸克,但是这里不再继续深究)</p>
-<p>当我们用任何一种编程语言敲出一行语言的时候,比如最简单的增一   </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//int a=0;</span></div><div class="line">a++;</div></pre></td></tr></table></figure>
-<p>我们从一个天真的程序员视角会想这不是一个简单的原子操作吗,给a加一, 无论你loop多少次,比如100次, 她的结果肯定是100. 难道有什么问题吗?<br>假设如果你在做这个给a加一的操作,莱昂纳多也在做这个动作[当然他不会的,他还在忙着泡超模].那么结果是2吗? 不一定! 结果可能是2, 也可能是1.这看起来像是一个悬疑片吗?<br>真相也只需要你换一个视角. </p>
-<p><strong>why?</strong> </p>
-<p>加一的这个操作对于计算机来说并不是一个最小粒度的原子性的操作.<br>它可以被拆解为:  </p>
-<ul>
-<li>从存储将a的值读到寄存器</li>
-<li>寄存器+1</li>
-<li>将寄存器的值写回a的地址</li>
-</ul>
-<p>所以如果你在读出a=0后, 在发生3之前,莱昂纳多进来也读取了a=0,然后你们分别做2 的操作然后写回地址,那么结果就是1. 莱昂纳多和你的操作是没有相互独立的,你们分别可见对方的中间态,而且每个独立人的操作是非原子性的.  </p>
-<p>如果你想避免这种状态的化,可以给这个过程加锁,当你操作a地址的时候,拒绝来昂那多操作a的值,那么你们两个的操作被迫就编程了线性发生.(你不会想在操作银行账户的时候还和来昂那多见个面吧..) </p>
-<p>加锁即是把你们共享的状态或者数据进行一个访问限制, 以实现排他性从而实现安全操作.   </p>
-<p>这种竞争状态还有很多其它场景,比如对于数据库来说, 大家习以为常的insert/delete/update其实都并不是原子性的, 它都要先对数据进行一个读操作,然后进行一个写操作.</p>
-<p>对于这种当你希望”你所以为,必是事实”的情况,官方的定义是这是一个事务单元[transaction]. 就是你希望指令按照你所希望的顺序执行,不会出现你意向不到的结果. 便是要实现事务一致性.</p>
-<p>今天的闲话扯的太多了,时间有限,匆匆以事务ACID的解释结尾吧.</p>
-<p><strong>ACID:</strong></p>
-<ul>
-<li>原子性（Atomicity）:事务要么成功执行（提交），要么所有的动作都不发生（回滚）。</li>
-<li>一致性(Consistency）：事务产生一致的结果并且保证程序的完整性约束。</li>
-<li>隔离性（Isolation）：事务执行时的中间状态对其它事务是不可见的。此外事务应该表现为连续执行，即使实际是并发执行的。两个事务的执行是互不干扰的，一个事务不可能看到其他事务运行时，中间某一时刻的数据。</li>
-<li>持久性（Durability）：提交事务的结果是永久性的（即使是灾难性的故障）</li>
-</ul>
-<p>关于这个宏大的话题下次接着讨论.</p>
-<p>PS 今天[12.28]是我的生日.<br>新开通这个公众号当是我送给自己的一个生日礼物.可以祝我生日快乐~ :P</p>
-
-          
+<p>其一是刚刚实至名归获得奥斯卡小金人的莱昂纳多主演的<strong><em>禁闭岛</em></strong>,当年泰坦尼克号里面的Jack也算迷倒众生的形象了, 纵然大叔颜值不复当年,可小李子靠着<strong><em>荒野猎人</em></strong>里面”辛苦的”演技(比如熊斗,吃生肉,爬雪地)终于在无数个擦肩而过之后将小金人收入囊中.<strong><em>禁闭岛</em></strong>中的演技你也可大呼高超, 足足到电影结尾你或者猛然惊醒,或者即便怀疑多个细节也未必可知真相. 在这里就不做剧透了,看过的必知我在说什么,没看过的元旦也可以宅在家里好好玩味一番.<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/28/distributedTransaction1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -904,113 +766,20 @@
 
       
         
-          
-            <p>2016还剩最后几天,大部分人都有制定新年计划的习惯,纵使在年末你总是发现划去的可能都不足1/3.但这并没有阻碍过人们定下新年计划时的决心. </p>
+          <p>2016还剩最后几天,大部分人都有制定新年计划的习惯,纵使在年末你总是发现划去的可能都不足1/3.但这并没有阻碍过人们定下新年计划时的决心. </p>
 <p>刚刚步入工作有一些迷茫点,觉得学生思维有一定的局限性.而今天很幸运的发现了一本 <em>Pragmatic Thinking and Learning -Refactor Your Wetware.</em> 这是写给程序员的一本思维指导书,但是不要担心你不是程序员,因为本书的所有方法和原理都是通用的,任何职业的人都可以在其中找到共鸣.</p>
 <p>下面分享书中一些重要的理论观点和可执行方案. 其中参杂一些我的个人感受. Credit to  Andy Hunt. [The author of the book]</p>
 <p>每个步入职场的人大概都想过如何从新人-到专家,尤其是每个程序员的职业规划的主线.Andy 提到的两个中心便是.  </p>
 <ul>
 <li>随着不断的成长和适应,人们需要改变自己的习惯和方法.  </li>
-<li>成为一名专家的关键因素:理解情景和利用直觉.</li>
-</ul>
-<h2 id="从新手到专家的历程"><a href="#从新手到专家的历程" class="headerlink" title="从新手到专家的历程"></a>从新手到专家的历程</h2><p><strong>key ideas</strong>:   </p>
-<ul>
-<li>理论分为 事件理论,和构建理论.dreyfus模型是构建理论. </li>
-<li>模式匹配 是一种很重要的技能.关于这一点我也深有体会,每一次的联想,举一反三,甚至到用的每一个比喻,隐喻,背后的支撑都是模式匹配.</li>
-<li>脑皮层竞争,DIY脑部手术. 持续使用和实践的技能会逐渐占据统治地位,大脑中就会有更多部位被关联起来.大脑会把资源用于做的最多的事情. “不使用就会失去”. 可能这就是音乐家不断联系音阶的原因,类似于动态刷新RAM. 想做一名更好的程序员吗? 那就多编码,深思熟虑,专注时间.</li>
-</ul>
-<p><strong>可执行方案</strong>:　　</p>
-<ul>
-<li>坚持晨写至少两周</li>
-<li>培养快速的洞察能力.寻找不相关事务之间的联系.</li>
-<li>阅读一些有别于平常的东西</li>
-<li>尝试不同类型的电影,音乐,咖啡等.</li>
-<li>逆向思维</li>
-<li>点几道你没有吃过的菜</li>
-</ul>
-<h3 id="DEBUG-YOUR-BRAIN"><a href="#DEBUG-YOUR-BRAIN" class="headerlink" title="DEBUG YOUR BRAIN"></a>DEBUG YOUR BRAIN</h3><ul>
-<li>认知偏见:思维如何被误导</li>
-<li>时代影响:同代人的选择如何影响你</li>
-<li>个性倾向:个性如何影响思维.</li>
-<li>硬件故障: 大脑较老的区域如何抑制较聪明的区域.</li>
-</ul>
-<h3 id="HOW-TO-MAKE-YOUR-PLAN"><a href="#HOW-TO-MAKE-YOUR-PLAN" class="headerlink" title="HOW TO MAKE YOUR PLAN"></a>HOW TO MAKE YOUR PLAN</h3><ul>
-<li>用SMART方式来制定目标.</li>
-<li>具体的,可度量的,可实现的,相关的,时间可控的.</li>
-<li>goal =&gt; objectives(任务)</li>
-<li>比如具体的: 我想学会Erlang=&gt;用Erlang写一个可以动态生成内容的web服务器.</li>
-</ul>
-<h3 id="做你自己的知识投资组合"><a href="#做你自己的知识投资组合" class="headerlink" title="做你自己的知识投资组合"></a>做你自己的知识投资组合</h3><ul>
-<li>把技术和才干看作一个知识投资组合.</li>
-<li>管理知识投资的要点</li>
-<li>制定具体的计划</li>
-<li>多样性</li>
-<li>主动投资</li>
-<li>定期投资 (比如你在一周的交通时间用来读一本书)</li>
-<li>即时反馈或者做信息输出或者分享</li>
-</ul>
-<h3 id="使用你的原生学习模式"><a href="#使用你的原生学习模式" class="headerlink" title="使用你的原生学习模式"></a>使用你的原生学习模式</h3><ul>
-<li><p>你的学习方法加速器</p>
-<ul>
-<li>主动阅读和总结书面材料的更好方式</li>
-<li>使用思维导图 探索和发现模式的关系(不要觉得这是个形式或者鸡汤,我在大四学习Principles of programming language 的时候使用过这种方法自学,效果是比其它课的概念都记得清楚而且作笔记更快更有趣)</li>
-<li>以教代学</li>
-</ul>
-</li>
-<li><p>主动读书的方法: </p>
-<ul>
-<li>SQ3R方法</li>
-<li>调查(Survey):扫描目录和每章总结,得出总结看法.</li>
-<li>问题(Question):记录所有问题</li>
-<li>阅读(Read): 阅读全部内容</li>
-<li>复述(Recite): 总结,作笔记,用自己的话来复述</li>
-<li>回顾(Review): 重读,扩展笔记,和别人讨论.<br>这项技术的第一个有用方面是主动性. 人们不再是一个随机地捡起一本书阅读,而不管记住或者没有记住多少内容.这种技术是一种更周到,更自觉,更有意识的方法.</li>
-</ul>
-</li>
-<li>思维导图的制作方法:<ul>
-<li>准备一张白纸</li>
-<li>中间加标题,可以哟更圆圈况起来</li>
-<li>对于每一个主要的子标题,用圆圈引出线,加上标题</li>
-<li>重复执行其它层次的节点</li>
-<li>对于其它的单独事实或者想法,从合适的标题引出线,添加标题<h3 id="假装成功"><a href="#假装成功" class="headerlink" title="假装成功"></a>假装成功</h3>这个方法很多地方都提到过,可以帮助你先体验一下你所能达到的目标和达到之后的感觉. 有利于你最终实现目标</li>
-</ul>
-</li>
-</ul>
-<h3 id="管理思维"><a href="#管理思维" class="headerlink" title="管理思维"></a>管理思维</h3><ul>
-<li>好问题是没有答案的. 它不是一个需要拧紧的螺栓,而是一颗种下的种子,由它可以收获一片思想的绿洲. - John Anthony Ciardi 美国诗人和评论家.</li>
-<li>管理注意力<ul>
-<li>我们生活在信息丰富的时代,但往往过犹不及,过多的饿信息却导致了知识和注意力的匮乏.置身于应接不暇的信息中, 很容易市区思考的重心.与其游荡在信息的高速公路中,不如主动地管理你的思维.</li>
-<li>管理你所能接收到的信息.在恰当的时候获取恰当的信息,不被无关紧要的细节迷惑,也不措施任何绝妙的线索.</li>
-</ul>
-</li>
-<li>管理知识<ul>
-<li>大脑之外的支持工具会成为你大脑思维的一部分.</li>
-<li>利用外部信息系统,建立一种分布式知识存储体系.</li>
-<li>通过wiki组织你的伟大想法,你会得到更多的great ideas.</li>
-<li>计算机有一种超越我们思维结构的独特优势,它能够轻松的交换情景.</li>
-<li>context switch 耗能很高, 被打断之后平均需要20分钟才能调回来.  </li>
-</ul>
-</li>
-</ul>
-<h4 id="可执行方案"><a href="#可执行方案" class="headerlink" title="可执行方案"></a>可执行方案</h4><p>一些建议:  </p>
-<ul>
-<li>开始承担责任,不要还怕问”为什么”,或者”你怎么知道的”</li>
-<li>挑两件帮助i维持情景,免受干扰的事,立即实施.</li>
-<li>创建一个实用的知识投资计划,设定SMART目标.</li>
-<li>弄清楚你所属专业领域中所处的未知(从新手到专家)和你期望的未知.</li>
-<li>时间</li>
-<li>允许犯更多错误</li>
-<li>携带一个笔记本,涂鸦,做思维导图,记笔记,让思想自由流动</li>
-<li>在私人wiki上记录你感兴趣的事情</li>
-<li>开始写博客.为你读过的书写评论. 阅读更多书,你会有更多科协的东西.</li>
-<li>可以让散步成为你每天生活的一个部分</li>
-<li>启动一个读书小组</li>
-</ul>
-<blockquote>
-<p>Last word,<br>自由的代价是永远保持警惕.</p>
-</blockquote>
-
-          
+<li>成为一名专家的关键因素:理解情景和利用直觉.
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/27/newBornToMaster/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
