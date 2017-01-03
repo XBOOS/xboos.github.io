@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-03T04:57:43.000Z</updated>
+  <updated>2017-01-03T05:05:52.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/01/01/dynamicLinking1/"/>
     <id>http://yoursite.com/2017/01/01/dynamicLinking1/</id>
     <published>2017-01-01T04:42:00.000Z</published>
-    <updated>2017-01-03T04:57:43.000Z</updated>
+    <updated>2017-01-03T05:05:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>昨晚去看电影跨年,<strong><em>血战钢锯岭</em></strong>没票了,只好随机找个片子看,不过结果还不错,<strong><em>情圣</em></strong>里面邀请了一众笑星,虽不高雅,但博大家一笑的目的算是达到了. </p>
 <p>林语堂的<strong><em>论幽默</em></strong>中有一句话,” 人之智慧已启,对付各种问题之外,尚有余力,从容出之,遂有幽默”,指出幽默只是一种从容不迫的豁达态度. 事实确实如此,回顾近年的贺岁档中,愈是自黑丑恶,急急将窘迫慌张暴露给你的,往往俗不可耐,只生悲凉而无笑意,超哥自导的几部片子便毁于此. 而那些真正幽默的大师,都是在丰富人生阅历之中沉淀了无数智慧的,比如卓别林,崔永元.他们经历的太多,只是将某种从容的调逗点出,观众自会捧腹,而他们自己从来都不会笑.</p>
@@ -96,7 +96,7 @@
     </summary>
     
     
-      <category term="computerSystem" scheme="http://yoursite.com/tags/computerSystem/"/>
+      <category term="ComputerSystem" scheme="http://yoursite.com/tags/ComputerSystem/"/>
     
   </entry>
   
@@ -242,7 +242,7 @@
     <link href="http://yoursite.com/2016/12/27/newBornToMaster/"/>
     <id>http://yoursite.com/2016/12/27/newBornToMaster/</id>
     <published>2016-12-27T02:52:35.000Z</published>
-    <updated>2017-01-03T03:22:47.000Z</updated>
+    <updated>2017-01-03T05:05:45.000Z</updated>
     
     <content type="html"><![CDATA[<p>2016还剩最后几天,大部分人都有制定新年计划的习惯,纵使在年末你总是发现划去的可能都不足1/3.但这并没有阻碍过人们定下新年计划时的决心. </p>
 <p>刚刚步入工作有一些迷茫点,觉得学生思维有一定的局限性.而今天很幸运的发现了一本 <em>Pragmatic Thinking and Learning -Refactor Your Wetware.</em> 这是写给程序员的一本思维指导书,但是不要担心你不是程序员,因为本书的所有方法和原理都是通用的,任何职业的人都可以在其中找到共鸣.</p>
@@ -358,7 +358,9 @@
     </summary>
     
     
-      <category term="Thoughts, Reading" scheme="http://yoursite.com/tags/Thoughts-Reading/"/>
+      <category term="Thoughts" scheme="http://yoursite.com/tags/Thoughts/"/>
+    
+      <category term="Reading" scheme="http://yoursite.com/tags/Reading/"/>
     
   </entry>
   
