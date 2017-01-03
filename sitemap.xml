@@ -2,37 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
+    <loc>http://yoursite.com/2016/12/31/recursiveQuery/</loc>
     
-    <lastmod>2017-01-03T05:25:05.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/01/01/dynamicLinking1/</loc>
-    
-    <lastmod>2017-01-03T05:11:26.000Z</lastmod>
+    <lastmod>2017-01-03T05:53:31.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2016/12/27/newBornToMaster/</loc>
     
-    <lastmod>2017-01-03T05:05:45.000Z</lastmod>
+    <lastmod>2017-01-03T05:53:09.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/12/31/recursiveQuery/</loc>
+    <loc>http://yoursite.com/2017/01/01/dynamicLinking1/</loc>
     
-    <lastmod>2017-01-03T03:56:33.000Z</lastmod>
+    <lastmod>2017-01-03T05:53:02.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2016/12/28/distributedTransaction1/</loc>
     
-    <lastmod>2017-01-03T03:43:54.000Z</lastmod>
+    <lastmod>2017-01-03T05:52:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2017-01-03T05:27:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
+    
+    <lastmod>2017-01-03T05:25:05.000Z</lastmod>
     
   </url>
   

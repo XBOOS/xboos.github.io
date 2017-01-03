@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-03T05:11:26.000Z</updated>
+  <updated>2017-01-03T05:53:02.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/01/01/dynamicLinking1/"/>
     <id>http://yoursite.com/2017/01/01/dynamicLinking1/</id>
     <published>2017-01-01T04:42:00.000Z</published>
-    <updated>2017-01-03T05:11:26.000Z</updated>
+    <updated>2017-01-03T05:53:02.000Z</updated>
     
     <content type="html"><![CDATA[<p>昨晚去看电影跨年,<strong><em>血战钢锯岭</em></strong>没票了,只好随机找个片子看,不过结果还不错,<strong><em>情圣</em></strong>里面邀请了一众笑星,虽不高雅,但博大家一笑的目的算是达到了. </p>
 <p>林语堂的<strong><em>论幽默</em></strong>中有一句话,” 人之智慧已启,对付各种问题之外,尚有余力,从容出之,遂有幽默”,指出幽默只是一种从容不迫的豁达态度. 事实确实如此,回顾近年的贺岁档中,愈是自黑丑恶,急急将窘迫慌张暴露给你的,往往俗不可耐,只生悲凉而无笑意,超哥自导的几部片子便毁于此. 而那些真正幽默的大师,都是在丰富人生阅历之中沉淀了无数智慧的,比如卓别林,崔永元.他们经历的太多,只是将某种从容的调逗点出,观众自会捧腹,而他们自己从来都不会笑.</p>
@@ -95,6 +95,8 @@
     
     </summary>
     
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
     
       <category term="computerSystem" scheme="http://yoursite.com/tags/computerSystem/"/>
     
@@ -105,7 +107,7 @@
     <link href="http://yoursite.com/2016/12/31/recursiveQuery/"/>
     <id>http://yoursite.com/2016/12/31/recursiveQuery/</id>
     <published>2016-12-31T03:46:26.000Z</published>
-    <updated>2017-01-03T03:56:33.000Z</updated>
+    <updated>2017-01-03T05:53:31.000Z</updated>
     
     <content type="html"><![CDATA[<img src="/2016/12/31/recursiveQuery/tworoads.jpg" alt="tworoads.jpg" title="">   
 <p>今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.<br>类似于这种SQL (隐去公司业务相关性)<br>我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表<br>table <code>lovelydog</code></p>
@@ -177,6 +179,8 @@
     
     </summary>
     
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
     
       <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
     
@@ -187,7 +191,7 @@
     <link href="http://yoursite.com/2016/12/28/distributedTransaction1/"/>
     <id>http://yoursite.com/2016/12/28/distributedTransaction1/</id>
     <published>2016-12-28T03:26:14.000Z</published>
-    <updated>2017-01-03T03:43:54.000Z</updated>
+    <updated>2017-01-03T05:52:55.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/island.jpg" alt=""></p>
 <p>近期看了三个比较印象深刻的电影, 我把他们归结为同一类型,这就是今天的主题– 你所以为,你所目睹,你所相信,未必是事实.</p>
@@ -232,6 +236,8 @@
     
     </summary>
     
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
     
       <category term="Knowledge" scheme="http://yoursite.com/tags/Knowledge/"/>
     
@@ -242,7 +248,7 @@
     <link href="http://yoursite.com/2016/12/27/newBornToMaster/"/>
     <id>http://yoursite.com/2016/12/27/newBornToMaster/</id>
     <published>2016-12-27T02:52:35.000Z</published>
-    <updated>2017-01-03T05:05:45.000Z</updated>
+    <updated>2017-01-03T05:53:09.000Z</updated>
     
     <content type="html"><![CDATA[<p>2016还剩最后几天,大部分人都有制定新年计划的习惯,纵使在年末你总是发现划去的可能都不足1/3.但这并没有阻碍过人们定下新年计划时的决心. </p>
 <p>刚刚步入工作有一些迷茫点,觉得学生思维有一定的局限性.而今天很幸运的发现了一本 <em>Pragmatic Thinking and Learning -Refactor Your Wetware.</em> 这是写给程序员的一本思维指导书,但是不要担心你不是程序员,因为本书的所有方法和原理都是通用的,任何职业的人都可以在其中找到共鸣.</p>
@@ -357,10 +363,10 @@
     
     </summary>
     
+      <category term="思考" scheme="http://yoursite.com/categories/%E6%80%9D%E8%80%83/"/>
     
-      <category term="Thoughts" scheme="http://yoursite.com/tags/Thoughts/"/>
     
-      <category term="Reading" scheme="http://yoursite.com/tags/Reading/"/>
+      <category term="职业规划" scheme="http://yoursite.com/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
