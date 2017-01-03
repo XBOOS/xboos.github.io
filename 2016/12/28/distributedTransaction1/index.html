@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Knowledge," />
 
 
 
@@ -86,19 +86,21 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="近期看了三个比较印象深刻的电影, 我把他们归结为同一类型,这就是今天的主题– 你所以为,你所目睹,你所相信,未必是事实.
+其一是刚刚实至名归获得奥斯卡小金人的莱昂纳多主演的禁闭岛,当年泰坦尼克号里面的Jack也算迷倒众生的形象了, 纵然大叔颜值不复当年,可小李子靠着荒野猎人里面”辛苦的”演技(比如熊斗,吃生肉,爬雪地)终于在无数个擦肩而过之后将小金人收入囊中.禁闭岛中的演技你也可大呼高超, 足足">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2016/10/01/hello-world/index.html">
+<meta property="og:title" content="你所以为,未必是事实 -论事务与分布式事务(一)">
+<meta property="og:url" content="http://yoursite.com/2016/12/28/distributedTransaction1/index.html">
 <meta property="og:site_name" content="Coding 极简派">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-10-01T05:09:11.000Z">
+<meta property="og:description" content="近期看了三个比较印象深刻的电影, 我把他们归结为同一类型,这就是今天的主题– 你所以为,你所目睹,你所相信,未必是事实.
+其一是刚刚实至名归获得奥斯卡小金人的莱昂纳多主演的禁闭岛,当年泰坦尼克号里面的Jack也算迷倒众生的形象了, 纵然大叔颜值不复当年,可小李子靠着荒野猎人里面”辛苦的”演技(比如熊斗,吃生肉,爬雪地)终于在无数个擦肩而过之后将小金人收入囊中.禁闭岛中的演技你也可大呼高超, 足足">
+<meta property="og:image" content="http://yoursite.com/images/island.jpg">
+<meta property="og:updated_time" content="2017-01-03T03:43:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="你所以为,未必是事实 -论事务与分布式事务(一)">
+<meta name="twitter:description" content="近期看了三个比较印象深刻的电影, 我把他们归结为同一类型,这就是今天的主题– 你所以为,你所目睹,你所相信,未必是事实.
+其一是刚刚实至名归获得奥斯卡小金人的莱昂纳多主演的禁闭岛,当年泰坦尼克号里面的Jack也算迷倒众生的形象了, 纵然大叔颜值不复当年,可小李子靠着荒野猎人里面”辛苦的”演技(比如熊斗,吃生肉,爬雪地)终于在无数个擦肩而过之后将小金人收入囊中.禁闭岛中的演技你也可大呼高超, 足足">
+<meta name="twitter:image" content="http://yoursite.com/images/island.jpg">
 
 
 
@@ -126,13 +128,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/01/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/12/28/distributedTransaction1/"/>
 
 
 
 
 
-  <title> Hello World | Coding 极简派 </title>
+  <title> 你所以为,未必是事实 -论事务与分布式事务(一) | Coding 极简派 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -243,7 +245,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/01/hello-world/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/28/distributedTransaction1/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xubing">
@@ -267,7 +269,7 @@ Quick">
             
             
               
-                Hello World
+                你所以为,未必是事实 -论事务与分布式事务(一)
               
             
           </h1>
@@ -280,8 +282,8 @@ Quick">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Veröffentlicht am</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-01T13:09:11+08:00">
-                2016-10-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-28T11:26:14+08:00">
+                2016-12-28
               </time>
             
 
@@ -316,15 +318,39 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p><img src="/images/island.jpg" alt=""></p>
+<p>近期看了三个比较印象深刻的电影, 我把他们归结为同一类型,这就是今天的主题– 你所以为,你所目睹,你所相信,未必是事实.</p>
+<p>其一是刚刚实至名归获得奥斯卡小金人的莱昂纳多主演的<strong><em>禁闭岛</em></strong>,当年泰坦尼克号里面的Jack也算迷倒众生的形象了, 纵然大叔颜值不复当年,可小李子靠着<strong><em>荒野猎人</em></strong>里面”辛苦的”演技(比如熊斗,吃生肉,爬雪地)终于在无数个擦肩而过之后将小金人收入囊中.<strong><em>禁闭岛</em></strong>中的演技你也可大呼高超, 足足到电影结尾你或者猛然惊醒,或者即便怀疑多个细节也未必可知真相. 在这里就不做剧透了,看过的必知我在说什么,没看过的元旦也可以宅在家里好好玩味一番.</p>
+<p>其二是推理悬疑豆瓣高分榜的不可或缺之作 <strong><em>致命ID</em></strong>, 在美国偏僻地方的一个汽车旅馆发生的死亡故事. 故事背后的原理其实并不陌生, 也许大家都知道多重人格这种心理现象. 具有这种精神特质的人会演化出多个从性格到技能完全不同的多种人格, 而这几个人格又会随着外界环境刺激或者自身感情变化来回轮换. 你所看到的汽车旅馆的七个人的死亡际会,其实只是一个多重人格的人的人格间角逐争斗的外围映射.</p>
+<p>其三是美国电影 <strong><em>不明身份</em></strong>,讲述一个杀手在和杀手伙伴一起实施行动过程中意外发生车祸而失忆,忘记自己的真实身份,只记得并且坚信自己是当初为了展开杀手行动而伪造的一个身份, 而最终变成了行动的反对和组织者的故事,在不断的求证求真的过程中, 他知道了自己的真实身份,也恢复了部分记忆,但他最终选择了不再做一个杀手,成功保护了险些被暗杀的发现粮食增产方法的植物学家,造福了人类社会.</p>
+<p>这三个电影都在结尾才昭示真相,让观众恍然大悟而意犹未尽. 其实本质运用的手法都是–视角不同,或者说维度不同. 片子的观众被安排在了主人公的视角里只能看到这种维度的世界,也就是你所目睹和你所以为的世界, 而这个视角下的世界未必是真实的世界. 倘若你拥有了上帝视角,那么这几部片子对你而言就不再是悬疑片,而成为了枯燥的纪录片. </p>
+<p>当这种视角的限制和变换给你带来乐趣,给作家带来写作工具的时候, 它在计算机领域也给我们带来了一些问题. </p>
+<p>化学史上很长一段时间内分子是不可再分的,人们像笃信地心说一样笃信分子是最小的结构. 但当越来越多的实验现象用这种理论无法解释的时候,人们才开始探求并打破这个认识,认识到比分子更小的还有原子..(当然比原子小的还有夸克,但是这里不再继续深究)</p>
+<p>当我们用任何一种编程语言敲出一行语言的时候,比如最简单的增一   </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//int a=0;</span></div><div class="line">a++;</div></pre></td></tr></table></figure>
+<p>我们从一个天真的程序员视角会想这不是一个简单的原子操作吗,给a加一, 无论你loop多少次,比如100次, 她的结果肯定是100. 难道有什么问题吗?<br>假设如果你在做这个给a加一的操作,莱昂纳多也在做这个动作[当然他不会的,他还在忙着泡超模].那么结果是2吗? 不一定! 结果可能是2, 也可能是1.这看起来像是一个悬疑片吗?<br>真相也只需要你换一个视角. </p>
+<p><strong>why?</strong> </p>
+<p>加一的这个操作对于计算机来说并不是一个最小粒度的原子性的操作.<br>它可以被拆解为:  </p>
+<ul>
+<li>从存储将a的值读到寄存器</li>
+<li>寄存器+1</li>
+<li>将寄存器的值写回a的地址</li>
+</ul>
+<p>所以如果你在读出a=0后, 在发生3之前,莱昂纳多进来也读取了a=0,然后你们分别做2 的操作然后写回地址,那么结果就是1. 莱昂纳多和你的操作是没有相互独立的,你们分别可见对方的中间态,而且每个独立人的操作是非原子性的.  </p>
+<p>如果你想避免这种状态的化,可以给这个过程加锁,当你操作a地址的时候,拒绝来昂那多操作a的值,那么你们两个的操作被迫就编程了线性发生.(你不会想在操作银行账户的时候还和来昂那多见个面吧..) </p>
+<p>加锁即是把你们共享的状态或者数据进行一个访问限制, 以实现排他性从而实现安全操作.   </p>
+<p>这种竞争状态还有很多其它场景,比如对于数据库来说, 大家习以为常的insert/delete/update其实都并不是原子性的, 它都要先对数据进行一个读操作,然后进行一个写操作.</p>
+<p>对于这种当你希望”你所以为,必是事实”的情况,官方的定义是这是一个事务单元[transaction]. 就是你希望指令按照你所希望的顺序执行,不会出现你意向不到的结果. 便是要实现事务一致性.</p>
+<p>今天的闲话扯的太多了,时间有限,匆匆以事务ACID的解释结尾吧.</p>
+<p><strong>ACID:</strong></p>
+<ul>
+<li>原子性（Atomicity）:事务要么成功执行（提交），要么所有的动作都不发生（回滚）。</li>
+<li>一致性(Consistency）：事务产生一致的结果并且保证程序的完整性约束。</li>
+<li>隔离性（Isolation）：事务执行时的中间状态对其它事务是不可见的。此外事务应该表现为连续执行，即使实际是并发执行的。两个事务的执行是互不干扰的，一个事务不可能看到其他事务运行时，中间某一时刻的数据。</li>
+<li>持久性（Durability）：提交事务的结果是永久性的（即使是灾难性的故障）</li>
+</ul>
+<p>关于这个宏大的话题下次接着讨论.</p>
+<p>PS 今天[12.28]是我的生日.<br>新开通这个公众号当是我送给自己的一个生日礼物.可以祝我生日快乐~ :P</p>
 
       
     </div>
@@ -346,20 +372,26 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Knowledge/" rel="tag"># Knowledge</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/27/newBornToMaster/" rel="next" title="从一本书的启迪开始新年计划">
+                <i class="fa fa-chevron-left"></i> 从一本书的启迪开始新年计划
+              </a>
             
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/27/newBornToMaster/" rel="prev" title="从一本书的启迪开始新年计划">
-                从一本书的启迪开始新年计划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -406,17 +438,8 @@ Quick">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -469,22 +492,6 @@ Quick">
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
