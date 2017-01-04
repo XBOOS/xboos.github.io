@@ -969,9 +969,782 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/29/saodiseng20160329/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/29/saodiseng20160329/" itemprop="url">
+                  偷梁换柱 - copy 和 move
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-03-29T14:52:07+08:00">
+                2016-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="你怎么交换两个变量值"><a href="#你怎么交换两个变量值" class="headerlink" title="你怎么交换两个变量值?"></a>你怎么交换两个变量值?</h2><p>这大概是每个初学编程的人都会遇到的一个问题. 你的第一反应一定是</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt; </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp; a, T&amp; b)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function">T <span class="title">tmp</span><span class="params">(a)</span></span>;</div><div class="line">	a = b;</div><div class="line">	b = tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>简单来说就是当你需要交换两杯水的时候,你需要借助第三个杯子.</p>
+<p>考虑一下它的中间开销.</p>
+<ol>
+<li>T tmp(a).你利用copy constructor重新构造了一个对象tmp,并且复制了a.</li>
+<li>用 a复制了b</li>
+<li>用b 复制了a</li>
+</ol>
+<p>如果copy的代价很高的化…</p>
+<p>然而有没有不复制的办法来交换两个变量的值?<br>有一个经典的告诫大家学会分享的萧伯纳名言:</p>
+<blockquote>
+<blockquote>
+<p>“如果你有一个苹果，我有一个苹果，彼此交换，那么，每个人只有一个苹果；<br>如果你有一个思想，我有一个思想，彼此交换，我们每个人就有了两个思想，甚至多于两个思想。”</p>
+</blockquote>
+</blockquote>
+<p>我们不是要说分享,是要说拷贝和移动的关系.如果人手一台3D打印机,可能每人也有两个苹果吧. 但你看到了,拷贝的过程,是要经历生产的开销. 即使是思想的拷贝,如果它足够复杂晦涩,那相比也要死不少脑细胞.</p>
+<p>在C++中,有一个还比较古老的操作符叫move,就起到了这种移动的作用.<br>下面的一段引用来说明copy和move的关系.  </p>
+<blockquote>
+<blockquote>
+<p>Hitherto, copying has been the only means for transferring a state from one object to another (an object’s state is the collective set of its non-static data members’ values). Formally, copying causes a target object t to end up with the same state as the source s, without modifying s. For example, when you copy a string s1 to s2, the result is two identical strings with the same state as s1.<br>Notwithstanding the conceptual difference between copying and moving, there’s a practical difference too: Move operations tend to be faster than copying because they transfer an existing resource to a new destination, whereas copying requires the creation of a new resource from scratch. The efficiency of moving can be witnessed among the rest in functions that return objects by value.</p>
+</blockquote>
+</blockquote>
+<p>所以交换两个值可以写作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(T&amp;a, T&amp; b)</span></span></div><div class="line">&#123;</div><div class="line">	T tmp = move(a);<span class="comment">//此时a时效了,内部的数据被move到了tmp中)</span></div><div class="line">	a = move(b);</div><div class="line">	b = move(tmp);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>好处是减少构造一些不必要的对象,节省了对象的空间消耗和construction 和destruction 的过程.    </p>
+<h2 id="函数返还一个container"><a href="#函数返还一个container" class="headerlink" title="函数返还一个container"></a>函数返还一个container</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"> </div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"> </div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; doubleValues (<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; v)</div><div class="line">&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; new_values;</div><div class="line">    new_values.reserve(v.size());</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> itr = v.begin(), end_itr = v.end(); itr != end_itr; ++itr )</div><div class="line">    &#123;</div><div class="line">        new_values.push_back( <span class="number">2</span> * *itr );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> new_values;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</div><div class="line">    <span class="keyword">for</span> ( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++ )</div><div class="line">    &#123;</div><div class="line">        v.push_back( i );</div><div class="line">    &#125;</div><div class="line">    v = doubleValues( v );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是又一个例子.<br>这里new_values 除了在doubleValues() 里面构造了一个,在你把函数返回按结果作为右值赋给v的时候又复制了一遍.之前的new_values 作为function 的local value自然会之后被回收. 但如果直接可以把它移动出来减少拷贝开销该有多好.<br>move() comes to rescue again!</p>
+<p>这里就要提到左值和右值的区别.<br>左值可以被看作一个有名字的value/object, 而右值是一个无名的临时value.   </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x+(y*z); <span class="comment">// A C++ expression that produces a temporary</span></div></pre></td></tr></table></figure>
+<p>这个临时构造的value在你到达分号的时候就灰飞烟灭了.<br>那怎么做到移动而不拷贝呢?  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">int</span> x;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getInt</span> <span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> x;</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> &amp;&amp; <span class="title">getRvalueInt</span> <span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// notice that it's fine to move a primitive type--remember, std::move is just a cast</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">std</span>::move( x );</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/11/03/5optimization/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/03/5optimization/" itemprop="url">
+                  一次不懈的速率优化-3Sum
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-11-03T10:28:19+08:00">
+                2015-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于2Sum"><a href="#关于2Sum" class="headerlink" title="关于2Sum"></a>关于2Sum</h1><p>Two sum是一个很简单的问题,给定一个乱序列和一个target,找到两个数的和等于target.<br>只要先sort然后用首尾两个pointers 反向逼近直到找到所求就可以了.可以找到所有符合要求的tuple,这里简化为解决第一个遇到的符合条件的tuple,找到全部组合见下面3sum.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="string">'''</span></div><div class="line"></div><div class="line">这里是题目的要求:</div><div class="line">Given an array of integers, find two numbers such that they add up to a specific target number.</div><div class="line"></div><div class="line">The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.</div><div class="line"></div><div class="line">You may assume that each input would have exactly one solution.</div><div class="line">'''</div><div class="line">  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :type target: int</div><div class="line">        :rtype: List[int]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">2</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        backup = nums[:]    </div><div class="line">        list.sort(nums)</div><div class="line">        i = <span class="number">0</span></div><div class="line">        j = len(nums)<span class="number">-1</span></div><div class="line">        <span class="keyword">while</span> i&lt;j:</div><div class="line">            <span class="keyword">if</span> (nums[i]+nums[j])&lt;target:</div><div class="line">                i=i+<span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> (nums[i]+nums[j])&gt;target: </div><div class="line">                j=j<span class="number">-1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">if</span> nums[i]==nums[j]:</div><div class="line">                    index1 = backup.index(nums[i])</div><div class="line">                    backup.remove(nums[i])</div><div class="line">                    <span class="keyword">return</span> [index1+<span class="number">1</span>,backup.index(nums[j])+<span class="number">2</span>]    </div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    index1 = backup.index(nums[i])+<span class="number">1</span></div><div class="line">                    index2 = backup.index(nums[j])+<span class="number">1</span></div><div class="line">                    <span class="keyword">return</span> [min(index1,index2),max(index1,index2)]</div></pre></td></tr></table></figure>
+<h1 id="3sum-摘掉面具"><a href="#3sum-摘掉面具" class="headerlink" title="3sum-摘掉面具"></a>3sum-摘掉面具</h1><p>Three sum 与two sum类似,是数组中找出所有三个数的组合加和为target.<br>它穿了一层马甲,我们摘掉他的面具, 将3Sum转化为解决了的2Sum问题,只要从0 loop 到 length-2 (设为x),对剩余数组找target-x,就转化成了twoSum.  </p>
+<p>不同的一点是要找到全部组合,同时要排重.</p>
+<p>我的第一个解法是:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :rtype: List[List[int]]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">3</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        result = []    </div><div class="line">        list.sort(nums)    </div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(len(nums)<span class="number">-2</span>):</div><div class="line">            target = -nums[x]</div><div class="line">            rs = self.twoSum(nums[x+<span class="number">1</span>:],target)</div><div class="line">            <span class="keyword">if</span>(rs!=[]):</div><div class="line">                <span class="keyword">for</span> r <span class="keyword">in</span> rs:</div><div class="line">                    <span class="keyword">if</span> [nums[x]]+r <span class="keyword">not</span> <span class="keyword">in</span> result:</div><div class="line">                        result.append([nums[x]]+r)</div><div class="line">        <span class="keyword">return</span> result</div><div class="line">        </div><div class="line">            </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self,nums,target)</span>:</span></div><div class="line">        i = <span class="number">0</span></div><div class="line">        j = len(nums)<span class="number">-1</span></div><div class="line">        tmprs = []</div><div class="line">        flag = <span class="number">0</span></div><div class="line">        <span class="keyword">while</span>(i&lt;j):</div><div class="line">            <span class="keyword">if</span> nums[i]+nums[j]&lt;target:</div><div class="line">                i = i+<span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> nums[i]+nums[j]&gt;target:</div><div class="line">                j = j<span class="number">-1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">if</span> [nums[i],nums[j]] <span class="keyword">not</span> <span class="keyword">in</span> tmprs: </div><div class="line">                    tmprs.append( [nums[i],nums[j]])</div><div class="line">                i=i+<span class="number">1</span></div><div class="line">                j=j<span class="number">-1</span></div><div class="line">                <span class="keyword">continue</span></div><div class="line">        <span class="keyword">return</span> tmprs</div></pre></td></tr></table></figure>
+<p>trivial. 然而速率却很慢,在使用python的人群中只beats about 30%.<br>Could stand? No.<br>开始优化.</p>
+<h1 id="while-True-optimize"><a href="#while-True-optimize" class="headerlink" title="while True: optimize()"></a>while True: optimize()</h1><h2 id="排重优化0x00"><a href="#排重优化0x00" class="headerlink" title="排重优化0x00"></a><strong>排重优化0x00</strong></h2><p>第一个想法是先从排除重复结果上来优化.<br>在这个解法之前我试用完全得到包含重复的结果来2 pass 排重 会造成time exceed.因为这个排重过程已经是O(n^2)<br>这里用了 not in the list 来排重,O(n)的time complexity.想到可以用查询时间为O(1)的set来排重,然而list是unhashable的.</p>
+<p>我尝试了化成string然后hash</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">strset = set()     </div><div class="line"><span class="keyword">if</span> str(tmp) <span class="keyword">not</span> <span class="keyword">in</span> strset:</div><div class="line">	result.append(tmp)</div><div class="line">	strset.add(str(tmp))</div><div class="line">	</div><div class="line">	</div><div class="line">	</div><div class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :rtype: List[List[int]]</div><div class="line">        """</div><div class="line">        hashset = set()    </div><div class="line">        result = []    </div><div class="line">        list.sort(nums)    </div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(len(nums)<span class="number">-2</span>):</div><div class="line">            target = -nums[x]</div><div class="line">            rs = self.twoSum(nums[x+<span class="number">1</span>:],target)</div><div class="line">            <span class="keyword">for</span> r <span class="keyword">in</span> rs:</div><div class="line">                <span class="keyword">if</span> str([nums[x]]+r) <span class="keyword">not</span> <span class="keyword">in</span> hashset:</div><div class="line">                    result.append([nums[x]]+r)</div><div class="line">                    hashset.add(str([nums[x]]+r))</div><div class="line">    </div><div class="line">        <span class="keyword">return</span> result</div><div class="line">        </div><div class="line">            </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self,nums,target)</span>:</span></div><div class="line">        i = <span class="number">0</span></div><div class="line">        j = len(nums)<span class="number">-1</span></div><div class="line">        tmprs = []</div><div class="line">        <span class="keyword">while</span>(i&lt;j):</div><div class="line">            <span class="keyword">if</span> nums[i]+nums[j]&lt;target:</div><div class="line">                i = i+<span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> nums[i]+nums[j]&gt;target:</div><div class="line">                j = j<span class="number">-1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">if</span> [nums[i],nums[j]] <span class="keyword">not</span> <span class="keyword">in</span> tmprs: </div><div class="line">                    tmprs.append( [nums[i],nums[j]])</div><div class="line">                i=i+<span class="number">1</span></div><div class="line">                j=j<span class="number">-1</span></div><div class="line">                <span class="keyword">continue</span></div><div class="line">        <span class="keyword">return</span> tmprs</div></pre></td></tr></table></figure>
+<p>然而并未卵,之后怀疑是转化为str太慢吗,tuple结果一样.<br>…<br>被没有显著的变化.</p>
+<h2 id="排重优化0x01"><a href="#排重优化0x01" class="headerlink" title="排重优化0x01"></a><strong>排重优化0x01</strong></h2><p>要减小排重带来的overhead. 上面的思路一直是在得到搜索结果之后再排重,那么一个反向的想法是我应该在搜索之前就排重,想如果第一个数是一样的化,之后twoSum的结果也是相同的,那么这次twoSum 的搜索就是没有意义的,于是我记录之前第一个数prev,就继续找下一个起点  </p>
+<p>改进如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :rtype: List[List[int]]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">3</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        result = []    </div><div class="line">        list.sort(nums)</div><div class="line">        </div><div class="line">        prev = <span class="keyword">None</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(len(nums)<span class="number">-2</span>):</div><div class="line">            target = -nums[x]</div><div class="line">            <span class="keyword">if</span> target == prev:</div><div class="line">                <span class="keyword">continue</span> </div><div class="line">            prev = target</div><div class="line">            rs = self.twoSum(nums[x+<span class="number">1</span>:],target)</div><div class="line">            <span class="keyword">for</span> r <span class="keyword">in</span> rs:</div><div class="line">                result.append([nums[x]]+r)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result</div><div class="line">        </div><div class="line">            </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self,nums,target)</span>:</span></div><div class="line">        i = <span class="number">0</span></div><div class="line">        j = len(nums)<span class="number">-1</span></div><div class="line">        tmprs = []</div><div class="line">        <span class="keyword">while</span>(i&lt;j):</div><div class="line">            <span class="keyword">if</span> nums[i]+nums[j]&lt;target:</div><div class="line">                i = i+<span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> nums[i]+nums[j]&gt;target:</div><div class="line">                j = j<span class="number">-1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">if</span> [nums[i],nums[j]] <span class="keyword">not</span> <span class="keyword">in</span> tmprs: </div><div class="line">                    tmprs.append( [nums[i],nums[j]])</div><div class="line">                i=i+<span class="number">1</span></div><div class="line">                j=j<span class="number">-1</span></div><div class="line">                <span class="keyword">continue</span></div><div class="line">        <span class="keyword">return</span> tmprs</div></pre></td></tr></table></figure>
+<p>这样就可以减调每次的线性排查   if [nums[x]]+r not in result:</p>
+<p>performance有了进步,达到了50%左右.  </p>
+<h2 id="排重优化0x02"><a href="#排重优化0x02" class="headerlink" title="排重优化0x02"></a><strong>排重优化0x02</strong></h2><p>在外围即第一个数事先排重之后,在twoSum搜索中也应该事先排重,<br>之前的loop是i++,j– 来前进一步,然而很有可能依然有重复值.  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :rtype: List[List[int]]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">3</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        result = []    </div><div class="line">        list.sort(nums)</div><div class="line">        </div><div class="line">        prev = <span class="keyword">None</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(len(nums)<span class="number">-2</span>):</div><div class="line">            target = -nums[x]</div><div class="line">            <span class="keyword">if</span> target == prev:</div><div class="line">                <span class="keyword">continue</span> </div><div class="line">            prev = target</div><div class="line">            rs = self.twoSum(nums[x+<span class="number">1</span>:],target)</div><div class="line">            <span class="keyword">for</span> r <span class="keyword">in</span> rs:</div><div class="line">                result.append([nums[x]]+r)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result</div><div class="line">        </div><div class="line">            </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self,nums,target)</span>:</span></div><div class="line">        i = <span class="number">0</span></div><div class="line">        j = len(nums)<span class="number">-1</span></div><div class="line">        tmprs = []</div><div class="line">        <span class="keyword">while</span>(i&lt;j):</div><div class="line">            <span class="keyword">if</span> nums[i]+nums[j]&lt;target:</div><div class="line">                i = i+<span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> nums[i]+nums[j]&gt;target:</div><div class="line">                j = j<span class="number">-1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                     </div><div class="line">                <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums[i]==nums[i+<span class="number">1</span>]:</div><div class="line">                    i =i+<span class="number">1</span></div><div class="line">                <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums[j]==nums[j<span class="number">-1</span>]:    </div><div class="line">                    j =j<span class="number">-1</span></div><div class="line">                    </div><div class="line">                tmprs.append( [nums[i],nums[j]])    </div><div class="line">                i=i+<span class="number">1</span></div><div class="line">                j=j<span class="number">-1</span></div><div class="line">                <span class="keyword">continue</span></div><div class="line">        <span class="keyword">return</span> tmprs</div></pre></td></tr></table></figure>
+<p>nice, 速率达到了60%多.</p>
+<p>接下来该优化哪里呢?<br>我开始到处放空枪,看有没有机会打下一只鸟.  </p>
+<h2 id="0x03-去除method-call"><a href="#0x03-去除method-call" class="headerlink" title="0x03 去除method call"></a><strong>0x03 去除method call</strong></h2><p>我开始想在dynamic programming中反复recruisive call 造成的overhead. 于是我省去另建函数twoSum.  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :rtype: List[List[int]]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">3</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        result = []    </div><div class="line">        list.sort(nums)</div><div class="line">        </div><div class="line">        prev = <span class="keyword">None</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(len(nums)<span class="number">-2</span>):</div><div class="line">            target = -nums[x]</div><div class="line">            <span class="keyword">if</span> target == prev:</div><div class="line">                <span class="keyword">continue</span> </div><div class="line">            prev = target</div><div class="line">            nums1 = nums[x+<span class="number">1</span>:]</div><div class="line">            i = <span class="number">0</span></div><div class="line">            j = len(nums1)<span class="number">-1</span></div><div class="line">            tmprs = []</div><div class="line">            <span class="keyword">while</span>(i&lt;j):</div><div class="line">                <span class="keyword">if</span> nums1[i]+nums1[j]&lt;target:</div><div class="line">                    i = i+<span class="number">1</span></div><div class="line">                <span class="keyword">elif</span> nums1[i]+nums1[j]&gt;target:</div><div class="line">                    j = j<span class="number">-1</span></div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums1[i]==nums1[i+<span class="number">1</span>]:</div><div class="line">                        i =i+<span class="number">1</span></div><div class="line">                    <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums1[j]==nums1[j<span class="number">-1</span>]:    </div><div class="line">                        j =j<span class="number">-1</span></div><div class="line">                    tmprs.append( [nums1[i],nums1[j]])    </div><div class="line">                    i=i+<span class="number">1</span></div><div class="line">                    j=j<span class="number">-1</span></div><div class="line">                    <span class="keyword">continue</span></div><div class="line">            <span class="keyword">for</span> r <span class="keyword">in</span> tmprs:</div><div class="line">                result.append([nums[x]]+r)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result</div></pre></td></tr></table></figure>
+<p>一声空响.  </p>
+<p>每次function被放在stack上,用后即delete, 和recuisive call 造成的overhead无法相提并论.  </p>
+<h2 id="0x04-去除list-copy"><a href="#0x04-去除list-copy" class="headerlink" title="0x04 去除list copy"></a><strong>0x04 去除list copy</strong></h2><p>突然意识到我每次都copy了后段list来传入twoSum,造成了很大浪费,应该只传入原list,只要改变index就可以了,这样才不违背在最开始时候就进行sort的初衷.  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :rtype: List[List[int]]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">3</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        result = []    </div><div class="line">        list.sort(nums)</div><div class="line">        </div><div class="line">        prev = <span class="keyword">None</span></div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(len(nums)<span class="number">-2</span>):</div><div class="line">            target = -nums[x]</div><div class="line">            <span class="keyword">if</span> target == prev:</div><div class="line">                <span class="keyword">continue</span> </div><div class="line">            prev = target</div><div class="line">            i = x+<span class="number">1</span></div><div class="line">            j = len(nums)<span class="number">-1</span></div><div class="line">            tmprs = []</div><div class="line">            <span class="keyword">while</span>(i&lt;j):</div><div class="line">                <span class="keyword">if</span> nums[i]+nums[j]&lt;target:</div><div class="line">                    i = i+<span class="number">1</span></div><div class="line">                <span class="keyword">elif</span> nums[i]+nums[j]&gt;target:</div><div class="line">                    j = j<span class="number">-1</span></div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums[i]==nums[i+<span class="number">1</span>]:</div><div class="line">                        i =i+<span class="number">1</span></div><div class="line">                    <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums[j]==nums[j<span class="number">-1</span>]:    </div><div class="line">                        j =j<span class="number">-1</span></div><div class="line">                    tmprs.append( [nums[i],nums[j]])    </div><div class="line">                    i=i+<span class="number">1</span></div><div class="line">                    j=j<span class="number">-1</span></div><div class="line">                    <span class="keyword">continue</span></div><div class="line">            <span class="keyword">for</span> r <span class="keyword">in</span> tmprs:</div><div class="line">                result.append([nums[x]]+r)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result</div></pre></td></tr></table></figure>
+<p>速率达到了80%-90%</p>
+<h2 id="0x05-last-shot"><a href="#0x05-last-shot" class="headerlink" title="0x05 last shot"></a><strong>0x05</strong> last shot</h2><p>统一了外部的事先排重,这里的一个教训是对于有序数列来说,排重是很有优势的,应该利用order事先排除,loop until 一个不同的值出现.  </p>
+<p>而我之前的做法其实是浪费已排序的这个已知信息资源.  </p>
+<p>对于未消逝的变量,根本没有必要每次记录history.</p>
+<p>改进如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threeSum</span><span class="params">(self, nums)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :rtype: List[List[int]]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">3</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        result = []    </div><div class="line">        list.sort(nums)</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(len(nums)<span class="number">-2</span>):</div><div class="line">            target = -nums[x]</div><div class="line">            <span class="keyword">if</span> x&gt;<span class="number">0</span> <span class="keyword">and</span> target == -nums[x<span class="number">-1</span>]:</div><div class="line">                <span class="keyword">continue</span> </div><div class="line">            i = x+<span class="number">1</span></div><div class="line">            j = len(nums)<span class="number">-1</span></div><div class="line">            <span class="keyword">while</span>(i&lt;j):</div><div class="line">                <span class="keyword">if</span> nums[i]+nums[j]&lt;target:</div><div class="line">                    i = i+<span class="number">1</span></div><div class="line">                <span class="keyword">elif</span> nums[i]+nums[j]&gt;target:</div><div class="line">                    j = j<span class="number">-1</span></div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums[i]==nums[i+<span class="number">1</span>]:</div><div class="line">                        i =i+<span class="number">1</span></div><div class="line">                    <span class="keyword">while</span> i&lt;j <span class="keyword">and</span> nums[j]==nums[j<span class="number">-1</span>]:    </div><div class="line">                        j =j<span class="number">-1</span></div><div class="line">                    result.append([nums[x],nums[i],nums[j]])    </div><div class="line">                    i=i+<span class="number">1</span></div><div class="line">                    j=j<span class="number">-1</span></div><div class="line">                    <span class="keyword">continue</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> result</div></pre></td></tr></table></figure>
+<p>bingo! 速率达到了 python人群的 <strong>90%</strong> 左右.</p>
+<h2 id="0x06-Not-the-end"><a href="#0x06-Not-the-end" class="headerlink" title="0x06 Not the end"></a><strong>0x06 Not the end</strong></h2><p>这一定不是终结,还没有想到进一步的优化方式,先用一个法则来自我安慰:</p>
+<h2 id="Hill’s-law"><a href="#Hill’s-law" class="headerlink" title="Hill’s law"></a><strong>Hill’s law</strong></h2><pre><code>Simple and Dumb can be better  
+</code></pre><p>…lol</p>
+<p>Never stop optimizing until you give out your all.<br>However, don’t forget the Hill’s law.            </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/30/reviewC/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/30/reviewC/" itemprop="url">
+                  常回C看看
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-30T23:40:28+08:00">
+                2015-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="常回C看看"><a href="#常回C看看" class="headerlink" title="常回C看看."></a>常回C看看.</h1><p>当你整天写python, ruby 等脚本语言 甚至一些越来越像lambda calculus的declarative language时候.( 以及同样有CG机制的不讨很多人喜欢的Java时), 你可能越来越像一个称职的”software” engineer instead of a hardware engineer. 足够抽象的语言将你从同机器的傻瓜式繁琐对话中解放出来,变成同人类或者智能机器的对话.将更多的精力集中在算法和模式思考上.<br>操作系统变得看不见摸不着,不需要再自己处理memory allocation 和memory collection, 不需要精心计算how much memory i need. 远观的确美,但其实也少了些xie玩的乐趣.</p>
+<p>随着C++11 Java8都开始引入风靡的lambda时,别忘记老当益壮的C老爹. </p>
+<p>常回C看看. </p>
+<p>这个月12号是C语言之父<a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" target="_blank" rel="external">Dennis Ritchie</a> 的逝世四周年的日子,没有他就没有Linux,BSD和我们爱的Mac OS.人们总是把低调的Dennis和传奇的乔布斯放在一起比较. 因为苹果,乔帮主家喻户晓,但没有多少人记得和乔帮主同年逝世的Dennis. 然而对于计算机发展史来讲,乔帮主的贡献不能与Dennis同日而语.</p>
+<p>以此为敬.</p>
+<h1 id="和Unix的手足之情"><a href="#和Unix的手足之情" class="headerlink" title="和Unix的手足之情"></a>和Unix的手足之情</h1><p>Unix 的原始版本是用汇编写的. 当Dennis Ritchie大叔在1973年缔造了C语言<br>之后,他和 Ken Thompson一起 (同是Unix的开发者)用C重写了kernel. 这也证明了即使不用汇编也可以写出low-level的操作系统.除此之外,由于C语言是可移植的,当可以产生object code 的C compiler被写出来的时候,说明在任何一个机器上都可以编译出可以运行在这台机器上的Unix 内核.从此可移植的操作系统就诞生了. ( 额外还需要一点customization和一些汇编来具体部署)</p>
+<h1 id="相见恨晚"><a href="#相见恨晚" class="headerlink" title="相见恨晚"></a>相见恨晚</h1><p>没有建立一个很好的debugging习惯一直是我的一个遗憾. 总是靠无规律可言的方法通过printf等输出 来人肉debug. 但不稳定的模式往往是不靠谱的,至少它不能保证平均效率.</p>
+<p>在期中考试的前一天抽空学了一把GDB,顺便把GCC一些特性温习了一遍. 总结在这里</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/24/fibonacci/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/24/fibonacci/" itemprop="url">
+                  邂逅Fibonacci
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-24T18:05:31+08:00">
+                2015-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="魅力永恒的斐波那契"><a href="#魅力永恒的斐波那契" class="headerlink" title="魅力永恒的斐波那契"></a>魅力永恒的斐波那契</h1><p>天朝的同学们第一次学习斐波那契总跟那些繁殖力惊人的兔子脱不开干系.当然在达尔文进化论统治的空间里这是不现实的,除非在一个自建生态系统的初始阶段. </p>
+<p>斐波那契的第一个研究者是将近一千年前的意大利数学家Leonardo(是的,和小李子同名)Fibonacci,它的魅力在于很多优美的性质,比如相邻斐波那契数想除的商会逐渐逼近黄金比例(我不知道为什么人们都觉得黄金分隔比是美的,然而确实就是这么觉得,身在宇宙中大概天生遵守一些法则),奇数项和,偶数项和,和天然植物,蜂巢的关系… 一切都惊人般的和谐.  </p>
+<p>Then let’s get down to business.</p>
+<h1 id="求解优化"><a href="#求解优化" class="headerlink" title="求解优化"></a>求解优化</h1><p>如果斐波那契先生在梦里问了你一个问题,第n个斐波那契是什么?</p>
+<p>As simple and elegant as it sounds.</p>
+<p>相信你不好意思说我在您一千年之后还不会解吧.当然,你可以说 啊,不如我们来谈谈star war……</p>
+<h2 id="O-2-n"><a href="#O-2-n" class="headerlink" title="O(2^n)"></a>O(2^n)</h2><p>斐波那契是dynamic programming 方法的经典案例之一,第一反应自然是recursion.正如它的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">f(0)=1</div><div class="line">f(1)=1</div><div class="line">for n&gt;=2 f(n) = f(n-1)+f(n-2)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#using python</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fibonacci</span><span class="params">(n)</span>:</span></div><div class="line">	<span class="keyword">if</span> n==<span class="number">0</span>:</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span></div><div class="line">	<span class="keyword">elif</span> n==<span class="number">1</span>:</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span></div><div class="line">	<span class="keyword">else</span>:</div><div class="line">		<span class="keyword">return</span> fibonacci(n<span class="number">-1</span>)+fibonacci(n<span class="number">-2</span>)</div></pre></td></tr></table></figure>
+<p>最自然的解法.然而时间复杂度是O(2^n)很慢,因为把其他事情都丢给计算机去做了,只是把定义转义了一下.<br>为什么很慢,当call f(n) = f(n-1)+f(n-2) 会分头去计算f(n-1),f(n-2) 而f(n-1)会用到 f(n-2), f(n-1)和f(n-2)都会用到f(n-3),所有计算的中间结果都被浪费掉了.巨人的肩膀就在那里,偏偏要自己从头再来. 想起&lt;&lt;三体&gt;&gt; 中的乱纪元,如果当所有恒纪元中积累的文明都被摧毁,下一个乱纪元一切都会重头再来.从这一点上来看,人类是幸运的.n越小的因子被重复计算的次数越多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">F(6)                 *  </div><div class="line">F(5)                 *  </div><div class="line">F(4)                 ** </div><div class="line">F(3)                ****</div><div class="line">F(2)              ********</div><div class="line">F(1)          ****************           &lt;-- 16</div><div class="line">F(0)  ********************************    &lt;-- 32</div></pre></td></tr></table></figure>
+<p>被计算的次数在指数性增长.得到一棵深度为n-1的树.</p>
+<h2 id="O-n"><a href="#O-n" class="headerlink" title="O(n)"></a>O(n)</h2><p>那么我要站在巨人的肩膀上,把文明通过历史的方式流传下去. 也就是要把计算结果储存起来,避免重复计算, 只有n个数,那我需要一个长度为n的list.<br>这同时也是 DP的bottom-up 的形式,从底层算起,直至找到目标.<br>可以写成一个for-loop 这样还可以避免递归function call的损耗</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fibonacci</span><span class="params">(n)</span>:</span></div><div class="line">	fibs = []</div><div class="line">	fibs.append(<span class="number">0</span>)</div><div class="line">	fibs.append(<span class="number">1</span>)</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>,n+<span class="number">1</span>):</div><div class="line">		fibs.append(fibs[i<span class="number">-1</span>]+fibs[i<span class="number">-2</span>])</div><div class="line">		</div><div class="line">	<span class="keyword">return</span> fibs[n]</div></pre></td></tr></table></figure>
+<p>也可以top-down递归</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">beauty</span>:</span></div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,n)</span>:</span></div><div class="line">		self.fibs = [<span class="number">-1</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,n+<span class="number">1</span>)]</div><div class="line">		self.n = n</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">fibonacci</span><span class="params">(self,n)</span>:</span></div><div class="line">		<span class="keyword">if</span> self.fibs[n]!=<span class="number">-1</span> :</div><div class="line">			<span class="keyword">return</span> fibs[n]</div><div class="line">	</div><div class="line">		<span class="keyword">if</span> n==<span class="number">0</span>:</div><div class="line">			fibs[n]=<span class="number">0</span></div><div class="line">		<span class="keyword">elif</span> n==<span class="number">1</span>:</div><div class="line">			fibs[n]=<span class="number">1</span></div><div class="line">		<span class="keyword">else</span>:</div><div class="line">			fibs[n] = fibonacci(n<span class="number">-1</span>)+fibs(n<span class="number">-2</span>)</div><div class="line">	</div><div class="line">		<span class="keyword">return</span> fibs[n]</div></pre></td></tr></table></figure>
+<p>在巨人的肩膀上,轻松得到了linear time complexity.</p>
+<p>还可以再优化吗?</p>
+<p>看一下需求,斐波那契先生只问你第n个数是什么,没有问你从第一个到第n个是哪些数, 也就是说你的工作结果超过了他的需求(…不要类比产品经理,因为斐波那契比我们更懂斐波那契),那么其他的结果,你算出的哪些f(5),f(9),..f(n-3) 从”最理想” 的角度看都是被浪费的. 有连续性的一座桥可以过河,有离散分布的鹅卵石也可以过河 ( 不排除人家裘千仞连鹅卵石都不需要就可以过河 ).也就是说,除了计算结果的必由之路都是可以省略的,(不过这个必由之路恐怕就是 casewise的了).</p>
+<p>计算机计算乘法和加法的时间并没有很大影响,那么怎样优化用乘法呢?</p>
+<h1 id="O-log-n"><a href="#O-log-n" class="headerlink" title="O(log n )"></a>O(log n )</h1><p>有一个我很喜欢的matrix A</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[1,1]</div><div class="line">,[1,0]]</div></pre></td></tr></table></figure>
+<p>这是一个通向未来又记录过去的matrix</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[f(n),f(n-1)         [[1,1]   [[f(n) + f(n-1), f(n)]</div><div class="line">,f(n-1),f(n-2)]]  *  ,[1,0]] = ,[f(n-1)+f(n-2),f(n-1)]</div></pre></td></tr></table></figure>
+<p>不断地乘以 这个matrix 会得到斐波那契增长.<br>同时,我们得到了乘方!</p>
+<p>f(n) = A^n [0][0]</p>
+<p>不再想要每步线性增长,而希望得到指数增长,(也就是增大步长,用现有最大资源来作为步长前进),对乘法来说的现有最大资源就是乘以它自己, here comes matrix exponential</p>
+<p>如果n%2==0 n = (n/2)+(n/2)<br>A^n = (A^(n/2))^2<br>如果n%2==1 n = 1+(n-1), 替换到下个偶数即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">matrix_power</span><span class="params">(A,n)</span>:</span></div><div class="line">	<span class="keyword">if</span> n==<span class="number">0</span>:</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span></div><div class="line">	<span class="keyword">if</span> n==<span class="number">1</span>:</div><div class="line">		<span class="keyword">return</span> A</div><div class="line">	<span class="keyword">if</span> n%<span class="number">2</span>==<span class="number">1</span>:</div><div class="line">		<span class="keyword">return</span> A*matrix_power(A,n<span class="number">-1</span>)</div><div class="line">	</div><div class="line">	B = matrix_power(A,n/<span class="number">2</span>)</div><div class="line">	<span class="keyword">return</span> B*B</div><div class="line">	</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">fibonacci</span><span class="params">(n)</span>:</span></div><div class="line">	<span class="keyword">if</span> n==<span class="number">0</span>:</div><div class="line">		<span class="keyword">return</span> <span class="number">0</span></div><div class="line">	<span class="keyword">if</span> n==<span class="number">1</span>:</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span></div><div class="line">	A = np.matrix([[<span class="number">1</span>,<span class="number">1</span>],[<span class="number">1</span>,<span class="number">0</span>]])</div><div class="line">	<span class="keyword">return</span> matrix_power(A,n<span class="number">-1</span>)[<span class="number">0</span>,<span class="number">0</span>]</div></pre></td></tr></table></figure>
+<h1 id="空间换时间"><a href="#空间换时间" class="headerlink" title="空间换时间"></a>空间换时间</h1><p>space-time balance 是一个永远的权衡. 时间的节约很大程度上来源于我们提前将那些需要重复计算的值存储下来,用的时候只需要constant的access time.<br>这个叫做precomputation.  </p>
+<p>传说鱼儿的记忆只有七秒,那么它生命应该是浪费了大量的时间来重复计算和重复思考.   </p>
+<p>就像这样,你端起酒杯走向一个人准备请ta喝一杯,走到身前的时候完全忘记为什么站在这里,于是走回自己喜爱的座位.片刻之后,发现那边有个人,我想去请ta喝一杯. 然后you get into an infinite loop. </p>
+<p>在这期间 John Nash 教授想出了博弈论 …. ( Credit to movie <em>A beautiful mind</em> ) </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/21/gdb-upgrade/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/10/21/gdb-upgrade/" itemprop="url">
+                  GDB 7.7版本以上OSO archive file问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-21T19:04:10+08:00">
+                2015-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="尚未解决"><a href="#尚未解决" class="headerlink" title="尚未解决"></a>尚未解决</h1><p>用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.<br>可以打断点,但是run 会出现如下的warning</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/libcorecrypto_static.a"</span></div><div class="line">warning: `/BinaryCache/coreTLS/coreTLS-35.1.2~1/Objects/coretls.build/coretls.build/Objects-normal/x86_64/system_coretls_vers.o<span class="string">': can'</span>t open to <span class="built_in">read</span> symbols: No such file or directory.</div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_ciphersuites.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_handshake.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_record.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_stream_parser.a"</span></div></pre></td></tr></table></figure>
+<p>google了一番, 这个问题尚未得到解决,在github上被推成upstream问题,可以去<a href="https://github.com/Homebrew/homebrew-dupes/issues/357" target="_blank" rel="external">这里</a>看这个问题讨论,可以subscribe等待之后的解决情况.</p>
+<p>如果还想用gdb只有downgrade回去7.7版本了</p>
+<h1 id="brew-install-old-version-of-gdb"><a href="#brew-install-old-version-of-gdb" class="headerlink" title="brew install old version of gdb"></a>brew install old version of gdb</h1><p>它的ruby脚本在<a href="https://gist.github.com/ymyzk/10ad2b74af9235eddb2c" target="_blank" rel="external">这里</a></p>
+<p>可以直接如下安装 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install https://gist.githubusercontent.com/ymyzk/10ad2b74af9235eddb2c/raw/9d0b9734ea01f9753a5f54dd221acd99ee7e53e8/gdb.rb</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1010,7 +1783,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1018,7 +1791,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1027,7 +1800,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

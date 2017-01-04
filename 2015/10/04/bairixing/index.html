@@ -1,0 +1,715 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="os," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Windows/Unix line ending最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  
+然而出现了这样一个问题.  
+我在 Mac上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRLF vs LF">
+<meta property="og:url" content="http://yoursite.com/2015/10/04/bairixing/index.html">
+<meta property="og:site_name" content="Coding 极简派">
+<meta property="og:description" content="Windows/Unix line ending最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  
+然而出现了这样一个问题.  
+我在 Mac上">
+<meta property="og:updated_time" content="2017-01-04T12:59:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CRLF vs LF">
+<meta name="twitter:description" content="Windows/Unix line ending最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  
+然而出现了这样一个问题.  
+我在 Mac上">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/04/bairixing/"/>
+
+
+
+
+
+  <title> CRLF vs LF | Coding 极简派 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?914d24e843e09e68db881b3c66dfada5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Coding 极简派</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/04/bairixing/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CRLF vs LF
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-04T14:06:14+08:00">
+                2015-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Windows-Unix-line-ending"><a href="#Windows-Unix-line-ending" class="headerlink" title="Windows/Unix line ending"></a>Windows/Unix line ending</h2><p>最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  </p>
+<p>然而出现了这样一个问题.  </p>
+<p>我在 Mac上写好的shell script并且写过小测试试了下发给教授,教授run的时候却出现syntax error,could not find expecting…bla bla…    </p>
+<p>第一个反应当然是自我怀疑地重新run了我本地的script.Bam! Nothing is wrong!然后怀疑教授,让教授重新下载脚本重run. The same problem…..然后我就和见鬼了一样看着两台机子上的script大致比对…”shell不可能有indentation的问题啊…then what’s wrong? “,然后我想到那些诡异的隐藏符,比如换行之类的,然后快速在教授机子上重写了一遍script,save it and run. Went smoothly as expected.     </p>
+<p>一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.</p>
+<p>Cited from stackoverflow</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">From samjudson:  </div><div class="line">&gt;This is only a difference in text files, where UNIX uses a single Line Feed (LF) to signify a new line, Windows uses a Carriage Return/Line Feed (CRLF) and Mac uses just a CR. </div><div class="line"> </div><div class="line"> </div><div class="line"> Cebjyre elaborates:  </div><div class="line"></div><div class="line">&gt; OS X uses LF, the same as UNIX - MacOS 9 and below did use CR though.</div></pre></td></tr></table></figure>
+<h2 id="Found-our-Murderer"><a href="#Found-our-Murderer" class="headerlink" title="Found our Murderer"></a>Found our Murderer</h2><p>在不同的机器上写出的text file的line ending是不同的,windos/dos 机上为”\r\n”,而Unix/Linux 只有”\n”.  </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">unix	</div><div class="line"><span class="code">	LF only (each line ends with an LF character).  </span></div><div class="line"><span class="section">	Unix based systems and Mac OS X and later.</span></div><div class="line">---</div><div class="line">dos</div><div class="line"><span class="code">	CRLF (each line ends with CR then LF).   </span></div><div class="line"><span class="code">	DOS and Windows.  </span></div><div class="line">---	</div><div class="line">mac</div><div class="line"><span class="code">	CR only (each line ends with a CR character).  </span></div><div class="line"><span class="code">	Mac OS version 9 and earlier</span></div><div class="line"><span class="code">	later becomes LF</span></div><div class="line"><span class="code">	</span></div><div class="line">CR is carriage return (return cursor to left margin), which is Ctrl-M or ^M or hex 0D.</div><div class="line"></div><div class="line">LF is linefeed (move cursor down), which is Ctrl-J or ^J or hex 0A. Sometimes, LF is written as NL (newline).</div></pre></td></tr></table></figure>
+<h2 id="Conversion-between-CRLF-and-Just-line-feed"><a href="#Conversion-between-CRLF-and-Just-line-feed" class="headerlink" title="Conversion between CRLF and Just line feed"></a>Conversion between CRLF and Just line feed</h2><ol>
+<li><p>查找替换.<br> 这是最直觉的方法.可以利用自己偏好的Editor查找替换,或者用一些智能的功能.<br> 比如在Vim里可以用:set ff?来查看fileformat. 这里的ff(fileformat 的缩写)是局限于当前buffer的,当文件被读入的时候被Vim赋值,或者可以在command line中指定,fileformat决定了buffer怎样读入一个文件(包括对line ending进行相应的修改),以及可以通过改变fileformat的值对buffer写文件的格式进行修改 :set fileformat=dos/unix/mac  </p>
+<p> 同时还有一个fifleformats的全局选项,是在没有特殊指定的时候vim将按照这些顺序去read这个文件,在mac上会显示fileformats=unix,dos<br>文件格式的问题会出现^M的乱码,用:e ++ff=dos 去掉.<br>手动的话可以:%s/^V^M//g   </p>
+<p> 还有一种看到的办法是(未亲测)Notepad++ Edit -&gt; EOL Conversion 里面有已经准备好的选项可以用 </p>
+<p> 然而简单的查找替换的速度有限,在文件不大的时候可以考虑</p>
+</li>
+</ol>
+<ol>
+<li><p>现有工具    </p>
+<ul>
+<li>可以用FTP, 在传输之前先敲ascii,会被转换成ascii文件格式,当传到另一个host上时会用合适于它的的格式打开</li>
+<li><p>dos2unix 和 unix2dos, 在unix平台上装上可以使用</p>
+<pre><code>dos2unix winfile.txt unixfile.txt
+
+unix2dos unixfile.txt winfile.txt
+</code></pre></li>
+<li><p>还有一些脚本方法,没有试过,暂时写在这里</p>
+<pre><code># 只可以转unix
+  tr -d &apos;\15\32&apos; &lt; winfile.txt &gt; unixfile.txt
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<pre><code># awk
+  awk &apos;{ sub(&quot;\r$&quot;, &quot;&quot;); print }&apos; winfile.txt &gt; unixfile.txt
+  awk &apos;sub(&quot;$&quot;, &quot;\r&quot;)&apos; unixfile.txt &gt; winfile.txt
+
+# perl
+  perl -p -e &apos;s/\r$//&apos; &lt; winfile.txt &gt; unixfile.txt 
+  perl -p -e &apos;s/\n/\r\n/&apos; &lt; unixfile.txt &gt; winfile.txt
+</code></pre><ol>
+<li>A simple trick<br>直接拖进chrome/firefox 然后剪切粘贴即可以解决这个问题……仿佛看到了一位生活小能手的同学</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat_qcode.jpg" alt="xubing wechat" style="width: 200px; max-width: 100%;"/>
+    <div>奇闻共欣赏,疑义相与析.欢迎来我的微信公众号</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/os/" rel="tag"># os</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/21/gdb-upgrade/" rel="prev" title="GDB 7.7版本以上OSO archive file问题">
+                GDB 7.7版本以上OSO archive file问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="xubing" />
+          <p class="site-author-name" itemprop="name">xubing</p>
+          <p class="site-description motion-element" itemprop="description">Code And Art. Code Is Art.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Unix-line-ending"><span class="nav-number">1.</span> <span class="nav-text">Windows/Unix line ending</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Found-our-Murderer"><span class="nav-number">2.</span> <span class="nav-text">Found our Murderer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conversion-between-CRLF-and-Just-line-feed"><span class="nav-number">3.</span> <span class="nav-text">Conversion between CRLF and Just line feed</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xubing</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
