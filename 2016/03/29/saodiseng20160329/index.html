@@ -100,7 +100,7 @@ T tmp(a).你利用c">
 考虑一下它的中间开销.
 
 T tmp(a).你利用c">
-<meta property="og:updated_time" content="2017-01-04T13:01:01.000Z">
+<meta property="og:updated_time" content="2017-01-04T13:24:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="偷梁换柱 - copy 和 move">
 <meta name="twitter:description" content="你怎么交换两个变量值?这大概是每个初学编程的人都会遇到的一个问题. 你的第一反应一定是
@@ -381,7 +381,7 @@ T tmp(a).你利用c">
 </blockquote>
 </blockquote>
 <p>我们不是要说分享,是要说拷贝和移动的关系.如果人手一台3D打印机,可能每人也有两个苹果吧. 但你看到了,拷贝的过程,是要经历生产的开销. 即使是思想的拷贝,如果它足够复杂晦涩,那相比也要死不少脑细胞.</p>
-<p>在C++中,有一个还比较古老的操作符叫move,就起到了这种移动的作用.<br>下面的一段引用来说明copy和move的关系.  </p>
+<p>在C++中,有一个还比较古老的操作符叫move,就起到了这种移动的作用.<br>下面的一段引用来说明copy和move的关系.<br><a id="more"></a></p>
 <blockquote>
 <blockquote>
 <p>Hitherto, copying has been the only means for transferring a state from one object to another (an object’s state is the collective set of its non-static data members’ values). Formally, copying causes a target object t to end up with the same state as the source s, without modifying s. For example, when you copy a string s1 to s2, the result is two identical strings with the same state as s1.<br>Notwithstanding the conceptual difference between copying and moving, there’s a practical difference too: Move operations tend to be faster than copying because they transfer an existing resource to a new destination, whereas copying requires the creation of a new resource from scratch. The efficiency of moving can be witnessed among the rest in functions that return objects by value.</p>

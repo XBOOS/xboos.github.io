@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="Coding 极简派">
 <meta property="og:description" content="尚未解决用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.可以打断点,但是run 会出现如下的warning
 123456warning: Could not open OSO archive file &quot;/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/l">
-<meta property="og:updated_time" content="2017-01-04T13:06:52.000Z">
+<meta property="og:updated_time" content="2017-01-04T13:24:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GDB 7.7版本以上OSO archive file问题">
 <meta name="twitter:description" content="尚未解决用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.可以打断点,但是run 会出现如下的warning
@@ -336,7 +336,6 @@
       
         <h1 id="尚未解决"><a href="#尚未解决" class="headerlink" title="尚未解决"></a>尚未解决</h1><p>用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.<br>可以打断点,但是run 会出现如下的warning</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/libcorecrypto_static.a"</span></div><div class="line">warning: `/BinaryCache/coreTLS/coreTLS-35.1.2~1/Objects/coretls.build/coretls.build/Objects-normal/x86_64/system_coretls_vers.o<span class="string">': can'</span>t open to <span class="built_in">read</span> symbols: No such file or directory.</div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_ciphersuites.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_handshake.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_record.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_stream_parser.a"</span></div></pre></td></tr></table></figure>
-<a id="more"></a>
 <p>google了一番, 这个问题尚未得到解决,在github上被推成upstream问题,可以去<a href="https://github.com/Homebrew/homebrew-dupes/issues/357" target="_blank" rel="external">这里</a>看这个问题讨论,可以subscribe等待之后的解决情况.</p>
 <p>如果还想用gdb只有downgrade回去7.7版本了</p>
 <h1 id="brew-install-old-version-of-gdb"><a href="#brew-install-old-version-of-gdb" class="headerlink" title="brew install old version of gdb"></a>brew install old version of gdb</h1><p>它的ruby脚本在<a href="https://gist.github.com/ymyzk/10ad2b74af9235eddb2c" target="_blank" rel="external">这里</a></p>
