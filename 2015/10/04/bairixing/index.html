@@ -94,7 +94,7 @@
 <meta property="og:description" content="Windows/Unix line ending最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  
 然而出现了这样一个问题.  
 我在 Mac上">
-<meta property="og:updated_time" content="2017-01-04T12:59:58.000Z">
+<meta property="og:updated_time" content="2017-01-04T13:06:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CRLF vs LF">
 <meta name="twitter:description" content="Windows/Unix line ending最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  
@@ -359,7 +359,7 @@
 <p>然而出现了这样一个问题.  </p>
 <p>我在 Mac上写好的shell script并且写过小测试试了下发给教授,教授run的时候却出现syntax error,could not find expecting…bla bla…    </p>
 <p>第一个反应当然是自我怀疑地重新run了我本地的script.Bam! Nothing is wrong!然后怀疑教授,让教授重新下载脚本重run. The same problem…..然后我就和见鬼了一样看着两台机子上的script大致比对…”shell不可能有indentation的问题啊…then what’s wrong? “,然后我想到那些诡异的隐藏符,比如换行之类的,然后快速在教授机子上重写了一遍script,save it and run. Went smoothly as expected.     </p>
-<p>一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.</p>
+<p>一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.<br><a id="more"></a></p>
 <p>Cited from stackoverflow</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">From samjudson:  </div><div class="line">&gt;This is only a difference in text files, where UNIX uses a single Line Feed (LF) to signify a new line, Windows uses a Carriage Return/Line Feed (CRLF) and Mac uses just a CR. </div><div class="line"> </div><div class="line"> </div><div class="line"> Cebjyre elaborates:  </div><div class="line"></div><div class="line">&gt; OS X uses LF, the same as UNIX - MacOS 9 and below did use CR though.</div></pre></td></tr></table></figure>
 <h2 id="Found-our-Murderer"><a href="#Found-our-Murderer" class="headerlink" title="Found our Murderer"></a>Found our Murderer</h2><p>在不同的机器上写出的text file的line ending是不同的,windos/dos 机上为”\r\n”,而Unix/Linux 只有”\n”.  </p>

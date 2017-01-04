@@ -354,51 +354,18 @@
 
       
         
-          
-            <h2 id="Windows-Unix-line-ending"><a href="#Windows-Unix-line-ending" class="headerlink" title="Windows/Unix line ending"></a>Windows/Unix line ending</h2><p>最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  </p>
+          <h2 id="Windows-Unix-line-ending"><a href="#Windows-Unix-line-ending" class="headerlink" title="Windows/Unix line ending"></a>Windows/Unix line ending</h2><p>最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  </p>
 <p>然而出现了这样一个问题.  </p>
 <p>我在 Mac上写好的shell script并且写过小测试试了下发给教授,教授run的时候却出现syntax error,could not find expecting…bla bla…    </p>
 <p>第一个反应当然是自我怀疑地重新run了我本地的script.Bam! Nothing is wrong!然后怀疑教授,让教授重新下载脚本重run. The same problem…..然后我就和见鬼了一样看着两台机子上的script大致比对…”shell不可能有indentation的问题啊…then what’s wrong? “,然后我想到那些诡异的隐藏符,比如换行之类的,然后快速在教授机子上重写了一遍script,save it and run. Went smoothly as expected.     </p>
-<p>一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.</p>
-<p>Cited from stackoverflow</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">From samjudson:  </div><div class="line">&gt;This is only a difference in text files, where UNIX uses a single Line Feed (LF) to signify a new line, Windows uses a Carriage Return/Line Feed (CRLF) and Mac uses just a CR. </div><div class="line"> </div><div class="line"> </div><div class="line"> Cebjyre elaborates:  </div><div class="line"></div><div class="line">&gt; OS X uses LF, the same as UNIX - MacOS 9 and below did use CR though.</div></pre></td></tr></table></figure>
-<h2 id="Found-our-Murderer"><a href="#Found-our-Murderer" class="headerlink" title="Found our Murderer"></a>Found our Murderer</h2><p>在不同的机器上写出的text file的line ending是不同的,windos/dos 机上为”\r\n”,而Unix/Linux 只有”\n”.  </p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">unix	</div><div class="line"><span class="code">	LF only (each line ends with an LF character).  </span></div><div class="line"><span class="section">	Unix based systems and Mac OS X and later.</span></div><div class="line">---</div><div class="line">dos</div><div class="line"><span class="code">	CRLF (each line ends with CR then LF).   </span></div><div class="line"><span class="code">	DOS and Windows.  </span></div><div class="line">---	</div><div class="line">mac</div><div class="line"><span class="code">	CR only (each line ends with a CR character).  </span></div><div class="line"><span class="code">	Mac OS version 9 and earlier</span></div><div class="line"><span class="code">	later becomes LF</span></div><div class="line"><span class="code">	</span></div><div class="line">CR is carriage return (return cursor to left margin), which is Ctrl-M or ^M or hex 0D.</div><div class="line"></div><div class="line">LF is linefeed (move cursor down), which is Ctrl-J or ^J or hex 0A. Sometimes, LF is written as NL (newline).</div></pre></td></tr></table></figure>
-<h2 id="Conversion-between-CRLF-and-Just-line-feed"><a href="#Conversion-between-CRLF-and-Just-line-feed" class="headerlink" title="Conversion between CRLF and Just line feed"></a>Conversion between CRLF and Just line feed</h2><ol>
-<li><p>查找替换.<br> 这是最直觉的方法.可以利用自己偏好的Editor查找替换,或者用一些智能的功能.<br> 比如在Vim里可以用:set ff?来查看fileformat. 这里的ff(fileformat 的缩写)是局限于当前buffer的,当文件被读入的时候被Vim赋值,或者可以在command line中指定,fileformat决定了buffer怎样读入一个文件(包括对line ending进行相应的修改),以及可以通过改变fileformat的值对buffer写文件的格式进行修改 :set fileformat=dos/unix/mac  </p>
-<p> 同时还有一个fifleformats的全局选项,是在没有特殊指定的时候vim将按照这些顺序去read这个文件,在mac上会显示fileformats=unix,dos<br>文件格式的问题会出现^M的乱码,用:e ++ff=dos 去掉.<br>手动的话可以:%s/^V^M//g   </p>
-<p> 还有一种看到的办法是(未亲测)Notepad++ Edit -&gt; EOL Conversion 里面有已经准备好的选项可以用 </p>
-<p> 然而简单的查找替换的速度有限,在文件不大的时候可以考虑</p>
-</li>
-</ol>
-<ol>
-<li><p>现有工具    </p>
-<ul>
-<li>可以用FTP, 在传输之前先敲ascii,会被转换成ascii文件格式,当传到另一个host上时会用合适于它的的格式打开</li>
-<li><p>dos2unix 和 unix2dos, 在unix平台上装上可以使用</p>
-<pre><code>dos2unix winfile.txt unixfile.txt
-
-unix2dos unixfile.txt winfile.txt
-</code></pre></li>
-<li><p>还有一些脚本方法,没有试过,暂时写在这里</p>
-<pre><code># 只可以转unix
-  tr -d &apos;\15\32&apos; &lt; winfile.txt &gt; unixfile.txt
-</code></pre></li>
-</ul>
-</li>
-</ol>
-<pre><code># awk
-  awk &apos;{ sub(&quot;\r$&quot;, &quot;&quot;); print }&apos; winfile.txt &gt; unixfile.txt
-  awk &apos;sub(&quot;$&quot;, &quot;\r&quot;)&apos; unixfile.txt &gt; winfile.txt
-
-# perl
-  perl -p -e &apos;s/\r$//&apos; &lt; winfile.txt &gt; unixfile.txt 
-  perl -p -e &apos;s/\n/\r\n/&apos; &lt; unixfile.txt &gt; winfile.txt
-</code></pre><ol>
-<li>A simple trick<br>直接拖进chrome/firefox 然后剪切粘贴即可以解决这个问题……仿佛看到了一位生活小能手的同学</li>
-</ol>
-
-          
+<p>一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/10/04/bairixing/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

@@ -601,9 +601,10 @@
     <link href="http://yoursite.com/2015/11/03/5optimization/"/>
     <id>http://yoursite.com/2015/11/03/5optimization/</id>
     <published>2015-11-03T02:28:19.000Z</published>
-    <updated>2017-01-04T13:01:22.000Z</updated>
+    <updated>2017-01-04T13:06:04.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="关于2Sum"><a href="#关于2Sum" class="headerlink" title="关于2Sum"></a>关于2Sum</h1><p>Two sum是一个很简单的问题,给定一个乱序列和一个target,找到两个数的和等于target.<br>只要先sort然后用首尾两个pointers 反向逼近直到找到所求就可以了.可以找到所有符合要求的tuple,这里简化为解决第一个遇到的符合条件的tuple,找到全部组合见下面3sum.</p>
+<a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="string">'''</span></div><div class="line"></div><div class="line">这里是题目的要求:</div><div class="line">Given an array of integers, find two numbers such that they add up to a specific target number.</div><div class="line"></div><div class="line">The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.</div><div class="line"></div><div class="line">You may assume that each input would have exactly one solution.</div><div class="line">'''</div><div class="line">  </div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type nums: List[int]</div><div class="line">        :type target: int</div><div class="line">        :rtype: List[int]</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> len(nums)&lt;<span class="number">2</span>:</div><div class="line">            <span class="keyword">return</span> []</div><div class="line">        backup = nums[:]    </div><div class="line">        list.sort(nums)</div><div class="line">        i = <span class="number">0</span></div><div class="line">        j = len(nums)<span class="number">-1</span></div><div class="line">        <span class="keyword">while</span> i&lt;j:</div><div class="line">            <span class="keyword">if</span> (nums[i]+nums[j])&lt;target:</div><div class="line">                i=i+<span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> (nums[i]+nums[j])&gt;target: </div><div class="line">                j=j<span class="number">-1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">if</span> nums[i]==nums[j]:</div><div class="line">                    index1 = backup.index(nums[i])</div><div class="line">                    backup.remove(nums[i])</div><div class="line">                    <span class="keyword">return</span> [index1+<span class="number">1</span>,backup.index(nums[j])+<span class="number">2</span>]    </div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                    index1 = backup.index(nums[i])+<span class="number">1</span></div><div class="line">                    index2 = backup.index(nums[j])+<span class="number">1</span></div><div class="line">                    <span class="keyword">return</span> [min(index1,index2),max(index1,index2)]</div></pre></td></tr></table></figure>
 <h1 id="3sum-摘掉面具"><a href="#3sum-摘掉面具" class="headerlink" title="3sum-摘掉面具"></a>3sum-摘掉面具</h1><p>Three sum 与two sum类似,是数组中找出所有三个数的组合加和为target.<br>它穿了一层马甲,我们摘掉他的面具, 将3Sum转化为解决了的2Sum问题,只要从0 loop 到 length-2 (设为x),对剩余数组找target-x,就转化成了twoSum.  </p>
 <p>不同的一点是要找到全部组合,同时要排重.</p>
@@ -644,7 +645,7 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;关于2Sum&quot;&gt;&lt;a href=&quot;#关于2Sum&quot; class=&quot;headerlink&quot; title=&quot;关于2Sum&quot;&gt;&lt;/a&gt;关于2Sum&lt;/h1&gt;&lt;p&gt;Two sum是一个很简单的问题,给定一个乱序列和一个target,找到两个数的和等于target.&lt;br&gt;
+      &lt;h1 id=&quot;关于2Sum&quot;&gt;&lt;a href=&quot;#关于2Sum&quot; class=&quot;headerlink&quot; title=&quot;关于2Sum&quot;&gt;&lt;/a&gt;关于2Sum&lt;/h1&gt;&lt;p&gt;Two sum是一个很简单的问题,给定一个乱序列和一个target,找到两个数的和等于target.&lt;br&gt;只要先sort然后用首尾两个pointers 反向逼近直到找到所求就可以了.可以找到所有符合要求的tuple,这里简化为解决第一个遇到的符合条件的tuple,找到全部组合见下面3sum.&lt;/p&gt;
     
     </summary>
     
@@ -662,11 +663,11 @@
     <link href="http://yoursite.com/2015/10/30/reviewC/"/>
     <id>http://yoursite.com/2015/10/30/reviewC/</id>
     <published>2015-10-30T15:40:28.000Z</published>
-    <updated>2017-01-04T13:01:17.000Z</updated>
+    <updated>2017-01-04T13:06:59.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="常回C看看"><a href="#常回C看看" class="headerlink" title="常回C看看."></a>常回C看看.</h1><p>当你整天写python, ruby 等脚本语言 甚至一些越来越像lambda calculus的declarative language时候.( 以及同样有CG机制的不讨很多人喜欢的Java时), 你可能越来越像一个称职的”software” engineer instead of a hardware engineer. 足够抽象的语言将你从同机器的傻瓜式繁琐对话中解放出来,变成同人类或者智能机器的对话.将更多的精力集中在算法和模式思考上.<br>操作系统变得看不见摸不着,不需要再自己处理memory allocation 和memory collection, 不需要精心计算how much memory i need. 远观的确美,但其实也少了些xie玩的乐趣.</p>
 <p>随着C++11 Java8都开始引入风靡的lambda时,别忘记老当益壮的C老爹. </p>
-<p>常回C看看. </p>
+<p>常回C看看.<br><a id="more"></a></p>
 <p>这个月12号是C语言之父<a href="https://en.wikipedia.org/wiki/Dennis_Ritchie" target="_blank" rel="external">Dennis Ritchie</a> 的逝世四周年的日子,没有他就没有Linux,BSD和我们爱的Mac OS.人们总是把低调的Dennis和传奇的乔布斯放在一起比较. 因为苹果,乔帮主家喻户晓,但没有多少人记得和乔帮主同年逝世的Dennis. 然而对于计算机发展史来讲,乔帮主的贡献不能与Dennis同日而语.</p>
 <p>以此为敬.</p>
 <h1 id="和Unix的手足之情"><a href="#和Unix的手足之情" class="headerlink" title="和Unix的手足之情"></a>和Unix的手足之情</h1><p>Unix 的原始版本是用汇编写的. 当Dennis Ritchie大叔在1973年缔造了C语言<br>之后,他和 Ken Thompson一起 (同是Unix的开发者)用C重写了kernel. 这也证明了即使不用汇编也可以写出low-level的操作系统.除此之外,由于C语言是可移植的,当可以产生object code 的C compiler被写出来的时候,说明在任何一个机器上都可以编译出可以运行在这台机器上的Unix 内核.从此可移植的操作系统就诞生了. ( 额外还需要一点customization和一些汇编来具体部署)</p>
@@ -676,7 +677,9 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;常回C看看&quot;&gt;&lt;a href=&quot;#常回C看看&quot; class=&quot;headerlink&quot; title=&quot;常回C看看.&quot;&gt;&lt;/a&gt;常回C看看.&lt;/h1&gt;&lt;p&gt;当你整天写python, ruby 等脚本语言 甚至一些越来越像lambda calculus的declarat
+      &lt;h1 id=&quot;常回C看看&quot;&gt;&lt;a href=&quot;#常回C看看&quot; class=&quot;headerlink&quot; title=&quot;常回C看看.&quot;&gt;&lt;/a&gt;常回C看看.&lt;/h1&gt;&lt;p&gt;当你整天写python, ruby 等脚本语言 甚至一些越来越像lambda calculus的declarative language时候.( 以及同样有CG机制的不讨很多人喜欢的Java时), 你可能越来越像一个称职的”software” engineer instead of a hardware engineer. 足够抽象的语言将你从同机器的傻瓜式繁琐对话中解放出来,变成同人类或者智能机器的对话.将更多的精力集中在算法和模式思考上.&lt;br&gt;操作系统变得看不见摸不着,不需要再自己处理memory allocation 和memory collection, 不需要精心计算how much memory i need. 远观的确美,但其实也少了些xie玩的乐趣.&lt;/p&gt;
+&lt;p&gt;随着C++11 Java8都开始引入风靡的lambda时,别忘记老当益壮的C老爹. &lt;/p&gt;
+&lt;p&gt;常回C看看.&lt;br&gt;
     
     </summary>
     
@@ -692,11 +695,11 @@
     <link href="http://yoursite.com/2015/10/24/fibonacci/"/>
     <id>http://yoursite.com/2015/10/24/fibonacci/</id>
     <published>2015-10-24T10:05:31.000Z</published>
-    <updated>2017-01-04T13:00:33.000Z</updated>
+    <updated>2017-01-04T13:06:32.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="魅力永恒的斐波那契"><a href="#魅力永恒的斐波那契" class="headerlink" title="魅力永恒的斐波那契"></a>魅力永恒的斐波那契</h1><p>天朝的同学们第一次学习斐波那契总跟那些繁殖力惊人的兔子脱不开干系.当然在达尔文进化论统治的空间里这是不现实的,除非在一个自建生态系统的初始阶段. </p>
 <p>斐波那契的第一个研究者是将近一千年前的意大利数学家Leonardo(是的,和小李子同名)Fibonacci,它的魅力在于很多优美的性质,比如相邻斐波那契数想除的商会逐渐逼近黄金比例(我不知道为什么人们都觉得黄金分隔比是美的,然而确实就是这么觉得,身在宇宙中大概天生遵守一些法则),奇数项和,偶数项和,和天然植物,蜂巢的关系… 一切都惊人般的和谐.  </p>
-<p>Then let’s get down to business.</p>
+<p>Then let’s get down to business.<br><a id="more"></a></p>
 <h1 id="求解优化"><a href="#求解优化" class="headerlink" title="求解优化"></a>求解优化</h1><p>如果斐波那契先生在梦里问了你一个问题,第n个斐波那契是什么?</p>
 <p>As simple and elegant as it sounds.</p>
 <p>相信你不好意思说我在您一千年之后还不会解吧.当然,你可以说 啊,不如我们来谈谈star war……</p>
@@ -731,7 +734,9 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;魅力永恒的斐波那契&quot;&gt;&lt;a href=&quot;#魅力永恒的斐波那契&quot; class=&quot;headerlink&quot; title=&quot;魅力永恒的斐波那契&quot;&gt;&lt;/a&gt;魅力永恒的斐波那契&lt;/h1&gt;&lt;p&gt;天朝的同学们第一次学习斐波那契总跟那些繁殖力惊人的兔子脱不开干系.当然在达尔文进化论
+      &lt;h1 id=&quot;魅力永恒的斐波那契&quot;&gt;&lt;a href=&quot;#魅力永恒的斐波那契&quot; class=&quot;headerlink&quot; title=&quot;魅力永恒的斐波那契&quot;&gt;&lt;/a&gt;魅力永恒的斐波那契&lt;/h1&gt;&lt;p&gt;天朝的同学们第一次学习斐波那契总跟那些繁殖力惊人的兔子脱不开干系.当然在达尔文进化论统治的空间里这是不现实的,除非在一个自建生态系统的初始阶段. &lt;/p&gt;
+&lt;p&gt;斐波那契的第一个研究者是将近一千年前的意大利数学家Leonardo(是的,和小李子同名)Fibonacci,它的魅力在于很多优美的性质,比如相邻斐波那契数想除的商会逐渐逼近黄金比例(我不知道为什么人们都觉得黄金分隔比是美的,然而确实就是这么觉得,身在宇宙中大概天生遵守一些法则),奇数项和,偶数项和,和天然植物,蜂巢的关系… 一切都惊人般的和谐.  &lt;/p&gt;
+&lt;p&gt;Then let’s get down to business.&lt;br&gt;
     
     </summary>
     
@@ -747,10 +752,11 @@
     <link href="http://yoursite.com/2015/10/21/gdb-upgrade/"/>
     <id>http://yoursite.com/2015/10/21/gdb-upgrade/</id>
     <published>2015-10-21T11:04:10.000Z</published>
-    <updated>2015-10-21T11:04:10.000Z</updated>
+    <updated>2017-01-04T13:06:52.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="尚未解决"><a href="#尚未解决" class="headerlink" title="尚未解决"></a>尚未解决</h1><p>用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.<br>可以打断点,但是run 会出现如下的warning</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/libcorecrypto_static.a"</span></div><div class="line">warning: `/BinaryCache/coreTLS/coreTLS-35.1.2~1/Objects/coretls.build/coretls.build/Objects-normal/x86_64/system_coretls_vers.o<span class="string">': can'</span>t open to <span class="built_in">read</span> symbols: No such file or directory.</div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_ciphersuites.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_handshake.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_record.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_stream_parser.a"</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>google了一番, 这个问题尚未得到解决,在github上被推成upstream问题,可以去<a href="https://github.com/Homebrew/homebrew-dupes/issues/357" target="_blank" rel="external">这里</a>看这个问题讨论,可以subscribe等待之后的解决情况.</p>
 <p>如果还想用gdb只有downgrade回去7.7版本了</p>
 <h1 id="brew-install-old-version-of-gdb"><a href="#brew-install-old-version-of-gdb" class="headerlink" title="brew install old version of gdb"></a>brew install old version of gdb</h1><p>它的ruby脚本在<a href="https://gist.github.com/ymyzk/10ad2b74af9235eddb2c" target="_blank" rel="external">这里</a></p>
@@ -760,7 +766,8 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;尚未解决&quot;&gt;&lt;a href=&quot;#尚未解决&quot; class=&quot;headerlink&quot; title=&quot;尚未解决&quot;&gt;&lt;/a&gt;尚未解决&lt;/h1&gt;&lt;p&gt;用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.&lt;br&gt;可以打断点
+      &lt;h1 id=&quot;尚未解决&quot;&gt;&lt;a href=&quot;#尚未解决&quot; class=&quot;headerlink&quot; title=&quot;尚未解决&quot;&gt;&lt;/a&gt;尚未解决&lt;/h1&gt;&lt;p&gt;用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.&lt;br&gt;可以打断点,但是run 会出现如下的warning&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;warning: Could not open OSO archive file &lt;span class=&quot;string&quot;&gt;&quot;/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/libcorecrypto_static.a&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;warning: `/BinaryCache/coreTLS/coreTLS-35.1.2~1/Objects/coretls.build/coretls.build/Objects-normal/x86_64/system_coretls_vers.o&lt;span class=&quot;string&quot;&gt;&#39;: can&#39;&lt;/span&gt;t open to &lt;span class=&quot;built_in&quot;&gt;read&lt;/span&gt; symbols: No such file or directory.&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;warning: Could not open OSO archive file &lt;span class=&quot;string&quot;&gt;&quot;/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_ciphersuites.a&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;warning: Could not open OSO archive file &lt;span class=&quot;string&quot;&gt;&quot;/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_handshake.a&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;warning: Could not open OSO archive file &lt;span class=&quot;string&quot;&gt;&quot;/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_record.a&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;warning: Could not open OSO archive file &lt;span class=&quot;string&quot;&gt;&quot;/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_stream_parser.a&quot;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -776,13 +783,13 @@
     <link href="http://yoursite.com/2015/10/04/bairixing/"/>
     <id>http://yoursite.com/2015/10/04/bairixing/</id>
     <published>2015-10-04T06:06:14.000Z</published>
-    <updated>2017-01-04T12:59:58.000Z</updated>
+    <updated>2017-01-04T13:06:25.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Windows-Unix-line-ending"><a href="#Windows-Unix-line-ending" class="headerlink" title="Windows/Unix line ending"></a>Windows/Unix line ending</h2><p>最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  </p>
 <p>然而出现了这样一个问题.  </p>
 <p>我在 Mac上写好的shell script并且写过小测试试了下发给教授,教授run的时候却出现syntax error,could not find expecting…bla bla…    </p>
 <p>第一个反应当然是自我怀疑地重新run了我本地的script.Bam! Nothing is wrong!然后怀疑教授,让教授重新下载脚本重run. The same problem…..然后我就和见鬼了一样看着两台机子上的script大致比对…”shell不可能有indentation的问题啊…then what’s wrong? “,然后我想到那些诡异的隐藏符,比如换行之类的,然后快速在教授机子上重写了一遍script,save it and run. Went smoothly as expected.     </p>
-<p>一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.</p>
+<p>一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.<br><a id="more"></a></p>
 <p>Cited from stackoverflow</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">From samjudson:  </div><div class="line">&gt;This is only a difference in text files, where UNIX uses a single Line Feed (LF) to signify a new line, Windows uses a Carriage Return/Line Feed (CRLF) and Mac uses just a CR. </div><div class="line"> </div><div class="line"> </div><div class="line"> Cebjyre elaborates:  </div><div class="line"></div><div class="line">&gt; OS X uses LF, the same as UNIX - MacOS 9 and below did use CR though.</div></pre></td></tr></table></figure>
 <h2 id="Found-our-Murderer"><a href="#Found-our-Murderer" class="headerlink" title="Found our Murderer"></a>Found our Murderer</h2><p>在不同的机器上写出的text file的line ending是不同的,windos/dos 机上为”\r\n”,而Unix/Linux 只有”\n”.  </p>
@@ -824,7 +831,11 @@ unix2dos unixfile.txt winfile.txt
     
     <summary type="html">
     
-      &lt;h2 id=&quot;Windows-Unix-line-ending&quot;&gt;&lt;a href=&quot;#Windows-Unix-line-ending&quot; class=&quot;headerlink&quot; title=&quot;Windows/Unix line ending&quot;&gt;&lt;/a&gt;Windows/Unix l
+      &lt;h2 id=&quot;Windows-Unix-line-ending&quot;&gt;&lt;a href=&quot;#Windows-Unix-line-ending&quot; class=&quot;headerlink&quot; title=&quot;Windows/Unix line ending&quot;&gt;&lt;/a&gt;Windows/Unix line ending&lt;/h2&gt;&lt;p&gt;最近在帮金融系的教授做研究助理,帮教授写程序.有编程基础的教授化身产品经理的模样,不断地抛出需求.我要做的就是为教授的金融模型或者理论做大量的数据处理,于是写了不少python和shell scprits. 有时教授会形成习惯了甚至把我当IT使用,死机窗口卡顿的时候呼唤我…..不过被信任还是很荣幸的.  &lt;/p&gt;
+&lt;p&gt;然而出现了这样一个问题.  &lt;/p&gt;
+&lt;p&gt;我在 Mac上写好的shell script并且写过小测试试了下发给教授,教授run的时候却出现syntax error,could not find expecting…bla bla…    &lt;/p&gt;
+&lt;p&gt;第一个反应当然是自我怀疑地重新run了我本地的script.Bam! Nothing is wrong!然后怀疑教授,让教授重新下载脚本重run. The same problem…..然后我就和见鬼了一样看着两台机子上的script大致比对…”shell不可能有indentation的问题啊…then what’s wrong? “,然后我想到那些诡异的隐藏符,比如换行之类的,然后快速在教授机子上重写了一遍script,save it and run. Went smoothly as expected.     &lt;/p&gt;
+&lt;p&gt;一个肉眼不可见的问题,我想起了那些诡异的隐藏符.那么可能就是操作系统带来的差别,我查了mac本地的文件类型是unix.&lt;br&gt;
     
     </summary>
     
