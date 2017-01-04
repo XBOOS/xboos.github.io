@@ -1,0 +1,804 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="logging,java,架构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Everything comes in cycles.
+
+
+近来负责发布项目的一个二方包给服务调用方, 即写一个client包给别人使用.然后发现一个很重要的问题是,我们的代码部署在别人的机器上,出了问题很难定位. 所以解决方案是我们要打出规范的日志,然后日志上云做出业务统计分析以及故障报警等.
+从门面说起 Facade design pattern每个公司或者机构都有一个前台,比如银">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日志系统 - 福尔摩斯的线索(一)">
+<meta property="og:url" content="http://yoursite.com/2017/01/04/loggingSyestem1/index.html">
+<meta property="og:site_name" content="Coding 极简派">
+<meta property="og:description" content="Everything comes in cycles.
+
+
+近来负责发布项目的一个二方包给服务调用方, 即写一个client包给别人使用.然后发现一个很重要的问题是,我们的代码部署在别人的机器上,出了问题很难定位. 所以解决方案是我们要打出规范的日志,然后日志上云做出业务统计分析以及故障报警等.
+从门面说起 Facade design pattern每个公司或者机构都有一个前台,比如银">
+<meta property="og:image" content="http://yoursite.com/2017/01/04/loggingSyestem1/fuermosi.jpeg">
+<meta property="og:image" content="http://yoursite.com/2017/01/04/loggingSyestem1/facade.png">
+<meta property="og:image" content="http://yoursite.com/2017/01/04/loggingSyestem1/bindings.png">
+<meta property="og:image" content="http://yoursite.com/2017/01/04/loggingSyestem1/legacy.png">
+<meta property="og:updated_time" content="2017-01-04T10:36:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="日志系统 - 福尔摩斯的线索(一)">
+<meta name="twitter:description" content="Everything comes in cycles.
+
+
+近来负责发布项目的一个二方包给服务调用方, 即写一个client包给别人使用.然后发现一个很重要的问题是,我们的代码部署在别人的机器上,出了问题很难定位. 所以解决方案是我们要打出规范的日志,然后日志上云做出业务统计分析以及故障报警等.
+从门面说起 Facade design pattern每个公司或者机构都有一个前台,比如银">
+<meta name="twitter:image" content="http://yoursite.com/2017/01/04/loggingSyestem1/fuermosi.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/04/loggingSyestem1/"/>
+
+
+
+
+
+  <title> 日志系统 - 福尔摩斯的线索(一) | Coding 极简派 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Coding 极简派</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/04/loggingSyestem1/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                日志系统 - 福尔摩斯的线索(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-04T15:16:51+08:00">
+                2017-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/2017/01/04/loggingSyestem1/fuermosi.jpeg" alt="fuermosi.jpeg" title="">  
+<hr>
+<blockquote>
+<blockquote>
+<p>Everything comes in cycles.</p>
+</blockquote>
+</blockquote>
+<p>近来负责发布项目的一个二方包给服务调用方, 即写一个client包给别人使用.<br>然后发现一个很重要的问题是,我们的代码部署在别人的机器上,出了问题很难定位. 所以解决方案是我们要打出规范的日志,然后日志上云做出业务统计分析以及故障报警等.</p>
+<h2 id="从门面说起-Facade-design-pattern"><a href="#从门面说起-Facade-design-pattern" class="headerlink" title="从门面说起 Facade design pattern"></a>从门面说起 Facade design pattern</h2><p>每个公司或者机构都有一个前台,比如银行, A想开户,B想找B1业务员询问基金信息. 如果没有前台,想象这个场景,每个人进去公司遍历查找,找到需要的人. 其间交错,冲突. 而如果有前台的化,每个人到前台说你要办理什么业务或者找什么人,前台小姐会把你自动转接给对应的业务人员,或者一个电话叫出你想要找的人.<br>这个就是门面的作用. 在设计模式中叫做Facade.<br>它有两个显而易见的好处:  </p>
+<ol>
+<li>对于客户端来说,它把系统内部复杂的组件隐藏封装起来,只向外暴露一个规范的高级接口. 降低了复杂性.</li>
+<li>起到了解藕的作用,外部客户端和内部子系统之间的关系由Facade角色来实现,降低了系统的耦合.<img src="/2017/01/04/loggingSyestem1/facade.png" alt="facade.png" title="">   
+</li>
+</ol>
+<a id="more"></a>  
+<h2 id="挑选日志方案"><a href="#挑选日志方案" class="headerlink" title="挑选日志方案"></a>挑选日志方案</h2><h3 id="SLF4J"><a href="#SLF4J" class="headerlink" title="SLF4J"></a>SLF4J</h3><p>全称是Simple Logging Facade for Java. 就是这样一个对于各种日志框架的接口/抽象,比如java.util.logging,logback, log4j. </p>
+<ul>
+<li><p>具体的日志框架是在发布时做binding的.SLF4J 的发布版本包含许多 jar包文件,作为”SLF4J bindings”,每一个binding都对应着一种它支持的日志框架.   </p>
+<ul>
+<li>slf4j-log4j12-1.7.22.jar  对应log4j version 1.2</li>
+<li>slf4j-jdk14-1.7.22.jar  Binding for java.util.logging, also referred to as JDK 1.4 logging</li>
+<li><p>slf4j-nop-1.7.22.jar<br>Binding for NOP, silently discarding all logging.   </p>
+</li>
+<li><p>slf4j-simple-1.7.22.jar<br>Binding for Simple implementation, which outputs all events to System.err. Only messages of level INFO and higher are printed. This binding may be useful in the context of small applications.  </p>
+</li>
+<li><p>slf4j-jcl-1.7.22.jar<br>Binding for Jakarta Commons Logging. This binding will delegate all SLF4J logging to JCL.  </p>
+</li>
+<li><p>logback-classic-1.0.13.jar (requires logback-core-1.0.13.jar)<br>NATIVE IMPLEMENTATION There are also SLF4J bindings external to the SLF4J project, e.g. logback which implements SLF4J natively. Logback’s ch.qos.logback.classic.Logger class is a direct implementation of SLF4J’s org.slf4j.Logger interface. Thus, using SLF4J in conjunction with logback involves strictly zero memory and computational overhead.  </p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><ul>
+<li>只需要在class path中放入slf4j api的jar包和对应binding的jar包(注意唯一性),在部署的时候,就会接入你想要的日志框架.</li>
+<li>SLF4J 是不依赖于特定某一种类加载机制的. 每一个SLF4J binding是在编译时同对应的logging框架应链接的. 比如,slf4j-log4j12-1.7.22.jar binding在编译时同log4j绑定.</li>
+<li><p>对应的binding和下层日志框架见下图.</p>
+<img src="/2017/01/04/loggingSyestem1/bindings.png" alt="bindings.png" title="">   
+</li>
+<li><p>想要换日志系统,只要在class path中更新对应的binding,然后重启应用.</p>
+</li>
+<li>如果类路径上没有binding,slf4j-api会默认使用no-operation implementation, 忽略所有的日志请求. 而不会因为找不到org.slf4j.impl.StaticLoggerBinder class而扔出NoCalssDefFoundError.  </li>
+</ul>
+<h4 id="基本法则"><a href="#基本法则" class="headerlink" title="基本法则"></a>基本法则</h4><ul>
+<li>embedded components 比如库或者框架不能声明依赖某一种SLF4J binding,而应该只依赖于slf4j-api.否则端用户就被迫依赖于某一种binding,这个和SLF4J的目的是相违背的.</li>
+<li>而对于普通的项目(非libraries,非frameworks),得益于maven的间接依赖,对于某种日志系统都可以通过一个简单的依赖声明</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt; </div><div class="line">&lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;</div><div class="line">&lt;artifactId&gt;logback-classic&lt;/artifactId&gt;</div><div class="line">&lt;version&gt;1.0.13&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt; </div><div class="line">&lt;groupId&gt;org.slf4j&lt;/groupId&gt;</div><div class="line">&lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;</div><div class="line">&lt;version&gt;1.7.22&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt; </div><div class="line">&lt;groupId&gt;org.slf4j&lt;/groupId&gt;</div><div class="line">&lt;artifactId&gt;slf4j-jdk14&lt;/artifactId&gt;</div><div class="line">&lt;version&gt;1.7.22&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h4 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h4><p>slf4j-api.jar要和SLF4J binding的版本保持一直, 例如 slf4j-api-1.7.22.jar对应 slf4j-simple-1.7.22.jar, 而不能用slf4j-simple-1.5.5.jar,否则就会造成问题.<br>而不同version的 slf4j-api 不会发生冲突</p>
+<h4 id="Mapped-Diagnostic-Context-MDC-支持"><a href="#Mapped-Diagnostic-Context-MDC-支持" class="headerlink" title="Mapped Diagnostic Context (MDC) 支持"></a>Mapped Diagnostic Context (MDC) 支持</h4><ul>
+<li>MDC 是应用程序提供的k-v pairs,日志框架维护并且插入到日志信息中. </li>
+<li>MDC 数据可以很大程度上帮助信息过滤或者触发某些行为.</li>
+<li>SLF4J 支持MDC,如果下层日志框架(logback,log4j)也支持,LSF4J会把工作delegate给下层框架的MDC,而如果下层logging框架不支持(j.u.l),SLF4J会自己存储MDC数据,之后需要用户自己编码来获取.</li>
+</ul>
+<h4 id="移花接木"><a href="#移花接木" class="headerlink" title="移花接木"></a>移花接木</h4><p>如果你的系统里面已经使用了某种日志框架, SLF4J为你提供了平滑过度的桥接jar包.</p>
+<ul>
+<li>从Jakarta Commons Logging(JCL) 平滑迁移至SLF4J  <ul>
+<li>jcl-over-slf4j.jar<br>只需要把commons-logging.jar 换成jcl-over-slf4j.jar</li>
+<li>同时这个可以快速且永久地解决commons logging相关的类加载问题.</li>
+<li>slf4j-jcl.jar  是SLF4J提供的JCL binding. 这个binding会把所有的logging calls 通过SLF4J delegate 给JCL.</li>
+<li>避免无限循环. 不能同时使用 jcl-over-slf4j.jar 和 slf4j-jcl.jar,因为前者会使JCL 把选择日志系统的职责交给SLF4J 但是后者会造成SLF4J 把职责交给JCL,造成一个infinite loop.</li>
+</ul>
+</li>
+<li>log4j-over-slf4j<br>  +log4j-over-slf4j.jar 和 slf4j-log4j12.jar  也不能同时使用</li>
+<li>jul-to-slf4j bridge<ul>
+<li>和上述两个模型 (reimplement log4j和commons-logging )不同的是, java.* namespace 下的package是不可替换的. 所以这里通过把LogRecord objects 翻译成对应的SLF4J equivalent. 这个翻译过程会带来很大的性能损失.</li>
+<li>jul-to-slf4j.jar 和 slf4j-jdk14.jar 也不可以同时使用.<img src="/2017/01/04/loggingSyestem1/legacy.png" alt="legacy.png" title="">   
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="SLF4J-官方文档的一个SLF4J优点总结"><a href="#SLF4J-官方文档的一个SLF4J优点总结" class="headerlink" title="SLF4J 官方文档的一个SLF4J优点总结"></a>SLF4J 官方文档的一个SLF4J优点总结</h4><table>
+<thead>
+<tr>
+<th>Advantage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Select your logging framework at deployment time</td>
+<td>The desired logging framework can be plugged in at deployment time by inserting the appropriate jar file (binding) on your class path.</td>
+</tr>
+<tr>
+<td>Fail-fast operation</td>
+<td>Due to the way that classes are loaded by the JVM, the framework binding will be verified automatically very early on. If SLF4J cannot find a binding on the class path it will emit a single warning message and default to no-operation implementation.</td>
+</tr>
+<tr>
+<td>Bindings for popular logging frameworks</td>
+<td>SLF4J supports popular logging frameworks, namely log4j, java.util.logging, Simple logging and NOP. The logback project supports SLF4J natively.</td>
+</tr>
+<tr>
+<td>Bridging legacy logging APIs</td>
+<td>The implementation of JCL over SLF4J, i.e jcl-over-slf4j.jar, will allow your project to migrate to SLF4J piecemeal, without breaking compatibility with existing software using JCL. Similarly, log4j-over-slf4j.jar and jul-to-slf4j modules will allow you to redirect log4j and respectively java.util.logging calls to SLF4J. See the page on Bridging legacy APIs for more details.</td>
+</tr>
+<tr>
+<td>Migrate your source code</td>
+<td>The slf4j-migrator utility can help you migrate your source to use SLF4J.</td>
+</tr>
+<tr>
+<td>Support for parameterized log messages</td>
+<td>All SLF4J bindings support parameterized log messages with significantly improved performance results.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="log4j"><a href="#log4j" class="headerlink" title="log4j"></a>log4j</h3><p>log4j是一套快而灵活的日志框架.(APIs)<br>可以通过配置文件在运行时动态配置. 对于它而言,日志可以分成不同的需求层次,并且可以有不同的destination.</p>
+<h4 id="3-main-components"><a href="#3-main-components" class="headerlink" title="3 main components:"></a>3 main components:</h4><ul>
+<li>loggers: Responsible for capturing logging information</li>
+<li>appenders:  Responsible for publishing logging information to vairious preferred destinations.</li>
+<li>layouts: Responsible for formatting logging information in different styles.  </li>
+</ul>
+<h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><h3 id="logback"><a href="#logback" class="headerlink" title="logback"></a>logback</h3><p>现在logback越来越占据了工业界的主要地位.</p>
+<h2 id="日志采集系统架构"><a href="#日志采集系统架构" class="headerlink" title="日志采集系统架构"></a>日志采集系统架构</h2><p>几乎所有的平台和系统每天哦读会产生大量的日志.一般是流式数据.对日志的分析可以为我们提供很多业务发展和系统监控所需的数据,所以需要一个日志采集系统来架起一座链接应用系统和日志分析系统的桥梁. 同时由于日志多是流式数据,希望这些系统可以支持近实时和离线的日志分析系统. 最后需要有高扩展性.</p>
+<p>####所有典型的日志系统具有三个基本组件:   </p>
+<ul>
+<li>agent: 封装数据源,将数据源中的数据发送给collector.</li>
+<li>collector: 接收多个agent的数据,并进行汇总后导入后端的storage中.</li>
+<li>storage: 中央存储系统,应该具有可扩展性和可靠性.</li>
+</ul>
+<p>####四个日志收集系统比较见下一篇博客  </p>
+<ul>
+<li>Facebook的scribe</li>
+<li>Cloudera的Flume</li>
+<li>LinkedIn的Kafka</li>
+<li>Apache的Chukwa</li>
+</ul>
+<h4 id="reference"><a href="#reference" class="headerlink" title="reference:"></a>reference:</h4><p>m.blog.csdn.net/article/details?id=21240315<br>SLF4J官方文档 <a href="http://www.slf4j.org/manual.html" target="_blank" rel="external">http://www.slf4j.org/manual.html</a><br>log4j官方文档</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat_qcode.jpg" alt="xubing wechat" style="width: 200px; max-width: 100%;"/>
+    <div>奇闻共欣赏,疑义相与析.欢迎来我的微信公众号</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/logging/" rel="tag"># logging</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/dynamicLinking1/" rel="next" title="<<情圣>>跨年之动态链接">
+                <i class="fa fa-chevron-left"></i> <<情圣>>跨年之动态链接
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="xubing" />
+          <p class="site-author-name" itemprop="name">xubing</p>
+          <p class="site-description motion-element" itemprop="description">Code And Art. Code Is Art.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从门面说起-Facade-design-pattern"><span class="nav-number">1.</span> <span class="nav-text">从门面说起 Facade design pattern</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挑选日志方案"><span class="nav-number">2.</span> <span class="nav-text">挑选日志方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SLF4J"><span class="nav-number">2.1.</span> <span class="nav-text">SLF4J</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特征"><span class="nav-number">2.1.1.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本法则"><span class="nav-number">2.1.2.</span> <span class="nav-text">基本法则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兼容性"><span class="nav-number">2.1.3.</span> <span class="nav-text">兼容性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mapped-Diagnostic-Context-MDC-支持"><span class="nav-number">2.1.4.</span> <span class="nav-text">Mapped Diagnostic Context (MDC) 支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移花接木"><span class="nav-number">2.1.5.</span> <span class="nav-text">移花接木</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SLF4J-官方文档的一个SLF4J优点总结"><span class="nav-number">2.1.6.</span> <span class="nav-text">SLF4J 官方文档的一个SLF4J优点总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log4j"><span class="nav-number">2.2.</span> <span class="nav-text">log4j</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-main-components"><span class="nav-number">2.2.1.</span> <span class="nav-text">3 main components:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#架构"><span class="nav-number">2.2.2.</span> <span class="nav-text">架构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logback"><span class="nav-number">2.3.</span> <span class="nav-text">logback</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志采集系统架构"><span class="nav-number">3.</span> <span class="nav-text">日志采集系统架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#reference"><span class="nav-number">3.0.1.</span> <span class="nav-text">reference:</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xubing</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
