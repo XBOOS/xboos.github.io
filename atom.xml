@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-05T13:41:49.000Z</updated>
+  <updated>2017-01-05T14:00:15.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/01/05/streaming1/"/>
     <id>http://yoursite.com/2017/01/05/streaming1/</id>
     <published>2017-01-05T13:38:35.000Z</published>
-    <updated>2017-01-05T13:41:49.000Z</updated>
+    <updated>2017-01-05T14:00:15.000Z</updated>
     
     <content type="html"><![CDATA[<img src="/2017/01/05/streaming1/leeches.jpg" alt="leeches.jpg" title="">  
 <hr>
@@ -83,8 +83,11 @@
 <li>Windowing by event time</li>
 </ul>
 <h4 id="Time-agnostic-与事件时间无关"><a href="#Time-agnostic-与事件时间无关" class="headerlink" title="Time-agnostic 与事件时间无关"></a>Time-agnostic 与事件时间无关</h4><ul>
-<li>Filtering, 要对全部数据做某种过滤处理,所以who cares 这个数据是什么时候被产生或者观察到的.</li>
-<li>Inner-joins 两个数据源中任何一个element到达时刻进行join, 即这种处理逻辑中是没有时间因素的. 但是outer join是不一样的,当一个数据源中的某个element到达的时候,你并不知另一个会不会到达,所以你必须去设定某个timeout,这样就引入了时间因素,也就是某种类型的windowing.<img src="/2017/01/05/streaming1/figure4.jpg" alt="figure4.jpg" title="">  
+<li><p>Filtering, 要对全部数据做某种过滤处理,所以who cares 这个数据是什么时候被产生或者观察到的.</p>
+<img src="/2017/01/05/streaming1/figure4.jpg" alt="figure4.jpg" title="">  
+</li>
+<li><p>Inner-joins 两个数据源中任何一个element到达时刻进行join, 即这种处理逻辑中是没有时间因素的. 但是outer join是不一样的,当一个数据源中的某个element到达的时候,你并不知另一个会不会到达,所以你必须去设定某个timeout,这样就引入了时间因素,也就是某种类型的windowing.</p>
+<img src="/2017/01/05/streaming1/figure5.jpg" alt="figure5.jpg" title="">  
 </li>
 </ul>
 <h4 id="Approximation-algorithms-近似算法"><a href="#Approximation-algorithms-近似算法" class="headerlink" title="Approximation algorithms  近似算法"></a>Approximation algorithms  近似算法</h4><ul>

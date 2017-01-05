@@ -101,8 +101,9 @@
 <meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure2.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure3.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure4.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure5.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/windowing.jpg">
-<meta property="og:updated_time" content="2017-01-05T13:41:49.000Z">
+<meta property="og:updated_time" content="2017-01-05T14:00:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="批处理之外的世界 -- 实时流计算框架调研0x00">
 <meta name="twitter:description" content="最近看了些流计算方面的资料,尤其今天看到的Streaming 101&amp;amp; 102 系列,颇有醍醐灌顶的感觉. 感觉之前听到的很多言论都属于夸夸其谈而不知其然,更莫论其所以然.
@@ -426,8 +427,11 @@
 <li>Windowing by event time</li>
 </ul>
 <h4 id="Time-agnostic-与事件时间无关"><a href="#Time-agnostic-与事件时间无关" class="headerlink" title="Time-agnostic 与事件时间无关"></a>Time-agnostic 与事件时间无关</h4><ul>
-<li>Filtering, 要对全部数据做某种过滤处理,所以who cares 这个数据是什么时候被产生或者观察到的.</li>
-<li>Inner-joins 两个数据源中任何一个element到达时刻进行join, 即这种处理逻辑中是没有时间因素的. 但是outer join是不一样的,当一个数据源中的某个element到达的时候,你并不知另一个会不会到达,所以你必须去设定某个timeout,这样就引入了时间因素,也就是某种类型的windowing.<img src="/2017/01/05/streaming1/figure4.jpg" alt="figure4.jpg" title="">  
+<li><p>Filtering, 要对全部数据做某种过滤处理,所以who cares 这个数据是什么时候被产生或者观察到的.</p>
+<img src="/2017/01/05/streaming1/figure4.jpg" alt="figure4.jpg" title="">  
+</li>
+<li><p>Inner-joins 两个数据源中任何一个element到达时刻进行join, 即这种处理逻辑中是没有时间因素的. 但是outer join是不一样的,当一个数据源中的某个element到达的时候,你并不知另一个会不会到达,所以你必须去设定某个timeout,这样就引入了时间因素,也就是某种类型的windowing.</p>
+<img src="/2017/01/05/streaming1/figure5.jpg" alt="figure5.jpg" title="">  
 </li>
 </ul>
 <h4 id="Approximation-algorithms-近似算法"><a href="#Approximation-algorithms-近似算法" class="headerlink" title="Approximation algorithms  近似算法"></a>Approximation algorithms  近似算法</h4><ul>
