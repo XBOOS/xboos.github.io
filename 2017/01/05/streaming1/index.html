@@ -1,0 +1,771 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="streaming,real-time-processing," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最近看了些流计算方面的资料,尤其今天看到的Streaming 101&amp;amp; 102 系列,颇有醍醐灌顶的感觉. 感觉之前听到的很多言论都属于夸夸其谈而不知其然,更莫论其所以然.
+背景当MapReduce横空出世的时候,凭借其强大的分布式批处理能力赢得了业界的广泛认可.但慢慢的,我们有了新的需求.
+
+现在越来越多的业务需要非常实时的数据,比如说twitter/微信朋友圈,微博点赞等等,实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="批处理之外的世界 -- 实时流计算框架调研0x00">
+<meta property="og:url" content="http://yoursite.com/2017/01/05/streaming1/index.html">
+<meta property="og:site_name" content="Coding 极简派">
+<meta property="og:description" content="最近看了些流计算方面的资料,尤其今天看到的Streaming 101&amp;amp; 102 系列,颇有醍醐灌顶的感觉. 感觉之前听到的很多言论都属于夸夸其谈而不知其然,更莫论其所以然.
+背景当MapReduce横空出世的时候,凭借其强大的分布式批处理能力赢得了业界的广泛认可.但慢慢的,我们有了新的需求.
+
+现在越来越多的业务需要非常实时的数据,比如说twitter/微信朋友圈,微博点赞等等,实">
+<meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/leeches.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure1.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure2.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure3.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/figure4.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/01/05/streaming1/windowing.jpg">
+<meta property="og:updated_time" content="2017-01-05T13:41:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="批处理之外的世界 -- 实时流计算框架调研0x00">
+<meta name="twitter:description" content="最近看了些流计算方面的资料,尤其今天看到的Streaming 101&amp;amp; 102 系列,颇有醍醐灌顶的感觉. 感觉之前听到的很多言论都属于夸夸其谈而不知其然,更莫论其所以然.
+背景当MapReduce横空出世的时候,凭借其强大的分布式批处理能力赢得了业界的广泛认可.但慢慢的,我们有了新的需求.
+
+现在越来越多的业务需要非常实时的数据,比如说twitter/微信朋友圈,微博点赞等等,实">
+<meta name="twitter:image" content="http://yoursite.com/2017/01/05/streaming1/leeches.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/05/streaming1/"/>
+
+
+
+
+
+  <title> 批处理之外的世界 -- 实时流计算框架调研0x00 | Coding 极简派 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?914d24e843e09e68db881b3c66dfada5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Coding 极简派</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/05/streaming1/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="xubing">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Coding 极简派">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                批处理之外的世界 -- 实时流计算框架调研0x00
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-05T21:38:35+08:00">
+                2017-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="/2017/01/05/streaming1/leeches.jpg" alt="leeches.jpg" title="">  
+<hr>
+<p>最近看了些流计算方面的资料,尤其今天看到的Streaming 101&amp; 102 系列,颇有醍醐灌顶的感觉. 感觉之前听到的很多言论都属于夸夸其谈而不知其然,更莫论其所以然.</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>当MapReduce横空出世的时候,凭借其强大的分布式批处理能力赢得了业界的广泛认可.<br>但慢慢的,我们有了新的需求.</p>
+<ul>
+<li>现在越来越多的业务需要非常实时的数据,比如说twitter/微信朋友圈,微博点赞等等,实时天气预测或者航班监测. Stream可以提供我们需要的短延时.</li>
+<li>巨大的,快速增长的没有边界的数据集在当代发展环境中是非常普遍的,许多系统都是适应于这种无限扩充的数据集.</li>
+<li>在数据到达的时候就进行处理,相当于把计算压力分布在不同的时间,帮助实现更加一致性和可预测的资源损耗</li>
+</ul>
+<h2 id="What-is-Streaming"><a href="#What-is-Streaming" class="headerlink" title="What is Streaming?"></a>What is Streaming?</h2><p>对于streaming有一个非常具体而简洁的解释: 一种为无限数据集设计的数据处理引擎.</p>
+<blockquote>
+<p>“ prefer to isolate the term streaming to a very specific meaning: a type of data processing engine that is designed with infinite data sets in mind. Nothing more. “</p>
+</blockquote>
+<h2 id="What-streaming-can-and-can’t-do"><a href="#What-streaming-can-and-can’t-do" class="headerlink" title="What streaming can and can’t do."></a>What streaming can and can’t do.</h2><h4 id="对于流计算的误区"><a href="#对于流计算的误区" class="headerlink" title="对于流计算的误区:"></a>对于流计算的误区:</h4><a id="more"></a>
+<p>很长一段时间里,流计算系统都只被局限在提供 低延时,不够准确/推测性 的结果,通常要依赖结合更加强档的批处理系统来提供最终版本的正确结果.<br>有一个例子是Twitter的 Nathan Marz (creator of Storm) 提出的 Lambda Architecture.<br>Lambda Architecture 的基本思想是同时运行一个streaming system和一个batch system, 来进行本质上相同的计算.<br>Streaming system 负责提供低延时,不够准确的结果(无论是因为使用了近似算法,或者因为streaming system本身没有保证足够的正确性). 经过一段时间之后,batch system 运行并且提供数据的最终正式版本. 这在当时是非常绝妙而且成功的一个解决方案,它很好的平衡了batch system所能够保证的准确性和streaming system 所带来的轻巧的低延时.<br>然而 Lambda system 的维护非常棘手, 你需要去构建,提供并且维护两个独立版本的数据通道(pipeline), 之后在最终对两种结果进行merge.<br>所以 Tyler Akidau 指出一个设计良好的streaming system 实际上提供了批处理功能的超集.</p>
+<blockquote>
+<p>“Quite honestly, I’d take things a step further. I would argue that well-designed streaming systems actually provide a strict superset of batch functionality. “ -Tyler Akidau</p>
+</blockquote>
+<p>并且他提出流计算想要在这场游戏中赢得batch,只需要做到两点:</p>
+<ol>
+<li><p>Correctness- this getes you pairty with batch.<br>在本质来说,correctness boils down to consistent storage.即一致性的存储. (这点在事务与分布式事务中详细探讨)</p>
+<p>Spark Streaming 很多年前第一次出现在大数据领域的时候,当时给黑暗的streaming 世界带来了一致性的一缕阳光.</p>
+</li>
+<li><p>Tools for reasoning about time — This gets you beyond batch.</p>
+</li>
+</ol>
+<p>two domains of time:  </p>
+<ul>
+<li>Event time, 时间发生时刻 occurr</li>
+<li>Processing time, 时间在系统中被观察到的时刻 observe</li>
+</ul>
+<p>最理想的情况是,时间发生时间和时间被观察处理的时间是相同的,即时间刚刚发生就被处理. 当然现实是残酷的, 二者的差距不仅不是0, 而且通常是许多因素的一个高可变函数,这些因素包括 输入的数据特征, 运行的引擎,以及硬件.   </p>
+<ul>
+<li>共享资源的局限性,比如说网络拥堵</li>
+<li>软件原因,比如分布式系统的逻辑</li>
+<li>数据本身的特征,包括key分布,吞吐量的变化, 或者无序性的变化.<br>(比如一个飞机上面的乘客,他们在飞机降落时刻关闭飞行模式).</li>
+</ul>
+<p>二者关系可见下图:  </p>
+<img src="/2017/01/05/streaming1/figure1.jpg" alt="figure1.jpg" title="">  
+<p>所以由于event occur time 和event process time关系的不可控性和易变性,会带来很多困难,比如说你根据event process time来把数据分块,那就并不能保证同一个even occur time区间发生的事件在处理时刻会落入一个时间窗口. 所以与其去追求一种特别完美的batch切分,不如去容忍这种不确定性, 只是我们要去量化这种”compieteness” 并且尽可能使它达到最优.</p>
+<h2 id="Data-processing-patterns-常见的数据处理模式"><a href="#Data-processing-patterns-常见的数据处理模式" class="headerlink" title="Data processing patterns 常见的数据处理模式"></a>Data processing patterns 常见的数据处理模式</h2><blockquote>
+<p>最激动人心的时刻来到了.</p>
+</blockquote>
+<h3 id="Bounded-data"><a href="#Bounded-data" class="headerlink" title="Bounded data."></a>Bounded data.</h3><p> 简单,直接.</p>
+<h3 id="Unbounded-data-batch"><a href="#Unbounded-data-batch" class="headerlink" title="Unbounded data -batch"></a>Unbounded data -batch</h3><p>由于批量计算引擎先于流计算引擎诞生,所以最初的无限数据集是可以用batch engines来计算的. 道理很简单,我们把unbounded data 切分成一个有限数据集的集合,就可以用批量计算来处理.</p>
+<h4 id="Fixed-windows"><a href="#Fixed-windows" class="headerlink" title="Fixed windows"></a>Fixed windows</h4><p>把数据源切分成等大的切片窗,之后将每个window作为分别独立的数据源进行处理. 比如对于日志的处理.<br>但可以想象的是,很多系统是有完整性的问题的(completeness), 比如同一个window里面的数据没有同时准备好? 他们产生于不同的无序时刻? 这就意味着你要做一些补偿,比如 将处理延迟到你确定所有需要的数据都收集齐全,或者在晚到的数据到达时再次处理这个window对应的batch.<br> <img src="/2017/01/05/streaming1/figure2.jpg" alt="figure2.jpg" title="">  </p>
+<h4 id="Sessions"><a href="#Sessions" class="headerlink" title="Sessions"></a>Sessions</h4><p> batch如果用来处理更加复杂的windowing策略,比如session,就会暴露更多的缺点. Sessions通常被定义为一段用户活跃的时间段,而由于缺少活动而中断(比如你掉线了).  所以sessions会有很大风险被切分到不同的batch. 你可以通过增大batch的覆盖范围来减少这种split,但同时也会增大延迟.<br> <img src="/2017/01/05/streaming1/figure3.jpg" alt="figure3.jpg" title="">  </p>
+<p>所以用批处理来处理unbounded data 是不理想的</p>
+<h3 id="Unbounded-data-streaming"><a href="#Unbounded-data-streaming" class="headerlink" title="Unbounded data - streaming"></a>Unbounded data - streaming</h3><p>在现实世界中, 我们除了需要处理无限多的数据外,通常还有以下特点:  </p>
+<ul>
+<li>Highly unordered with respect to event times,即event times 非常无序. 因此需要在处理管道中有某种基于时间的shuffle.</li>
+<li>Of varying event time skew,意思是说你无法保证在 Y时间之后一定会看到X时刻产生的数据.</li>
+</ul>
+<p>处理有这些特征的方法有四类:  </p>
+<ul>
+<li>Time-agnostic</li>
+<li>Approximation</li>
+<li>Windowing by processing time</li>
+<li>Windowing by event time</li>
+</ul>
+<h4 id="Time-agnostic-与事件时间无关"><a href="#Time-agnostic-与事件时间无关" class="headerlink" title="Time-agnostic 与事件时间无关"></a>Time-agnostic 与事件时间无关</h4><ul>
+<li>Filtering, 要对全部数据做某种过滤处理,所以who cares 这个数据是什么时候被产生或者观察到的.</li>
+<li>Inner-joins 两个数据源中任何一个element到达时刻进行join, 即这种处理逻辑中是没有时间因素的. 但是outer join是不一样的,当一个数据源中的某个element到达的时候,你并不知另一个会不会到达,所以你必须去设定某个timeout,这样就引入了时间因素,也就是某种类型的windowing.<img src="/2017/01/05/streaming1/figure4.jpg" alt="figure4.jpg" title="">  
+</li>
+</ul>
+<h4 id="Approximation-algorithms-近似算法"><a href="#Approximation-algorithms-近似算法" class="headerlink" title="Approximation algorithms  近似算法"></a>Approximation algorithms  近似算法</h4><ul>
+<li>比如 approximate Top-N, streaming K-means.</li>
+<li>算法很复杂</li>
+<li>逻辑有时间因素(事件处理时间)</li>
+<li>有近似的局限性</li>
+<li>overhead很低, 准确性要求不高时可以满足需求.</li>
+</ul>
+<h4 id="Windowing"><a href="#Windowing" class="headerlink" title="Windowing"></a>Windowing</h4><ul>
+<li>含义是把一个数据集(无论bounded或者unbounded),切分成有限个数的块.</li>
+<li><p>分成3类 见下图</p>
+<img src="/2017/01/05/streaming1/windowing.jpg" alt="windowing.jpg" title="">  
+</li>
+<li><p>event time windows 的两个缺点:</p>
+<ul>
+<li>Buffering: 由于延长的时间生命期,对数据提出了更多的buffering要求. 不过好在持久化存储是多数数据处理最便宜的需求资源. 因为更多情况下,并不需要整个数据输入在buffer中 比如sum,average, 而是可以通过增量计算的,从而把中间结果存在持久存储中.</li>
+<li>Completeness: 我们无法确定一个window的完整性,因为不知道某个数据什么时候到达.我们只能加入某些近似因素或者做补偿措施来保证严谨的完整性.</li>
+</ul>
+</li>
+</ul>
+<p>To be continued…    </p>
+<h2 id="References"><a href="#References" class="headerlink" title="References:"></a>References:</h2><p>[1] MillWheel: Fault-Tolerant Stream Processing at<br>Internet Scale<br>[2] Say goodbye to batch<br>[3] The world beyond batch: Streaming 101<br>A high-level tour of modern data-processing concepts.<br>By Tyler Akidau August 5, 2015</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/images/wechat_qcode.jpg" alt="xubing wechat" style="width: 200px; max-width: 100%;"/>
+    <div>奇闻共欣赏,疑义相与析.欢迎来我的微信公众号</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/streaming/" rel="tag"># streaming</a>
+          
+            <a href="/tags/real-time-processing/" rel="tag"># real-time-processing</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/04/loggingSyestem1/" rel="next" title="日志系统 - 福尔摩斯的线索(一)">
+                <i class="fa fa-chevron-left"></i> 日志系统 - 福尔摩斯的线索(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="xubing" />
+          <p class="site-author-name" itemprop="name">xubing</p>
+          <p class="site-description motion-element" itemprop="description">Code And Art. Code Is Art.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-Streaming"><span class="nav-number">2.</span> <span class="nav-text">What is Streaming?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-streaming-can-and-can’t-do"><span class="nav-number">3.</span> <span class="nav-text">What streaming can and can’t do.</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对于流计算的误区"><span class="nav-number">3.0.1.</span> <span class="nav-text">对于流计算的误区:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-processing-patterns-常见的数据处理模式"><span class="nav-number">4.</span> <span class="nav-text">Data processing patterns 常见的数据处理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bounded-data"><span class="nav-number">4.1.</span> <span class="nav-text">Bounded data.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unbounded-data-batch"><span class="nav-number">4.2.</span> <span class="nav-text">Unbounded data -batch</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Fixed-windows"><span class="nav-number">4.2.1.</span> <span class="nav-text">Fixed windows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sessions"><span class="nav-number">4.2.2.</span> <span class="nav-text">Sessions</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unbounded-data-streaming"><span class="nav-number">4.3.</span> <span class="nav-text">Unbounded data - streaming</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Time-agnostic-与事件时间无关"><span class="nav-number">4.3.1.</span> <span class="nav-text">Time-agnostic 与事件时间无关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Approximation-algorithms-近似算法"><span class="nav-number">4.3.2.</span> <span class="nav-text">Approximation algorithms  近似算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windowing"><span class="nav-number">4.3.3.</span> <span class="nav-text">Windowing</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">5.</span> <span class="nav-text">References:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xubing</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
