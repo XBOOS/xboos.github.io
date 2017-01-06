@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-05T14:00:15.000Z</updated>
+  <updated>2017-01-06T03:49:32.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Circular Array Loop</title>
+    <link href="http://yoursite.com/2017/01/06/leetcode457/"/>
+    <id>http://yoursite.com/2017/01/06/leetcode457/</id>
+    <published>2017-01-06T03:47:35.000Z</published>
+    <updated>2017-01-06T03:49:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>#457. Circular Array Loop   </p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.</p>
+<p>Example 1: Given the array [2, -1, 1, 2, 2], there is a loop, from index 0 -&gt; 2 -&gt; 3 -&gt; 0.</p>
+<p>Example 2: Given the array [-1, 2], there is no loop.</p>
+<p>Note: The given array is guaranteed to contain no element “0”.</p>
+<p>Can you do it in O(n) time complexity and O(1) space complexity?</p>
+<a id="more"></a>
+<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">circularArrayLoop</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n = nums.size();</div><div class="line">        <span class="keyword">if</span>(n&lt;<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> last = <span class="number">0</span>;</div><div class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; untouched;</div><div class="line">        <span class="keyword">bool</span> sign = nums[<span class="number">0</span>]&gt;<span class="number">0</span>; <span class="comment">//true for positive</span></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator it = untouched.begin();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</div><div class="line">            untouched.insert(it,i);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(!untouched.empty())&#123;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span>(untouched.find(idx)==untouched.end()&amp;&amp;idx!=last)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">            &#125; </div><div class="line">            <span class="keyword">if</span>(untouched.find(idx)==untouched.end()&amp;&amp;idx==last||sign!=(nums[idx]&gt;<span class="number">0</span>) )&#123;</div><div class="line">                idx = *untouched.begin();</div><div class="line">                sign = idx&gt;<span class="number">0</span>;</div><div class="line">                untouched.erase(untouched.begin());</div><div class="line">                last = idx;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="keyword">int</span> step = nums[idx];</div><div class="line">            untouched.erase(idx);</div><div class="line">            last = idx;</div><div class="line">            idx = (idx+step) % n;</div><div class="line">            idx = idx&gt;<span class="number">0</span>?idx:idx+n;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#457. Circular Array Loop   &lt;/p&gt;
+&lt;h2 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h2&gt;&lt;p&gt;You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.&lt;/p&gt;
+&lt;p&gt;Example 1: Given the array [2, -1, 1, 2, 2], there is a loop, from index 0 -&amp;gt; 2 -&amp;gt; 3 -&amp;gt; 0.&lt;/p&gt;
+&lt;p&gt;Example 2: Given the array [-1, 2], there is no loop.&lt;/p&gt;
+&lt;p&gt;Note: The given array is guaranteed to contain no element “0”.&lt;/p&gt;
+&lt;p&gt;Can you do it in O(n) time complexity and O(1) space complexity?&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>批处理之外的世界 -- 实时流计算框架调研0x00</title>

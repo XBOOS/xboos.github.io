@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,18 +84,19 @@
 
 
 
-<meta name="description" content="今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.类似于这种SQL (隐去公司业务相关性)我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表table lovelydog">
+<meta name="description" content="#457. Circular Array Loop   
+题目描述You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move bac">
 <meta property="og:type" content="article">
-<meta property="og:title" content="迷茫的引擎之递归查询">
-<meta property="og:url" content="http://yoursite.com/2016/12/31/recursiveQuery/index.html">
+<meta property="og:title" content="Circular Array Loop">
+<meta property="og:url" content="http://yoursite.com/2017/01/06/leetcode457/index.html">
 <meta property="og:site_name" content="Coding 极简派">
-<meta property="og:description" content="今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.类似于这种SQL (隐去公司业务相关性)我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表table lovelydog">
-<meta property="og:image" content="http://yoursite.com/2016/12/31/recursiveQuery/tworoads.jpg">
-<meta property="og:updated_time" content="2017-01-03T07:18:04.000Z">
+<meta property="og:description" content="#457. Circular Array Loop   
+题目描述You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move bac">
+<meta property="og:updated_time" content="2017-01-06T03:49:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="迷茫的引擎之递归查询">
-<meta name="twitter:description" content="今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.类似于这种SQL (隐去公司业务相关性)我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表table lovelydog">
-<meta name="twitter:image" content="http://yoursite.com/2016/12/31/recursiveQuery/tworoads.jpg">
+<meta name="twitter:title" content="Circular Array Loop">
+<meta name="twitter:description" content="#457. Circular Array Loop   
+题目描述You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move bac">
 
 
 
@@ -123,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/12/31/recursiveQuery/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/06/leetcode457/"/>
 
 
 
 
 
-  <title> 迷茫的引擎之递归查询 | Coding 极简派 </title>
+  <title> Circular Array Loop | Coding 极简派 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -260,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/recursiveQuery/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/06/leetcode457/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xubing">
@@ -284,7 +285,7 @@
             
             
               
-                迷茫的引擎之递归查询
+                Circular Array Loop
               
             
           </h1>
@@ -297,8 +298,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T11:46:26+08:00">
-                2016-12-31
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-06T11:47:35+08:00">
+                2017-01-06
               </time>
             
 
@@ -307,24 +308,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -351,68 +334,14 @@
       
 
       
-        <img src="/2016/12/31/recursiveQuery/tworoads.jpg" alt="tworoads.jpg" title="">   
-<p>今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.<br>类似于这种SQL (隐去公司业务相关性)<br>我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表<br>table <code>lovelydog</code><br><a id="more"></a>  </p>
-<table>
-<thead>
-<tr>
-<th>dogId</th>
-<th>name</th>
-<th>description</th>
-<th>intelligenceRank</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Labrador Retriever(拉布拉多)</td>
-<td>cheerful,gentle friendly,intelligent</td>
-<td>7</td>
-</tr>
-<tr>
-<td>2</td>
-<td>German Shepherd (德牧羊)</td>
-<td>courageous,intelligent,loyal,watchful</td>
-<td>3</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Golden Retriever (金毛)</td>
-<td>Intelligent,Kind,Friendly,Confident</td>
-<td>4</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Bulldog (沙皮)</td>
-<td>Frendly,docile,Willful,Gregarious</td>
-<td>77</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Beagle(比格)</td>
-<td>Gentle,Intelligent,Even Tempered,Determined</td>
-<td>72</td>
-</tr>
-</tbody>
-</table>
-<pre><code class="sql">
-<span class="keyword">delete</span> <span class="keyword">from</span> <span class="string">`lovelydog`</span> <span class="keyword">where</span> intelligenceRank 
-<span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">max</span>(intelligenceRank)<span class="keyword">from</span> <span class="string">`lovelydog`</span> )
-</code></pre>
-<p>非常简单,我从表中剔除最笨的一种狗狗.<br>但是执行数据变更的时候报出 MYSQL error “You can’t specify target table X for update in FROM clause”.<br>为什么流程不和我们想象的一样顺化,先从表中找出智力的最小值,然后把智力为该值的狗狗从表中delete.<br>google了一番发现了如下几个没有思考过的问题.</p>
-<h3 id="Recursive-Query-查询递归"><a href="#Recursive-Query-查询递归" class="headerlink" title="Recursive Query 查询递归"></a>Recursive Query 查询递归</h3><p>Mysql 引擎不允许我们在做DML(delete/insert/update)的时候在subquery里面去reference当前table. 这一点在mysql 的手册UPDATE下面最后一行有指出.”You cannot update a table and select from the same table in a subquery.”<br>为什么呢?   </p>
-<p>因为这里有一个query cycle.<br>在stackoverflow上有如下解释</p>
-<blockquote>
-<p>Think about the semantics. Either MySQL has to keep a copy of the table before the update started, or the inner query might use data that has already been updated by the query as it’s in progress. Neither of these side-effects is necessarily desirable, so the safest bet is to force you to specify what will happen using an extra table. – siride    </p>
-<p>This is because your update could be cyclical… what if updating that record causes something to happen which made the WHERE condition FALSE? You know that isn’t the case, but the engine doesn’t. There also could be opposing locks on the table in the operation.<br>所以这是一个reasonable design decision.   </p>
-</blockquote>
-<p>引擎在两难的困境不知道怎么做,所以把这个顺序决定权交在了user手中.</p>
-<h3 id="解决-创造新的视图"><a href="#解决-创造新的视图" class="headerlink" title="解决:创造新的视图"></a>解决:创造新的视图</h3><p>这个问题的解决方式是一个简单的变通,我们在subquery中创建一个新的视图,从而force engine来首先进行subquery.</p>
-<pre><code class="sql">
-<span class="keyword">delete</span> <span class="keyword">from</span> <span class="string">`lovelydog`</span> <span class="keyword">where</span> intelligenceRank 
-<span class="keyword">in</span> (<span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">max</span>(intelligenceRank)<span class="keyword">from</span> <span class="string">`lovelydog`</span> )<span class="keyword">AS</span> X )
-</code></pre>
-
+        <p>#457. Circular Array Loop   </p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.</p>
+<p>Example 1: Given the array [2, -1, 1, 2, 2], there is a loop, from index 0 -&gt; 2 -&gt; 3 -&gt; 0.</p>
+<p>Example 2: Given the array [-1, 2], there is no loop.</p>
+<p>Note: The given array is guaranteed to contain no element “0”.</p>
+<p>Can you do it in O(n) time complexity and O(1) space complexity?</p>
+<a id="more"></a>
+<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">circularArrayLoop</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> n = nums.size();</div><div class="line">        <span class="keyword">if</span>(n&lt;<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">        <span class="keyword">int</span> idx = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> last = <span class="number">0</span>;</div><div class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; untouched;</div><div class="line">        <span class="keyword">bool</span> sign = nums[<span class="number">0</span>]&gt;<span class="number">0</span>; <span class="comment">//true for positive</span></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator it = untouched.begin();</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</div><div class="line">            untouched.insert(it,i);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(!untouched.empty())&#123;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span>(untouched.find(idx)==untouched.end()&amp;&amp;idx!=last)&#123;</div><div class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">            &#125; </div><div class="line">            <span class="keyword">if</span>(untouched.find(idx)==untouched.end()&amp;&amp;idx==last||sign!=(nums[idx]&gt;<span class="number">0</span>) )&#123;</div><div class="line">                idx = *untouched.begin();</div><div class="line">                sign = idx&gt;<span class="number">0</span>;</div><div class="line">                untouched.erase(untouched.begin());</div><div class="line">                last = idx;</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="keyword">int</span> step = nums[idx];</div><div class="line">            untouched.erase(idx);</div><div class="line">            last = idx;</div><div class="line">            idx = (idx+step) % n;</div><div class="line">            idx = idx&gt;<span class="number">0</span>?idx:idx+n;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -438,19 +367,13 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/28/distributedTransaction1/" rel="next" title="你所以为,未必是事实 -论事务与分布式事务(一)">
-                <i class="fa fa-chevron-left"></i> 你所以为,未必是事实 -论事务与分布式事务(一)
+              <a href="/2017/01/05/streaming1/" rel="next" title="批处理之外的世界 -- 实时流计算框架调研0x00">
+                <i class="fa fa-chevron-left"></i> 批处理之外的世界 -- 实时流计算框架调研0x00
               </a>
             
           </div>
@@ -458,10 +381,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/01/dynamicLinking1/" rel="prev" title="<<情圣>>跨年之动态链接">
-                <<情圣>>跨年之动态链接 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -581,7 +500,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recursive-Query-查询递归"><span class="nav-number">1.</span> <span class="nav-text">Recursive Query 查询递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决-创造新的视图"><span class="nav-number">2.</span> <span class="nav-text">解决:创造新的视图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution1"><span class="nav-number">2.</span> <span class="nav-text">Solution1</span></a></li></ol></div>
             
 
           </div>
