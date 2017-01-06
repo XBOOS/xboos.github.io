@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-06T03:49:32.000Z</updated>
+  <updated>2017-01-06T03:50:35.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,10 +20,9 @@
     <link href="http://yoursite.com/2017/01/06/leetcode457/"/>
     <id>http://yoursite.com/2017/01/06/leetcode457/</id>
     <published>2017-01-06T03:47:35.000Z</published>
-    <updated>2017-01-06T03:49:32.000Z</updated>
+    <updated>2017-01-06T03:50:35.000Z</updated>
     
-    <content type="html"><![CDATA[<p>#457. Circular Array Loop   </p>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.</p>
+    <content type="html"><![CDATA[<h1 id="457-Circular-Array-Loop"><a href="#457-Circular-Array-Loop" class="headerlink" title="457. Circular Array Loop"></a>457. Circular Array Loop</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.</p>
 <p>Example 1: Given the array [2, -1, 1, 2, 2], there is a loop, from index 0 -&gt; 2 -&gt; 3 -&gt; 0.</p>
 <p>Example 2: Given the array [-1, 2], there is no loop.</p>
 <p>Note: The given array is guaranteed to contain no element “0”.</p>
@@ -33,8 +32,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;#457. Circular Array Loop   &lt;/p&gt;
-&lt;h2 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h2&gt;&lt;p&gt;You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.&lt;/p&gt;
+      &lt;h1 id=&quot;457-Circular-Array-Loop&quot;&gt;&lt;a href=&quot;#457-Circular-Array-Loop&quot; class=&quot;headerlink&quot; title=&quot;457. Circular Array Loop&quot;&gt;&lt;/a&gt;457. Circular Array Loop&lt;/h1&gt;&lt;h2 id=&quot;题目描述&quot;&gt;&lt;a href=&quot;#题目描述&quot; class=&quot;headerlink&quot; title=&quot;题目描述&quot;&gt;&lt;/a&gt;题目描述&lt;/h2&gt;&lt;p&gt;You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.&lt;/p&gt;
 &lt;p&gt;Example 1: Given the array [2, -1, 1, 2, 2], there is a loop, from index 0 -&amp;gt; 2 -&amp;gt; 3 -&amp;gt; 0.&lt;/p&gt;
 &lt;p&gt;Example 2: Given the array [-1, 2], there is no loop.&lt;/p&gt;
 &lt;p&gt;Note: The given array is guaranteed to contain no element “0”.&lt;/p&gt;
@@ -42,6 +40,10 @@
     
     </summary>
     
+      <category term="OJ" scheme="http://yoursite.com/categories/OJ/"/>
+    
+    
+      <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
     
   </entry>
   
