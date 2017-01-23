@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-23T09:09:17.000Z</updated>
+  <updated>2017-01-23T09:12:08.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/01/23/asynchronousBarrierSnapshot/"/>
     <id>http://yoursite.com/2017/01/23/asynchronousBarrierSnapshot/</id>
     <published>2017-01-23T09:00:23.000Z</published>
-    <updated>2017-01-23T09:09:17.000Z</updated>
+    <updated>2017-01-23T09:12:08.000Z</updated>
     
     <content type="html"><![CDATA[<img src="/2017/01/23/asynchronousBarrierSnapshot/sheeps.jpg" alt="sheeps.jpg" title="">  
 <p>当你第一次看断背山的时候,印象最深刻的是什么? 有没有可能是他们数羊的片段?? 哈哈,虽然肯定不是,但是今天的问题和数羊有关系. 如果一群羊都在跑, 你怎么数的清? (前提是没有标记)  </p>
@@ -56,7 +56,7 @@
 <p>轻量级的异步栅栏快照可以用来为数据流引擎提供容错机制,同时减小的存储空间需求.<br>因为ABS只需要保存一个无环拓扑中每个操作节点的处理状态(operator states).<br>Apache Flink 就使用了ABS的机制. </p>
 <p>当运行可以分为几个阶段的时候,快照是可以不包含每个task节点间的通道状态的.</p>
 <blockquote>
-<p>Stages divide the injected data streams and all associated into a series of possible executions where all prior inputs and generated outputs have been fully processed.<br>The set of operator states at the end of a stage reflects the whole execution history, therefore, it can<br>be solely used for a snapshot. The core idea behind our<br>algorithm is to create identical snapshots with staged<br>snapshotting while keeping a continuous data ingestion.</p>
+<p>Stages divide the injected data streams and all associated into a series of possible executions where all prior inputs and generated outputs have been fully processed.<br>The set of operator states at the end of a stage reflects the whole execution history, therefore, it can be solely used for a snapshot. The core idea behind our<br>algorithm is to create identical snapshots with staged<br>snapshotting while keeping a continuous data ingestion.</p>
 </blockquote>
 <p>这段话太经典.  </p>
 <p>可以通过切分源数据来划分阶段,每个集合的源数据也代表了其所需要的计算. 当上一个集合的输入数据以及输出都被完全处理,就代表上一个阶段结束了.   </p>
@@ -71,7 +71,7 @@
 <p><strong>看到这里,你会数羊了吗?</strong></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料:"></a>参考资料:</h2><p>Lightweight Asynchronous Snapshots for Distributed Dataflows<br>by Paris Carbone, Gyula Fora ,Stephan Ewen, Seif Haridi1, Kostas Tzoumas</p>
 <p><a href="http://vinoyang.com/2016/05/22/flink-data-streaming-fault-tolerancer/" target="_blank" rel="external">http://vinoyang.com/2016/05/22/flink-data-streaming-fault-tolerancer/</a></p>
-<p>Distributed Snapshots: Determining Global<br>States of Distributed Systems<br>K. MANI CHANDY<br>University of Texas at Austin<br>and<br>LESLIE LAMPORT<br>Stanford Research Institute </p>
+<p>Distributed Snapshots: Determining Global<br>States of Distributed Systems by<br>K. MANI CHANDY University of Texas at Austin<br>and LESLIE LAMPORT Stanford Research Institute </p>
 ]]></content>
     
     <summary type="html">
