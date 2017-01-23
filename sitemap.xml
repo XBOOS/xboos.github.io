@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/01/23/asynchronousBarrierSnapshot/</loc>
+    
+    <lastmod>2017-01-23T09:07:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/01/09/bikingday/</loc>
     
     <lastmod>2017-01-09T06:57:10.000Z</lastmod>
@@ -9,16 +16,16 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2017/01/06/leetcode457/</loc>
+    <loc>http://yoursite.com/2017/01/05/streaming1/</loc>
     
-    <lastmod>2017-01-06T03:51:59.000Z</lastmod>
+    <lastmod>2017-01-09T06:57:02.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2017/01/05/streaming1/</loc>
+    <loc>http://yoursite.com/2017/01/06/leetcode457/</loc>
     
-    <lastmod>2017-01-05T14:00:15.000Z</lastmod>
+    <lastmod>2017-01-06T03:51:59.000Z</lastmod>
     
   </url>
   
