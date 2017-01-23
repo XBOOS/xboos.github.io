@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-23T09:07:34.000Z</updated>
+  <updated>2017-01-23T09:09:17.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,12 +20,13 @@
     <link href="http://yoursite.com/2017/01/23/asynchronousBarrierSnapshot/"/>
     <id>http://yoursite.com/2017/01/23/asynchronousBarrierSnapshot/</id>
     <published>2017-01-23T09:00:23.000Z</published>
-    <updated>2017-01-23T09:07:34.000Z</updated>
+    <updated>2017-01-23T09:09:17.000Z</updated>
     
     <content type="html"><![CDATA[<img src="/2017/01/23/asynchronousBarrierSnapshot/sheeps.jpg" alt="sheeps.jpg" title="">  
 <p>当你第一次看断背山的时候,印象最深刻的是什么? 有没有可能是他们数羊的片段?? 哈哈,虽然肯定不是,但是今天的问题和数羊有关系. 如果一群羊都在跑, 你怎么数的清? (前提是没有标记)  </p>
 <p>我先表扬自己一下, 因为在我看来,数羊是对于下面这个问题的一个绝妙的比喻.<br>可能你已经想到一个方法: 那就是给整个羊群照一张照片,然后自己拿着照片回家慢慢数. 这个方法用术语来表示就是你得到了一个全局快照(global snapshot).通过这个快照,你保留了一个可以恢复可以处理的稳定状态.<br>然而问题又来了,羊太多,一张照片照不全该怎么办?你怎么保证同时照几张照片呢?   </p>
 <p>如果你说把羊全部打晕再数, 那我现在就打晕你.</p>
+<a id="more"></a>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>很久不更新了,最近在公司过了一段读论文的日子,为了下一version项目的实时计算部分阅读了很多流计算资料. 包括Apache著名的四大流计算框架. Apache Storm, Spark streaming,Apache Flink,Samza. 以及google刚刚联合apache基金会成功孵化出的大数据处理统一编程模型 Apache Beam( 原型为Google的Dataflow.) </p>
 <p>以下挑出一个有意思的点来分享. 这个是Apache Flink 消息传递机制保证和容错机制中确保每个消息被处理且仅被处理一次(所以不会出现消息丢失,同事又不会因为容错中消息重发而导致消息重复)的依赖原理.  </p>
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h3 id="无统一时钟"><a href="#无统一时钟" class="headerlink" title="无统一时钟"></a>无统一时钟</h3><img src="/2017/01/23/asynchronousBarrierSnapshot/bigben.jpg" alt="bigben.jpg" title="">  
@@ -76,7 +77,9 @@
     <summary type="html">
     
       &lt;img src=&quot;/2017/01/23/asynchronousBarrierSnapshot/sheeps.jpg&quot; alt=&quot;sheeps.jpg&quot; title=&quot;&quot;&gt;  
-&lt;p&gt;当你第一次看断背山的时候,印象最深刻的是什么? 有没有可能是他们数羊的片段?? 哈哈,虽然肯
+&lt;p&gt;当你第一次看断背山的时候,印象最深刻的是什么? 有没有可能是他们数羊的片段?? 哈哈,虽然肯定不是,但是今天的问题和数羊有关系. 如果一群羊都在跑, 你怎么数的清? (前提是没有标记)  &lt;/p&gt;
+&lt;p&gt;我先表扬自己一下, 因为在我看来,数羊是对于下面这个问题的一个绝妙的比喻.&lt;br&gt;可能你已经想到一个方法: 那就是给整个羊群照一张照片,然后自己拿着照片回家慢慢数. 这个方法用术语来表示就是你得到了一个全局快照(global snapshot).通过这个快照,你保留了一个可以恢复可以处理的稳定状态.&lt;br&gt;然而问题又来了,羊太多,一张照片照不全该怎么办?你怎么保证同时照几张照片呢?   &lt;/p&gt;
+&lt;p&gt;如果你说把羊全部打晕再数, 那我现在就打晕你.&lt;/p&gt;
     
     </summary>
     
