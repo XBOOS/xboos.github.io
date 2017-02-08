@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-08T06:07:01.000Z</updated>
+  <updated>2017-02-08T06:28:10.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,122 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>统一编程模型Apache Beam - 谈实时流计算框架0x02</title>
+    <link href="http://yoursite.com/2017/02/08/apachebeam/"/>
+    <id>http://yoursite.com/2017/02/08/apachebeam/</id>
+    <published>2017-02-08T06:07:36.000Z</published>
+    <updated>2017-02-08T06:28:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<img src="/2017/02/08/apachebeam/sanguo.jpg" alt="sanguo.jpg" title="">   
+<hr>
+<p>继 <strong>批处理之外的世界</strong> 和 <strong>如果让你去数羊-论分布式异步快照原理</strong><br>第三篇流计算相关的文章与Apache最新的Apache Beam相关.</p>
+<h2 id="分久必合"><a href="#分久必合" class="headerlink" title="分久必合"></a>分久必合</h2><p>Apache Beam 是Google 闭源项目开源趋势和整个开源大环境交错而诞生的.</p>
+<p>上个月10号, Apache软件基金会宣布,Apache Beam项目孵化成功,也成为Apache的顶级项目.当年Google以著名的三篇论文 Google File System,MapReduce,BigTable 开启了大数据处理的伟大时代,但是在工程实现上内部闭源. 精力旺盛的开发者们当然不会闲着, 在三篇论文的基础上诞生出整个开源 Hadoop 生态系统. 包括一系列流计算的框架,如上篇提到过得Apache Spark,Apache Storm,Apache Flink等.</p>
+<p>之后Google也走上了开源之路,其中一个大动作就是将Google Cloud Dataflow 贡献给Apache基金会,供整个开源社区添砖加瓦,即现在的Apache Beam.<br><a id="more"></a>  </p>
+<p>如下是这个优美的时间线:</p>
+<p>2014.12 Google releases the Cloud Dataflow Java SDK<br>2010 Flume Java(Beam’s API)<br>2013 MillWheel( Watermarks,exactly-once,Windows)<br>2016.2 Cloud Dataflow java SDK becomes Apache Beam</p>
+<h2 id="Apache-Beam是什么东东"><a href="#Apache-Beam是什么东东" class="headerlink" title="Apache Beam是什么东东?"></a>Apache Beam是什么东东?</h2><blockquote>
+<blockquote>
+<p> A unified programming model designed to provide efficient and portable data processing pipelines.  </p>
+</blockquote>
+</blockquote>
+<p>关键词有三点:</p>
+<ul>
+<li>unified: 用统一的编程模型,来适用于batch和streaming的情景.</li>
+<li>efficient: 在分布式环境下提供了workload balance和straggler问题的解决方案.</li>
+<li>portable: 用Beam 编程模型写出的数据处理pipeline可以在不同的引擎上运行,包括Apache Apex,Apache Flink,Apache Spark,和Google Cloud Dataflow.</li>
+</ul>
+<p>其实还包括一个特征:</p>
+<ul>
+<li>extensible:你可以写新的SDKs(写不同语言的接口给user用) ,IO connectors(当你有一个数据存储的良好实现时) ,transformation libraries.</li>
+</ul>
+<p>所以有了Apache Beam你需要的就不再是去甄选一系列数据计算框架, 其中你要付出很多学习代价而是用这个统一的编程模型设计出你需要的数据处理pipeline, 然后通过pipeline runner的翻译 ( pipeline runner是由不同的流计算引擎通过Beam给出的runner APi提供 ) 生成适合于你所选择的分布式数据处理后端的API, 从而可以运行在这些引擎上.</p>
+<p>论文中一个更加完整的定义:</p>
+<blockquote>
+<blockquote>
+<p>Allows for the calculation of event-time ordered results,windowed by features of the data themselves,over an unbounded,unordered data source,with correctness, latency, and cost tunable across a broad spectrum of combinations.<br>Separates the logical notion of data processing from the underlying physical implementation,allowing the choice of batch,micro-batch, or streaming engine to become one of simply correctness,latency and cost.</p>
+</blockquote>
+</blockquote>
+<h2 id="Apache-Beam提供的抽象"><a href="#Apache-Beam提供的抽象" class="headerlink" title="Apache Beam提供的抽象:"></a>Apache Beam提供的抽象:</h2><ul>
+<li>pipeline: 封装整个数据处理任务,从始至终. 所有Beam driver程序都需要创建一个pipeline.形状是一个 DAG (directed acyclic graph),点是数据,边是变换. </li>
+<li>PCollection: pipeline的每一步的输入和输出. </li>
+<li>Transform: 代表一个数据处理操作.</li>
+<li>IO Source and Sink: 读取或者写入外部数据源的封装.</li>
+</ul>
+<h2 id="当我们谈论Beam的时候-我们在谈论什么"><a href="#当我们谈论Beam的时候-我们在谈论什么" class="headerlink" title="当我们谈论Beam的时候,我们在谈论什么?"></a>当我们谈论Beam的时候,我们在谈论什么?</h2><p>可以从四个维度来理解,也是google用来阐述beam的方法:<br><img src="/2017/02/08/apachebeam/big4.jpg" alt="big4.jpg" title="">   </p>
+<p>1.<font color="Blue" size="6"> What </font><br>are you computing?  </p>
+<p>即我们的business logic是什么,我们的pipeline是用来完成什么事情.<br>打个比方,比如一个在线游戏,每个玩家产生分数,我们需要实时统计每个玩家的分数总和.</p>
+<p>类比于MapReduce 的map-shuffle-reduce 三阶段,Beam首先提供了两个原语- ParDo, groupByKey. ParDo类似于map,作用于单个element,groupByKey类似于Shuffle,将muti-map 装换成uni-map,针对于相同的key做一个集合,然后送去下游作reduce.  </p>
+<p>2.<font color="Red" size="6"> Where </font> in event time?   </p>
+<p>如果是去处理一个batch的数据,很简单, 用Beam无非是换了一套API来定义需要的数据处理. 类似去读一个文件,一个数据库.<br>但是当我们处理stream (流数据) 的时候就需要考虑时间的问题. 因为数据源源不断而且无序,我们作groupByKey的时候根本无法知道数据流什么时候完结,或者说根本不会完结. 所以必须根据逻辑时间做一个windowing.即根据时间把数据集切分成有限长度的chunks. Windowing方法可以看之前文章.</p>
+<p>3.<font color="Gold" size="6"> When </font> in processing time?  </p>
+<p>对时间需要作如下两个区分:  </p>
+<ul>
+<li>Event time: 事件发生时间</li>
+<li>Processing time: 事件处理时间</li>
+</ul>
+<p>再祭出这张经典的图.<br><img src="/2017/02/08/apachebeam/time.png" alt="time.png" title="">   </p>
+<p>在理想情况下,event time和processing time是重合的,中间没有skew. 但在真实世界中,由于通讯延时,pipeline的序列化,scheduling algorithms或者一些耗时的操作,都会造成skew是对于time的无序变化的函数     </p>
+<p>Watermark 是用来将skew可视化的一种比较好的方法,是一种global progress metrics.</p>
+<blockquote>
+<blockquote>
+<p>watermark是一种根据事件发生时间判定输入完整性的标识.一个标识值 time X 的水印的含义是” 时间X内发生/产生的数据都被观察到了”. 即它是一个lower bound.</p>
+<p>A watermark is a notion of input completeness with respect to event times.A watermark with a value of time X makes the statement: “all input data with event times less than X have been observed.” As such, watermarks act as a metric of progress when observing an unbounded data source with no known end.</p>
+</blockquote>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PCollection&lt;KV&lt;String,Integer&gt;&gt; scores = input</div><div class="line">    .apply(window.into(FixedWindows.of(Minites(<span class="number">2</span>))</div><div class="line">    .apply(Sum.integerPerkey())</div></pre></td></tr></table></figure>
+<img src="/2017/02/08/apachebeam/beamprocess.jpg" alt="beamprocess.jpg" title="">   
+<p>即我们要当watermark线穿过window的时候进行结果输出. watermark很显然是个heuristic 的值,很难准确的预估watermark.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.triggering(AtWatermark())</div></pre></td></tr></table></figure>
+<p>意味着系统当它认为它全部处理完了这个窗口的数据就输出结果.</p>
+<p>上面通过windowing加上watermark的辅助模型还是存在一些问题.<br>首先, 上面的情况还是需要等到数据完结,而数据流可能根本没有完结.<br>其次, watermark由于是heuristic的,必然存在准确性的问题.  </p>
+<p>可能too fast,那么就会出现在watermark之后出现的late data.可能too slow,因为watermark是全局进程metric, 如果一个data非常慢,那么整个pipeline可能被拖延.所以只用watermark作为窗口结果触发信号可能会带来全局结果的延迟.</p>
+<p>而且那么显然我们需要增加其它的触发装置.</p>
+<blockquote>
+<blockquote>
+<p>Triggers are the concept to control when data is emitted.<br>Dataflow Model.</p>
+<p>这是一段很经典的:</p>
+<p>A useful insights in addressing the completeness problem is that the Lambda Architecture effectively sidesteps the issue: it does not solve the completeness problem by somehow providing correct answers faster;it simply provide the best low-latency estimate of a result that the streaming pipeline can provide, with the promise of eventual consistency and correctness once the batch pipeline runs.If we want to do the same thing from within a single pipeline, then we will need to provide multiple answers (or panes) for any given window.</p>
+</blockquote>
+</blockquote>
+<p>Triggering 给我们带来更大的自主性而且和Windowing是互补的.  </p>
+<ul>
+<li>Windowing 决定where in event time对data进行分组以待后续处理</li>
+<li>Triggering 决定when in processing time groupings的结果输出作为panes.</li>
+</ul>
+<p>eg.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">.withEarlyFirings(AtPeriod(Minutes(<span class="number">1</span>)))</div><div class="line">.<span class="function">with <span class="title">LaterFirings</span><span class="params">(AtCount(<span class="number">1</span>)</span>)) <span class="comment">//每个来一个late data都要refine原结果.</span></span></div></pre></td></tr></table></figure>
+<p>4.<font color="LimeGreen" size="6"> How </font> do refinements relate?</p>
+<p>对于一个window的很多pane之间的关系,triggers system同时提供了不同refinement模式:  </p>
+<ul>
+<li>Discarding</li>
+<li>Accumulating</li>
+<li>Accumulating &amp; Retracting</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.accumulatingAndRetractingFiredPanes()))</div></pre></td></tr></table></figure>
+<p>可以通过如下一张图来看一系列概念和API加入之后对数据处理过程的影响:</p>
+<img src="/2017/02/08/apachebeam/beamprocess2.jpg" alt="beamprocess2.jpg" title="">   
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;img src=&quot;/2017/02/08/apachebeam/sanguo.jpg&quot; alt=&quot;sanguo.jpg&quot; title=&quot;&quot;&gt;   
+&lt;hr&gt;
+&lt;p&gt;继 &lt;strong&gt;批处理之外的世界&lt;/strong&gt; 和 &lt;strong&gt;如果让你去数羊-论分布式异步快照原理&lt;/strong&gt;&lt;br&gt;第三篇流计算相关的文章与Apache最新的Apache Beam相关.&lt;/p&gt;
+&lt;h2 id=&quot;分久必合&quot;&gt;&lt;a href=&quot;#分久必合&quot; class=&quot;headerlink&quot; title=&quot;分久必合&quot;&gt;&lt;/a&gt;分久必合&lt;/h2&gt;&lt;p&gt;Apache Beam 是Google 闭源项目开源趋势和整个开源大环境交错而诞生的.&lt;/p&gt;
+&lt;p&gt;上个月10号, Apache软件基金会宣布,Apache Beam项目孵化成功,也成为Apache的顶级项目.当年Google以著名的三篇论文 Google File System,MapReduce,BigTable 开启了大数据处理的伟大时代,但是在工程实现上内部闭源. 精力旺盛的开发者们当然不会闲着, 在三篇论文的基础上诞生出整个开源 Hadoop 生态系统. 包括一系列流计算的框架,如上篇提到过得Apache Spark,Apache Storm,Apache Flink等.&lt;/p&gt;
+&lt;p&gt;之后Google也走上了开源之路,其中一个大动作就是将Google Cloud Dataflow 贡献给Apache基金会,供整个开源社区添砖加瓦,即现在的Apache Beam.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://yoursite.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="streaming" scheme="http://yoursite.com/tags/streaming/"/>
+    
+  </entry>
   
   <entry>
     <title>选帝侯街56号  - 女性的自我觉醒</title>
