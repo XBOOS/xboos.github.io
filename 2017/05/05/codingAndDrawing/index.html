@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C,tools," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="尚未解决用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.可以打断点,但是run 会出现如下的warning
-123456warning: Could not open OSO archive file &quot;/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/l">
+<meta name="description" content="最近一个实时计算的项目比较紧， 很久不更新了，有点关于进阶的小感悟， 记在下面。 
+编程今天看到池大大的一篇推送(MacTalk公众号的主人 池建强)– &amp;lt;&amp;lt;程序员怎么会不知道C10k问题呢?&amp;gt;&amp;gt;其实我真的不知道这个术语。 而且我是一个程序员。用自己的话回忆下池大大的扫盲教程: C10k 的意思是Client 10000，也就是同时有10000个客户端连接到服务器。 这种情">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GDB 7.7版本以上OSO archive file问题">
-<meta property="og:url" content="http://yoursite.com/2015/10/21/gdb-upgrade/index.html">
+<meta property="og:title" content="从编程和画画谈进阶及两个世界的碰撞">
+<meta property="og:url" content="http://yoursite.com/2017/05/05/codingAndDrawing/index.html">
 <meta property="og:site_name" content="Coding 极简派">
-<meta property="og:description" content="尚未解决用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.可以打断点,但是run 会出现如下的warning
-123456warning: Could not open OSO archive file &quot;/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/l">
-<meta property="og:updated_time" content="2017-01-04T13:24:36.000Z">
+<meta property="og:description" content="最近一个实时计算的项目比较紧， 很久不更新了，有点关于进阶的小感悟， 记在下面。 
+编程今天看到池大大的一篇推送(MacTalk公众号的主人 池建强)– &amp;lt;&amp;lt;程序员怎么会不知道C10k问题呢?&amp;gt;&amp;gt;其实我真的不知道这个术语。 而且我是一个程序员。用自己的话回忆下池大大的扫盲教程: C10k 的意思是Client 10000，也就是同时有10000个客户端连接到服务器。 这种情">
+<meta property="og:updated_time" content="2017-05-05T04:42:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GDB 7.7版本以上OSO archive file问题">
-<meta name="twitter:description" content="尚未解决用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.可以打断点,但是run 会出现如下的warning
-123456warning: Could not open OSO archive file &quot;/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/l">
+<meta name="twitter:title" content="从编程和画画谈进阶及两个世界的碰撞">
+<meta name="twitter:description" content="最近一个实时计算的项目比较紧， 很久不更新了，有点关于进阶的小感悟， 记在下面。 
+编程今天看到池大大的一篇推送(MacTalk公众号的主人 池建强)– &amp;lt;&amp;lt;程序员怎么会不知道C10k问题呢?&amp;gt;&amp;gt;其实我真的不知道这个术语。 而且我是一个程序员。用自己的话回忆下池大大的扫盲教程: C10k 的意思是Client 10000，也就是同时有10000个客户端连接到服务器。 这种情">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2015/10/21/gdb-upgrade/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/05/05/codingAndDrawing/"/>
 
 
 
 
 
-  <title> GDB 7.7版本以上OSO archive file问题 | Coding 极简派 </title>
+  <title> 从编程和画画谈进阶及两个世界的碰撞 | Coding 极简派 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -261,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/21/gdb-upgrade/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/05/codingAndDrawing/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="xubing">
@@ -285,7 +285,7 @@
             
             
               
-                GDB 7.7版本以上OSO archive file问题
+                从编程和画画谈进阶及两个世界的碰撞
               
             
           </h1>
@@ -298,8 +298,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-21T19:04:10+08:00">
-                2015-10-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-05T12:40:39+08:00">
+                2017-05-05
               </time>
             
 
@@ -334,13 +334,31 @@
       
 
       
-        <h1 id="尚未解决"><a href="#尚未解决" class="headerlink" title="尚未解决"></a>尚未解决</h1><p>用homebrew 直接install了最新版本的gdb(7.10),在用来debug的时候却遭遇了问题.<br>可以打断点,但是run 会出现如下的warning</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/corecrypto/corecrypto-233.1.2~26/Symbols/BuiltProducts/libcorecrypto_static.a"</span></div><div class="line">warning: `/BinaryCache/coreTLS/coreTLS-35.1.2~1/Objects/coretls.build/coretls.build/Objects-normal/x86_64/system_coretls_vers.o<span class="string">': can'</span>t open to <span class="built_in">read</span> symbols: No such file or directory.</div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_ciphersuites.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_handshake.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_record.a"</span></div><div class="line">warning: Could not open OSO archive file <span class="string">"/BinaryCache/coreTLS/coreTLS-35.1.2~1/Symbols/BuiltProducts/libcoretls_stream_parser.a"</span></div></pre></td></tr></table></figure>
-<p>google了一番, 这个问题尚未得到解决,在github上被推成upstream问题,可以去<a href="https://github.com/Homebrew/homebrew-dupes/issues/357" target="_blank" rel="external">这里</a>看这个问题讨论,可以subscribe等待之后的解决情况.</p>
-<p>如果还想用gdb只有downgrade回去7.7版本了</p>
-<h1 id="brew-install-old-version-of-gdb"><a href="#brew-install-old-version-of-gdb" class="headerlink" title="brew install old version of gdb"></a>brew install old version of gdb</h1><p>它的ruby脚本在<a href="https://gist.github.com/ymyzk/10ad2b74af9235eddb2c" target="_blank" rel="external">这里</a></p>
-<p>可以直接如下安装 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install https://gist.githubusercontent.com/ymyzk/10ad2b74af9235eddb2c/raw/9d0b9734ea01f9753a5f54dd221acd99ee7e53e8/gdb.rb</div></pre></td></tr></table></figure>
+        <p>最近一个实时计算的项目比较紧， 很久不更新了，有点关于进阶的小感悟， 记在下面。 </p>
+<h2 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h2><p>今天看到池大大的一篇推送(MacTalk公众号的主人 池建强)– &lt;&lt;程序员怎么会不知道C10k问题呢?&gt;&gt;<br>其实我真的不知道这个术语。 而且我是一个程序员。<br>用自己的话回忆下池大大的扫盲教程: C10k 的意思是Client 10000，也就是同时有10000个客户端连接到服务器。 这种情况下服务器很难正常提供服务。 最开始的限制是由于Unix开发的file descriptor 只是一个有符号的16位整数 [ 所以进程的数量收到这个数据结构所能表达的个数限制 ] 。 其次便是内存消耗的问题， 虽然有虚拟内存的帮助 [ 使得程序共享的内存可以多于实际上的物理内存] ，  但同时由于有些请求需要的数据降在了磁盘， 带来了很大的性能损失。<br>如今的解决方式是”通过单个进程或者线程服务于多个客户端请求， 通过异步编程和时间触发机制替换轮询， IO采用非阻塞的方式， 减少不必要的性能损耗。]<br>池大还提到了<strong>最弱连接</strong>的概念， 也是ruby的创始人 松本行弘先生 提到的 </p>
+<blockquote>
+<blockquote>
+<p>锁链整体的强度是取决于最弱一环。<br>这个和木桶效应有点相似， 但是对于系统的整个链路来讲， 这个比方显得更加形象和贴切。 即 整个链路的任何一个环节都要满足C10k的 要求。 </p>
+</blockquote>
+</blockquote>
+<p>其实， 在学生时代， 我们总是追求一个逻辑的复杂度来判定自己写的程序够不够diao。 而入职到现在的将近八个月的时间， 加上阿里高并发， 大数据的环境， 也慢慢对体量对于系统/程序的要求有了感受。 当初简单的单机mysql不够用了， 就分库分表， 那么然后诞生出的大量一致性/性能/可用性方面的问题就亟待解决。 </p>
+<blockquote>
+<blockquote>
+<p>业务的发展往往对技术有强大的拉动作用。 </p>
+</blockquote>
+</blockquote>
+<p>就像这个C10k的讨论， 我们也会有类似的感受 [ 高并发带来的系统需求， 分布式架构 ] ， 但是这么一个清晰明确的定义再加上对系统发展史的回顾仿佛打开了新世界的大门。 我们会不自觉的回首之前的感受， 有没有属于这个问题域的， 以后也会把这个作为已有知识去连接知识点， 解决问题。</p>
+<p>于是有了进阶。 </p>
+<p>前几天老大也和我聊了聊， 带来一些思考。 其实一个大环境可以带给你很多， 很大程度上超越自学带来的收益， 不论是可学技术的深度广度还是自我知识展示分享的机会。 </p>
+<h2 id="画画"><a href="#画画" class="headerlink" title="画画"></a>画画</h2><p>捡起画笔有一个月了， 从基础素描开始，每周在画室画一天， 凭着自己所谓的一点天赋， 进步也还比较快。<br>画室的老师特别逗， 这种逗其实是特别智慧， 因为现在的社会日常多戏谑玩笑， 但老师总有一种特别严肃的认真， 一本正经的和你谈艺术，却是有些逗。<br>我们画室还有一个群， 里面藏匿着各种绘画大神。当你觉得画得有点像， 甚至有些沾沾自喜的时候， 看到大家的作业， 就仿佛一个hello world程序员遭遇了C10k的问题。 其实在画得像不像的背后， 抛却这些光影， 抓型，明暗变化， 质感纹理 的表现技巧和熟练手法， 还有大量的对美的欣赏感悟， 对艺术史的理解， 对历史上一众美术大师一生经历所闻。<br>一个极其孤独的人， 他也可能画出异常鲜艳的作品， 归于渴望， 也可能画出非常黑暗的作品， 对当前生活或回忆的表达， 让你看到就觉得抑郁。<br>画室的一个朋友临摹梵高的&lt;&lt;夕阳下的播种者&gt;&gt; ， 不惜读了梵高传， 读了梵高的书信集， 再了解到影响梵高的前辈艺术家。 感受到了梵高的境遇和感情， 有了超越历史的心灵相通， 也许就明白了梵高的夕阳为什么以波浪形的金色笔触铺满了画面的一半。 不过我现在也还是不明白。。</p>
+<p>不再囿于形， 于是有了进阶。</p>
+<p>跟周围一群同样的程序员待久了， 难免忘了别的世界。 有人在群里问老师怎么样可以补充点艺术鉴赏的知识， 老师回</p>
+<blockquote>
+<blockquote>
+<p>带上电热水壶和插座转换器还有面包去欧洲。<br>，<br>不得不说哈哈真是精辟了。大概书上的东西是太干瘪了吧。 </p>
+</blockquote>
+</blockquote>
+<h2 id="殊途同归"><a href="#殊途同归" class="headerlink" title="殊途同归"></a>殊途同归</h2><p>我们总是需要， 其实也总会遇到 一些天才大神或者经验老者 的刻意提醒或者无意点拨， 从而可以站在巨人的肩膀上…</p>
 
       
     </div>
@@ -367,21 +385,13 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/C/" rel="tag"># C</a>
-          
-            <a href="/tags/tools/" rel="tag"># tools</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/04/bairixing/" rel="next" title="CRLF vs LF">
-                <i class="fa fa-chevron-left"></i> CRLF vs LF
+              <a href="/2017/02/08/apachebeam/" rel="next" title="统一编程模型Apache Beam - 谈实时流计算框架0x02">
+                <i class="fa fa-chevron-left"></i> 统一编程模型Apache Beam - 谈实时流计算框架0x02
               </a>
             
           </div>
@@ -389,10 +399,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/10/24/fibonacci/" rel="prev" title="邂逅Fibonacci">
-                邂逅Fibonacci <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -512,7 +518,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#尚未解决"><span class="nav-number">1.</span> <span class="nav-text">尚未解决</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#brew-install-old-version-of-gdb"><span class="nav-number">2.</span> <span class="nav-text">brew install old version of gdb</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编程"><span class="nav-number">1.</span> <span class="nav-text">编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#画画"><span class="nav-number">2.</span> <span class="nav-text">画画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#殊途同归"><span class="nav-number">3.</span> <span class="nav-text">殊途同归</span></a></li></ol></div>
             
 
           </div>
