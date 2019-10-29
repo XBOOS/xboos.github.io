@@ -1,1920 +1,327 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="default">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="Code And Art. Code Is Art.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Coding 极简派">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Coding 极简派">
-<meta property="og:description" content="Code And Art. Code Is Art.">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Coding 极简派">
-<meta name="twitter:description" content="Code And Art. Code Is Art.">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"always"},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://yoursite.com/"/>
-
-
-
-
-
-  <title> Coding 极简派 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
-
-  
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?914d24e843e09e68db881b3c66dfada5";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
+<!DOCTYPE HTML>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Hi, Jon Here. Please DELETE the two <script> tags below if you use this HTML, otherwise my analytics will track your page -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-7580334-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-7580334-2');
   </script>
 
-
-
-
-
-
-
-
+  <title>Jon Barron</title>
   
+  <meta name="author" content="Bing Xu">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   
-    
-  
-
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
-
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Coding 极简派</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-  <p class="site-subtitle"></p>
-</div>
-
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/14/codingAndDrawing/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/14/codingAndDrawing/" itemprop="url">
-                  从编程和画画谈进阶及两个世界的碰撞
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-14T21:40:39+08:00">
-                2017-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近一个实时计算的项目比较紧， 很久不更新了，有点关于进阶的小感悟， 记在下面。 </p>
-<h2 id="编程"><a href="#编程" class="headerlink" title="编程"></a>编程</h2><p>今天看到池大大的一篇推送(MacTalk公众号的主人 池建强)– &lt;&lt;程序员怎么会不知道C10k问题呢?&gt;&gt;<br>其实我真的不知道这个术语。 而且我是一个程序员。<br>用自己的话回忆下池大大的扫盲教程: C10k 的意思是Client 10000，也就是同时有10000个客户端连接到服务器。 这种情况下服务器很难正常提供服务。 最开始的限制是由于Unix开发的file descriptor 只是一个有符号的16位整数 [ 所以进程的数量收到这个数据结构所能表达的个数限制 ] 。 其次便是内存消耗的问题， 虽然有虚拟内存的帮助 [ 使得程序共享的内存可以多于实际上的物理内存] ，  但同时由于有些请求需要的数据降在了磁盘， 带来了很大的性能损失。<br>如今的解决方式是”通过单个进程或者线程服务于多个客户端请求， 通过异步编程和时间触发机制替换轮询， IO采用非阻塞的方式， 减少不必要的性能损耗。]<br>池大还提到了<strong>最弱连接</strong>的概念， 也是ruby的创始人 松本行弘先生 提到的 </p>
-<blockquote>
-<blockquote>
-<p>锁链整体的强度是取决于最弱一环。<br>这个和木桶效应有点相似， 但是对于系统的整个链路来讲， 这个比方显得更加形象和贴切。 即 整个链路的任何一个环节都要满足C10k的 要求。 </p>
-</blockquote>
-</blockquote>
-<p>其实， 在学生时代， 我们总是追求一个逻辑的复杂度来判定自己写的程序够不够diao。 而入职到现在的将近八个月的时间， 加上阿里高并发， 大数据的环境， 也慢慢对体量对于系统/程序的要求有了感受。 当初简单的单机mysql不够用了， 就分库分表， 那么然后诞生出的大量一致性/性能/可用性方面的问题就亟待解决。 </p>
-<blockquote>
-<blockquote>
-<p>业务的发展往往对技术有强大的拉动作用。 </p>
-</blockquote>
-</blockquote>
-<p>就像这个C10k的讨论， 我们也会有类似的感受 [ 高并发带来的系统需求， 分布式架构 ] ， 但是这么一个清晰明确的定义再加上对系统发展史的回顾仿佛打开了新世界的大门。 我们会不自觉的回首之前的感受， 有没有属于这个问题域的， 以后也会把这个作为已有知识去连接知识点， 解决问题。</p>
-<p>于是有了进阶。 </p>
-<p>前几天老大也和我聊了聊， 带来一些思考。 其实一个大环境可以带给你很多， 很大程度上超越自学带来的收益， 不论是可学技术的深度广度还是自我知识展示分享的机会。 </p>
-<img src="/2017/03/14/codingAndDrawing/mygirl.jpg" alt="mygirl.jpg" title="">  
-<h2 id="画画"><a href="#画画" class="headerlink" title="画画"></a>画画</h2><p>捡起画笔有一个月了， 从基础素描开始，每周在画室画一天， 凭着自己所谓的一点天赋， 进步也还比较快。<br>画室的老师特别逗， 这种逗其实是特别智慧， 因为现在的社会日常多戏谑玩笑， 但老师总有一种特别严肃的认真， 一本正经的和你谈艺术，却是有些逗。<br>我们画室还有一个群， 里面藏匿着各种绘画大神。当你觉得画得有点像， 甚至有些沾沾自喜的时候， 看到大家的作业， 就仿佛一个hello world程序员遭遇了C10k的问题。 其实在画得像不像的背后， 抛却这些光影， 抓型，明暗变化， 质感纹理 的表现技巧和熟练手法， 还有大量的对美的欣赏感悟， 对艺术史的理解， 对历史上一众美术大师一生经历所闻。<br>一个极其孤独的人， 他也可能画出异常鲜艳的作品， 归于渴望， 也可能画出非常黑暗的作品， 对当前生活或回忆的表达， 让你看到就觉得抑郁。<br><img src="/2017/03/14/codingAndDrawing/sun.jpg" alt="sun.jpg" title="">  </p>
-<p>画室的一个朋友临摹梵高的&lt;&lt;夕阳下的播种者&gt;&gt; ， 不惜读了梵高传， 读了梵高的书信集， 再了解到影响梵高的前辈艺术家。 感受到了梵高的境遇和感情， 有了超越历史的心灵相通， 也许就明白了梵高的夕阳为什么以波浪形的金色笔触铺满了画面的一半。 不过我现在也还是不明白。。</p>
-<p>不再囿于形， 于是有了进阶。</p>
-<p>跟周围一群同样的程序员待久了， 难免忘了别的世界。 有人在群里问老师怎么样可以补充点艺术鉴赏的知识， 老师回</p>
-<blockquote>
-<blockquote>
-<p>带上电热水壶和插座转换器还有面包去欧洲。<br>，<br>不得不说哈哈真是精辟了。大概书上的东西是太干瘪了吧。 </p>
-</blockquote>
-</blockquote>
-<h2 id="殊途同归"><a href="#殊途同归" class="headerlink" title="殊途同归"></a>殊途同归</h2><p>我们总是需要， 其实也总会遇到 一些天才大神或者经验老者 的刻意提醒或者无意点拨， 从而可以站在巨人的肩膀上…</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/08/apachebeam/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/08/apachebeam/" itemprop="url">
-                  统一编程模型Apache Beam - 谈实时流计算框架0x02
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-08T14:07:36+08:00">
-                2017-02-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="/2017/02/08/apachebeam/sanguo.jpg" alt="sanguo.jpg" title="">   
-<hr>
-<p>继 <strong>批处理之外的世界</strong> 和 <strong>如果让你去数羊-论分布式异步快照原理</strong><br>第三篇流计算相关的文章与Apache最新的Apache Beam相关.</p>
-<h2 id="分久必合"><a href="#分久必合" class="headerlink" title="分久必合"></a>分久必合</h2><p>Apache Beam 是Google 闭源项目开源趋势和整个开源大环境交错而诞生的.</p>
-<p>上个月10号, Apache软件基金会宣布,Apache Beam项目孵化成功,也成为Apache的顶级项目.当年Google以著名的三篇论文 Google File System,MapReduce,BigTable 开启了大数据处理的伟大时代,但是在工程实现上内部闭源. 精力旺盛的开发者们当然不会闲着, 在三篇论文的基础上诞生出整个开源 Hadoop 生态系统. 包括一系列流计算的框架,如上篇提到过得Apache Spark,Apache Storm,Apache Flink等.</p>
-<p>之后Google也走上了开源之路,其中一个大动作就是将Google Cloud Dataflow 贡献给Apache基金会,供整个开源社区添砖加瓦,即现在的Apache Beam.<br>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/02/08/apachebeam/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/27/movieView-xuandihoujie/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/27/movieView-xuandihoujie/" itemprop="url">
-                  选帝侯街56号  - 女性的自我觉醒
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-27T13:55:44+08:00">
-                2017-01-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Life/" itemprop="url" rel="index">
-                    <span itemprop="name">Life</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="/2017/01/27/movieView-xuandihoujie/xuandihou00.jpg" alt="xuandihou00.jpg" title="">   
-<p>昨天和史聊的时候说了句最近都没有好看的电影，史于是给我推荐了些。以史的博学程度和审美品味，这些无疑都是好剧，所以随便从其一下手。</p>
-<p>一部德国迷你剧《 选帝侯街56号 》，共有三集，每集长大约一个半小时。 </p>
-<h2 id="从勃兰登堡选帝侯说起"><a href="#从勃兰登堡选帝侯说起" class="headerlink" title="从勃兰登堡选帝侯说起"></a>从勃兰登堡选帝侯说起</h2><p>故事发生在50年代的德国。<br>我们熟悉的普鲁士的前身是中世纪欧洲的一个公国 - 勃兰登堡公国。后来发展为近代德国。<br>这段历史有点长，但也有点意思。<br>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/27/movieView-xuandihoujie/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/23/asynchronousBarrierSnapshot/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/23/asynchronousBarrierSnapshot/" itemprop="url">
-                  如果让你去数羊 -- 谈分布式异步快照原理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-23T17:00:23+08:00">
-                2017-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="/2017/01/23/asynchronousBarrierSnapshot/sheeps.jpg" alt="sheeps.jpg" title="">  
-<p>当你第一次看断背山的时候,印象最深刻的是什么? 有没有可能是他们数羊的片段?? 哈哈,虽然肯定不是,但是今天的问题和数羊有关系. 如果一群羊都在跑, 你怎么数的清? (前提是没有标记)  </p>
-<p>我先表扬自己一下, 因为在我看来,数羊是对于下面这个问题的一个绝妙的比喻.<br>可能你已经想到一个方法: 那就是给整个羊群照一张照片,然后自己拿着照片回家慢慢数. 这个方法用术语来表示就是你得到了一个全局快照(global snapshot).通过这个快照,你保留了一个可以恢复可以处理的稳定状态.<br>然而问题又来了,羊太多,一张照片照不全该怎么办?你怎么保证同时照几张照片呢?   </p>
-<p>如果你说把羊全部打晕再数, 那我现在就打晕你.</p>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/23/asynchronousBarrierSnapshot/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/09/bikingday/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/09/bikingday/" itemprop="url">
-                  精疲力竭的骑行一天
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-09T14:50:38+08:00">
-                2017-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>记一天流水帐.   </p>
-<p>杭州在经历连续将近一个月淅淅沥沥的风雨天气和似雾似霾的迷蒙混沌之后,在昨天终于放晴,而且几乎重现了G20时期的蓝天. 所以决定去骑行,路线是从仓前出发,经过西溪湿地去往西湖再返航.  </p>
-<p>早晨吃了粥和包子,吃得很撑,所以中午不需要吃饭了.<br>我们大概中上午的时候出发, 绕小路前进,路上的景色就极好. [图],沿途还发现了几个新开不久的小公园.<br> <img src="/2017/01/09/bikingday/xihu1.jpg" alt="xihu1.jpg" title="">   </p>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/09/bikingday/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/06/leetcode457/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/06/leetcode457/" itemprop="url">
-                  Circular Array Loop
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-06T11:47:35+08:00">
-                2017-01-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OJ/" itemprop="url" rel="index">
-                    <span itemprop="name">OJ</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="leetcode457-Circular-Array-Loop"><a href="#leetcode457-Circular-Array-Loop" class="headerlink" title="leetcode457. Circular Array Loop"></a>leetcode457. Circular Array Loop</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>You are given an array of positive and negative integers. If a number n at an index is positive, then move forward n steps. Conversely, if it’s negative (-n), move backward n steps. Assume the first element of the array is forward next to the last element, and the last element is backward next to the first element. Determine if there is a loop in this array. A loop starts and ends at a particular index with more than 1 element along the loop. The loop must be “forward” or “backward’.</p>
-<p>Example 1: Given the array [2, -1, 1, 2, 2], there is a loop, from index 0 -&gt; 2 -&gt; 3 -&gt; 0.</p>
-<p>Example 2: Given the array [-1, 2], there is no loop.</p>
-<p>Note: The given array is guaranteed to contain no element “0”.</p>
-<p>Can you do it in O(n) time complexity and O(1) space complexity?</p>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/06/leetcode457/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/05/streaming1/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/05/streaming1/" itemprop="url">
-                  批处理之外的世界 -- 实时流计算框架调研0x00
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-05T21:38:35+08:00">
-                2017-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="/2017/01/05/streaming1/leeches.jpg" alt="leeches.jpg" title="">  
-<hr>
-<p>最近看了些流计算方面的资料,尤其今天看到的Streaming 101&amp; 102 系列,颇有醍醐灌顶的感觉. 感觉之前听到的很多言论都属于夸夸其谈而不知其然,更莫论其所以然.</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>当MapReduce横空出世的时候,凭借其强大的分布式批处理能力赢得了业界的广泛认可.<br>但慢慢的,我们有了新的需求.</p>
-<ul>
-<li>现在越来越多的业务需要非常实时的数据,比如说twitter/微信朋友圈,微博点赞等等,实时天气预测或者航班监测. Stream可以提供我们需要的短延时.</li>
-<li>巨大的,快速增长的没有边界的数据集在当代发展环境中是非常普遍的,许多系统都是适应于这种无限扩充的数据集.</li>
-<li>在数据到达的时候就进行处理,相当于把计算压力分布在不同的时间,帮助实现更加一致性和可预测的资源损耗</li>
-</ul>
-<h2 id="What-is-Streaming"><a href="#What-is-Streaming" class="headerlink" title="What is Streaming?"></a>What is Streaming?</h2><p>对于streaming有一个非常具体而简洁的解释: 一种为无限数据集设计的数据处理引擎.</p>
-<blockquote>
-<p>“ prefer to isolate the term streaming to a very specific meaning: a type of data processing engine that is designed with infinite data sets in mind. Nothing more. “</p>
-</blockquote>
-<h2 id="What-streaming-can-and-can’t-do"><a href="#What-streaming-can-and-can’t-do" class="headerlink" title="What streaming can and can’t do."></a>What streaming can and can’t do.</h2><h4 id="对于流计算的误区"><a href="#对于流计算的误区" class="headerlink" title="对于流计算的误区:"></a>对于流计算的误区:</h4>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/05/streaming1/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/04/loggingSyestem1/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/04/loggingSyestem1/" itemprop="url">
-                  日志系统 - 福尔摩斯的线索(一)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-04T15:16:51+08:00">
-                2017-01-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="/2017/01/04/loggingSyestem1/fuermosi.jpeg" alt="fuermosi.jpeg" title="">  
-<hr>
-<blockquote>
-<blockquote>
-<p>Everything comes in cycles.</p>
-</blockquote>
-</blockquote>
-<p>近来负责发布项目的一个二方包给服务调用方, 即写一个client包给别人使用.<br>然后发现一个很重要的问题是,我们的代码部署在别人的机器上,出了问题很难定位. 所以解决方案是我们要打出规范的日志,然后日志上云做出业务统计分析以及故障报警等.</p>
-<h2 id="从门面说起-Facade-design-pattern"><a href="#从门面说起-Facade-design-pattern" class="headerlink" title="从门面说起 Facade design pattern"></a>从门面说起 Facade design pattern</h2><p>每个公司或者机构都有一个前台,比如银行, A想开户,B想找B1业务员询问基金信息. 如果没有前台,想象这个场景,每个人进去公司遍历查找,找到需要的人. 其间交错,冲突. 而如果有前台的化,每个人到前台说你要办理什么业务或者找什么人,前台小姐会把你自动转接给对应的业务人员,或者一个电话叫出你想要找的人.<br>这个就是门面的作用. 在设计模式中叫做Facade.<br>它有两个显而易见的好处:  </p>
-<ol>
-<li>对于客户端来说,它把系统内部复杂的组件隐藏封装起来,只向外暴露一个规范的高级接口. 降低了复杂性.</li>
-<li>起到了解藕的作用,外部客户端和内部子系统之间的关系由Facade角色来实现,降低了系统的耦合.<img src="/2017/01/04/loggingSyestem1/facade.png" alt="facade.png" title="">   
-</li>
-</ol>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/04/loggingSyestem1/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/dynamicLinking1/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/01/dynamicLinking1/" itemprop="url">
-                  <<情圣>>跨年之动态链接
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-01T12:42:00+08:00">
-                2017-01-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>昨晚去看电影跨年,<strong><em>血战钢锯岭</em></strong>没票了,只好随机找个片子看,不过结果还不错,<strong><em>情圣</em></strong>里面邀请了一众笑星,虽不高雅,但博大家一笑的目的算是达到了. </p>
-<p>林语堂的<strong><em>论幽默</em></strong>中有一句话,” 人之智慧已启,对付各种问题之外,尚有余力,从容出之,遂有幽默”,指出幽默只是一种从容不迫的豁达态度. 事实确实如此,回顾近年的贺岁档中,愈是自黑丑恶,急急将窘迫慌张暴露给你的,往往俗不可耐,只生悲凉而无笑意,超哥自导的几部片子便毁于此. 而那些真正幽默的大师,都是在丰富人生阅历之中沉淀了无数智慧的,比如卓别林,崔永元.他们经历的太多,只是将某种从容的调逗点出,观众自会捧腹,而他们自己从来都不会笑.</p>
-<p>今天来聊聊比较底层的动态链接.也因为有了动态链接,我们程序员能够更加从容的进行程序开发和发布. 节约静态链接中因为重复载入静态/共享库而浪费的磁盘和内存,同时也避免了程序中某个模块的升级而带来的整个程序的重新链接和发布,并且由于可以在运行时动态加载模块而增加了程序的扩展性.<br>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/01/dynamicLinking1/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/31/recursiveQuery/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="xubing">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Coding 极简派">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Coding 极简派" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/31/recursiveQuery/" itemprop="url">
-                  迷茫的引擎之递归查询
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-31T11:46:26+08:00">
-                2016-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <img src="/2016/12/31/recursiveQuery/tworoads.jpg" alt="tworoads.jpg" title="">   
-<p>今天去做一个数据清洗的任务,在执行数据变更的时候遇到了一个奇怪的问题.<br>类似于这种SQL (隐去公司业务相关性)<br>我是犬类爱好者,所以假如我有一个记载各种狗的id和名称的表<br>table <code>lovelydog</code><br>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/31/recursiveQuery/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.jpg"
-               alt="xubing" />
-          <p class="site-author-name" itemprop="name">xubing</p>
-          <p class="site-description motion-element" itemprop="description">Code And Art. Code Is Art.</p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">18</span>
-              <span class="site-state-item-name">posts</span>
-            </a>
-          </div>
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">categories</span>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  <link rel="icon" type="image/png" href="images/seal_icon.png">
+</head>
+
+<body>
+  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <tr style="padding:0px">
+      <td style="padding:0px">
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <tr style="padding:0px">
+            <td style="padding:2.5%;width:63%;vertical-align:middle">
+              <p style="text-align:center">
+                <name>Bing Xu</name>
+              </p>
+              <p>I am currently a senior research Engineer at <a href="https://koolab.kujiale.com/#/">Koolab</a> in <a href="https://kujiale.com/#/">Kujiale.com</a> under supervison of Dr. Rui Tang and <a href="http://www.cad.zju.edu.cn/home/rwang/">Prof. Rui Wang</a>, where I work on photo-realisitc rendering. 
+              </p>
+              <p>
+                At Koolab I've worked on Our self-developed <a href="https://ai.googleblog.com/2014/04/lens-blur-in-new-google-camera-app.html">FF Render Enginer</a>, Denoising and Sampling for Monte Carlo renderings. 
+                I obtained my bachelor degree at the <a href="https://www.cs.hku.hk/">University of Hong Kong</a>.
+              </p>
+              <p style="text-align:center">
+                <a href="mailto:xubinggl@gmail.com">Email</a> &nbsp/&nbsp
+                <!-- <a href="data/JonBarron-CV.pdf">CV</a> &nbsp/&nbsp -->
+                <a href="https://github.com/XBOOS">github</a> &nbsp/&nbsp
+                <!-- <a href="https://scholar.google.com/citations?hl=en&user=jktWnL8AAAAJ">Google Scholar</a> &nbsp/&nbsp -->
+                <a href="https://www.linkedin.com/in/bing-xu-527a337b/"> LinkedIn </a>
+              </p>
+            </td>
+            <td style="padding:2.5%;width:40%;max-width:40%">
+              <a href="images/bing_photo.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/bing_photo_circle.jpg" class="hoverZoomLink"></a>
+            </td>
+          </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+            <td style="padding:20px;width:100%;vertical-align:middle">
+              <heading>Research</heading>
+              <p>
+                I'm mainly interested in photo-realistic rendering and learning-based approaches for sampling, denoising, modeling and editing appearance for computer graphics. Painting is my thing and rendering enable me to paint with parametrization. Some of the research may involve computer vision, though I don't enjoy CV as much as Graphics :)
+              </p>
+            </td>
+          </tr>
+        </tbody></table>
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+          <tr onmouseout="nightsight_stop()" onmouseover="nightsight_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='teaser'><img src='images/19denosing.jpg'  width="160" height="120" ></div>
+                <!-- <img src='images/teaser.jpg'  width="160" height="90" > -->
+              </div>
+              <!-- <script type="text/javascript">
+                function nightsight_start() {
+                  document.getElementById('nightsight_image').style.opacity = "1";
+                }
+
+                function nightsight_stop() {
+                  document.getElementById('nightsight_image').style.opacity = "0";
+                }
+                nightsight_stop()
+              </script> -->
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="http://adversarial.mcdenoising.org/">
+                <papertitle>Adversarial Monte Carlo Denoising with Conditioned Auxiliary Feature Modulation</papertitle>
               </a>
-            </div>
+              <br>
+              <strong>Bing Xu</strong>,
+              Junfei Zhang,
+              <a href="http://www.cad.zju.edu.cn/home/rwang/">Rui Wang</a>,
+              <a href="https://cg.cs.tsinghua.edu.cn/people/~kun/">Kun Xu</a>,
+              <a href="http://www.yongliangyang.net/">Yong-liang Yang</a>,
+              <a href="https://www.linkedin.com/in/chuan-li-a9474b63/">Chuan Li</a>,
+              Rui Tang,
+              <br>
+              <em>ACM Transactions on Graphics (TOG), 38(6), ACM SIGGRAPH Asia</em>, 2019
+              <br>
+              <p></p>
+              <p>By rethinking metering, white balance, and tone mapping, we can take pictures in places too dark for humans to see clearly.</p>
+            </td>
+          </tr>
           
+        <!--   <tr onmouseout="font_stop()" onmouseover="font_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='font_image'><img src='images/font_after.png'></div>
+                <img src='images/font_before.png'>
+              </div>
+              <script type="text/javascript">
+                function font_start() {
+                  document.getElementById('font_image').style.opacity = "1";
+                }
 
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">20</span>
-                <span class="site-state-item-name">tags</span>
+                function font_stop() {
+                  document.getElementById('font_image').style.opacity = "0";
+                }
+                font_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://arxiv.org/abs/1910.00748">
+                <papertitle>A Deep Factorization of Style and Structure in Fonts</papertitle>
               </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">xubing</span>
-</div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-
-  
-
-
-
-
-	
-
-
-
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-
+              <br>
+              <a href="http://www.cs.cmu.edu/~asrivats/">Akshay Srivatsan</a>,
+              <strong>Jonathan T. Barron</strong>,
+              <a href="https://people.eecs.berkeley.edu/~klein/">Dan Klein</a>,
+              <a href="http://cseweb.ucsd.edu/~tberg/">Taylor Berg-Kirkpatrick</a>
+              <br>
+              <em>EMNLP</em>, 2019 &nbsp <font color="red"><strong>(Oral Presentation)</strong></font>
+              <br>
+              <p></p>
+              <p>Variational auto-encoders can be used to disentangle a characters style from its content.</p>
+            </td>
+          </tr> -->
+
+
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+            <td style="padding:20px;width:100%;vertical-align:middle">
+              <heading>Industry</heading>
+              <p>
+                I'm mainly interested in photo-realistic rendering and learning-based approaches for sampling, denoising, modeling and editing appearance for computer graphics.
+              </p>
+            </td>
+          </tr>
+
+      </tbody></table>
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr onmouseout="kujiale_stop()" onmouseover="kujiale_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='kujiale'><img src='images/render_pt.jpg' width="160" height="120" ></div>
+                <img src='images/kujiale.png' width="160" height="120" >
+                <script type="text/javascript">
+                function kujiale_start() {
+                  document.getElementById('kujiale').style.opacity = "1";
+                }
+
+                function kujiale_stop() {
+                  document.getElementById('kujiale').style.opacity = "0";
+                }
+                kujiale_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://kujiale.com">
+                <papertitle>Koolab, Kujiale.com</papertitle>
+              </a>
+              <p></p>
+              <em> Senior Research Engineer,</em> &nbsp&nbsp 2018.07 - Now<p></p>
+              <em>Research Engineer,  &nbsp&nbsp 2017.06 - 2018.07 </em> 
+              <br>
+              <p></p>
+              <p>Working on developing and optimising the industry-leading FF Render Engine. FF Render Engine is based on Monte Carlo path tracing and learning-based denoising. <br> Also working on adaptive sampling, lighting, ambient occlusion, tone mapping and omnidirectional stereo camera. <br> FF achieved industrial competitive realism with low computation cost. (800*600 resolution within 9s). The renderer can be used directly on <a href="http://Kujiale.com"> Kujiale.com</a> Collaborate with another co-worker Zhentou.</p>
+            </td>
+          </tr>
+
+          <tr onmouseout="font_stop()" onmouseover="font_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='font_image'><img src='images/alibaba.png' width="160" height="90" ></div>
+                <!-- <img src='images/alibaba.png' width="160" height="120" > -->
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://www.alibabagroup.com/en/global/home">
+                <papertitle>Cainiao Network, Alibaba Group</papertitle>
+              </a>
+              <p></p>
+              <em>SDE , &nbsp&nbsp 2016.08-2017.06</em> &nbsp
+              <br>
+              <p></p>
+              <p>Logistics package delivery prediction system version 1.0 2.0 development. Trims the rate at which its vehicles travel empty and reduces the driving distance via intelligent route planning. Involving Java, Spring web application framework and other middlewares.</p>
+              <p>Stream computing optimisation.  Using Apache Beam to optimise logistic package stream computing framework to make it more extensible and adaptable.</p>
+            </td>
+          </tr>
+
+            <tr onmouseout="font_stop()" onmouseover="font_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='font_image'><img src='images/sensetime.png' width="160" height="160" ></div>
+                <!-- <img src='images/sensetime.png' width="160" height="120" > -->
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://www.sensetime.com/en/">
+                <papertitle>Sensetime</papertitle>
+              </a>
+              <p></p>
+              <em>SDE Intern, &nbsp&nbsp  2016.01-2016.05</em>
+              <br>
+              <p></p>
+              <p>Male/Female face grading and matching platform for TrueLove dating website</p>
+            </td>
+          </tr>
+
+        </tbody></table>
+
+
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            <tr>
+            <td style="padding:20px;width:100%;vertical-align:middle">
+              <heading> Misc. </heading>
+              <p>
+               I enjoy programming which make you the god of your own world designing all the heros and storylines. Apart from computer graphics as my most interested research field, I have explored many other CS branches and developed other skill sets. I used to work as a Java programmer developing web applications in Alibaba. I have also developed my simple Android RPG, a little interpreter based on functional programming, wechat application etc..    
+              </p>
+            </td>
+          </tr>
+
+      </tbody></table>
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+            
+            <tr onmouseout="font_stop()" onmouseover="font_start()">
+           <!--  <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='font_image'><img src='images/qa.jpeg' width="160" height="100" ></div>
+              </div>
+
+            </td> -->
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://github.com/XBOOS/FYP15039/blob/master/Final_report1.0_Xu_Bing.pdf">
+                <papertitle>Knowledge-Based Question Answering System</papertitle>
+              </a>
+              <p></p>
+              <em>HKU CS Undergraduate Final Year Project</em>, 2016 with Zhiyu Ma&nbsp
+              <br> Supervised by Prof. <a href="https://www.cs.hku.hk/people/academic-staff/kao">Ben Kao</a>
+              <br>
+              <p></p>
+              <p>Implemented a demonstrable knowledge-based question answering system including optimisation of knowledge
+storage, information retrieval, machine learning word patterning.<br>Based on Stanford SEMPRE. Two contributions on both recognisable features and replacing the original log linear model with linear SVM to improve the recall rate and accuracy</p>
+            </td>
+          </tr>
+
+
+          <tr onmouseout="font_stop()" onmouseover="font_start()">
+            
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://github.com/XBOOS/Chess_AI">
+                <papertitle>Chinese Chess AI</papertitle>
+              </a>
+              <p>Designed and implemented a Chinese chess game playing between computer and user which involves pruning strategies and handcrafted heuristics. </p>
+            </td>
+          </tr>
+
+            <tr onmouseout="font_stop()" onmouseover="font_start()">
+            
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://github.com/XBOOS/interpreter_by_Haskell">
+                <papertitle>A Interpreter by Haskell</papertitle>
+              </a>
+              <p></p>
+              <p>A simple interpreter for self-defined programming language implemented by Haskell.The rough idea is that concrete syntax in a specific environment will be parsed into abstract syntax(such as an abstract syntax tree),and then be evaluated to the final value.</p>
+            </td>
+          </tr>
+
+           <tr onmouseout="font_stop()" onmouseover="font_start()">
+            <<!-- td>
+            <div class="one">
+                <div class="two" id='font_image'><img src='images/game.webp' width="160" height="90" ></div>
+            </td> -->
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://github.com/XBOOS/Chess_AI">
+                <papertitle>Lost Heros: Android RPG 英雄坛说</papertitle>
+              </a>
+              <p></p>
+              <p>I collaborated with a friend to develop an Android RPG using Unity. We developed all from scratch including drawing all the pixel images :) Here is a <a href="https://mp.weixin.qq.com/s?__biz=MzIyNjczMjU2MQ==&mid=2247483738&idx=1&sn=186bb5352db11cfec888b214c1319ce3&chksm=e86abe24df1d373214a225dc71fcb71f206b35559f0fd84ce433cd2f44fccaec53973356fd79&mpshare=1&scene=1&srcid=10293Mb2KZ1M2nf1sviXshLM&sharer_sharetime=1572340456675&sharer_shareid=b3edf6f0f961e7cbfb5ac252e38b1862&key=bdee74c1b0f27c22d30c2f12f40019c59ac766227d0bc74f85f1a7cc04319e7f48bf8a10c5a9d051779512fabc7403a41d379471913d826498462a3f437e907dfbf8f244a91ae119694306f0c15f1b98&ascene=1&uin=MTg2NDU4MjU0MQ%3D%3D&devicetype=Windows+10&version=62070141&lang=zh_CN&pass_ticket=CvmTyX7CsuAmPlWX4XopezhE1oVXp5eq9NaPaEoIoRbC1toEqSjtvYJyTAH5Rxf0">blog</a> I wrote to remember the funny experience. This game is in honor of an old game on the old-style electronic dictionary(wenquxing) I played when I was a child.</p>
+            </td>
+          </tr>
+
+           <tr onmouseout="font_stop()" onmouseover="font_start()">
+
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://github.com/XBOOS/Chess_AI">
+                <papertitle>A SQL-based graphical programming interface</papertitle>
+              </a>
+              <p></p>
+              <p>Automated SQL generation from model patch dragging and joining, and synchronise to distributed computing
+ platform automatically. </p>
+            </td>
+          </tr>
+
+
+        <tr onmouseout="font_stop()" onmouseover="font_start()">
+
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://github.com/XBOOS/ray-tracing-gems-cn">
+                <papertitle>Translation of Ray Tracing Gems by Nvidia</papertitle>
+              </a>
+              <p>Participate in translation of <strong>Ray Tracing Gems </strong> by Nvidia (EN => CN). </p>
+            </td>
+          </tr>
+
+        </tbody></table>
+
+
+
+
+        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+          <a href="https://jonbarron.info/">Website template credit</a>  </p>
+        </tbody></table>
+      </td>
+    </tr>
+  </table>
 </body>
+
 </html>
