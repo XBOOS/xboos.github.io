@@ -1,0 +1,77 @@
+
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../paper.css"/>
+    
+    
+    <title>Residual path integrals for re-rendering</title>
+    
+    </head>
+    <body alink="#4c80b2" link="#000064" text="#404040" vlink="#000064">
+    
+    <!-- <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;"> -->
+      <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;" ></div>
+      <!-- <div style="text-align: center;max-width:900px;margin-left: auto;  margin-right: auto"> -->
+        
+        <div style="text-align: left;margin-left: auto;  margin-right: auto" class="section">
+          <!-- <div id="topsection">
+              <a href="../index.html" class="plainname">back to homepage</a>
+          </div> -->
+
+          <h1 class="papertitle">Residual path integrals for re-rendering</h1>
+        
+        <div align="left"  class="authorstable">
+          <a class='subtle' href='https://bingxu.tech' target='_blank'>Bing Xu</a>, 
+          <a class='subtle' href='https://cseweb.ucsd.edu/~tzli/' target='_blank'>Tzu-Mao Li</a>,
+          <a href="http://iliyan.com/">Iliyan Georgiev</a>,
+          <a class='subtle' href='https://www.linkedin.com/in/trevor-hedstrom-9abb6362/' target='_blank'>Trevor Hedstrom</a>,
+          <a class='subtle' href='https://cseweb.ucsd.edu/~ravir/' target='_blank'>Ravi Ramamoorthi</a>
+        </div>
+        <br>Computer Graphics Forum (Proceedings of Eurographics Symposium on Rendering 2024)<br>
+        <span id="paperextra">Best Paper Award</span>
+      </div>
+      <br>
+      <div style="margin-left: auto;  margin-right: auto " class="section">
+        <div class="whitebg">
+          <img src="teaser.png" border="0" align="center"  style=' width: 800px'/>
+        </div>
+        <br>
+        
+          <h2>Abstract</h2> 
+          <p>Conventional rendering techniques are primarily designed and optimized for single-frame rendering. In practical applications, such as scene editing and animation rendering, users frequently encounter scenes where only a small portion is modified between consecutive frames. In this paper, we develop a novel approach to incremental re-rendering of scenes with dynamic objects, where only a small part of a scene moves from one frame to the next. We formulate the difference (or residual) in the image between two frames as a (correlated) light-transport integral which we call the residual path integral. Efficient numerical solution of this integral then involves (1) devising importance sampling strategies to focus on paths with non-zero residual-transport contributions and (2) choosing appropriate mappings between the native path spaces of the two frames. We introduce a set of path importance sampling strategies that trace from the moving object(s) which are the sources of residual energy. We explore path mapping strategies that generalize those from gradient-domain path tracing to our importance sampling techniques specially for dynamic scenes. Additionally, our formulation can be applied to material editing as a simpler special case. We demonstrate speed-ups over previous correlated sampling of path differences and over rendering the new frame independently. Our formulation brings new insights into the re-rendering problem and paves the way for devising new types of sampling techniques and path mappings with different trade-offs.</p>            
+          <br>
+          
+        
+        
+        
+          <h2>Assets</h2>
+        <a href="../../papers/residual_path_integral_bing_final.pdf" target="_blank"><img src="../../images/icon_pdf.png"  class=icon>Paper (PDF, 18M)</a><br/>
+        <a href="https://arxiv.org/abs/2406.16302" target="_blank"><img src="../../images/icon_pdf.png"  class=icon>Arxiv preprint</a> <br/>
+        <img src="../../images/icon_source.png" class=icon><a href="">CPU Code (coming!)</a><br/>        
+        <img src="../../images/icon_source.png" class=icon>Real-time version (scheduled)<br/>
+        <br/>			
+        <h2>Acknolwedgements</h2>
+        This work was funded in part by NSF grants 2105806, 2212085, 2110409,
+gifts from Adobe, Google, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing. We especially thank Shilin Zhu for countless discussions in the early stages of this project. We thank Rui Tang, Lifan Wu, Ling-Qi Yan, Fujun Luan, Alexandr Kuznetsov, Yash Belhe for earlier discussions; Xuanda Yang, Yang Zhou for later performance discussions; Varun Munagala for early visualization experiments, and the anonymous reviewers for their constructive feedback. 
+Ninja model is modified from the model by blendermagician on Blendswap; Shuriken model is created by RadialRonnie; Book model is created by AnyRPG and Lamp model is modified from the original one created by Manan Dhiman. 
+Sponza model courtesy of Marko Dabrovic and Mihovil Odak.
+Other scenes courtesy of Benedikt Bitterli. 
+        <h2>BibTeX reference</h2>
+                  <div class="code_pre">
+                      <pre>@article{Xu:2023:ResidualPathIntegral,
+author = {Bing Xu and Tzu-Mao Li and Iliyan Georgiev and Trevor Hedstrom and Ravi Ramamoorthi},
+title = {Residual path integrals for re-rendering},
+journal = {Computer Graphics Forum (Proceedings of EGSR)},
+year = {2024},
+number = {4},
+volume = {43}
+}</pre>
+                  </div>		
+        
+      </div> 
+    
+    
+    </div>
+    </div>
+    </body></html>
+    

@@ -1,0 +1,207 @@
+body{
+    margin:0;
+    padding:0;
+    font-family:verdana,sans-serif; 
+    font-size:12px;
+    line-height: 1.5em;
+    background: #102129;
+    color: #FFF;
+}
+@font-face {
+    font-family: 'Bernard MT Condensed';
+    src: url('css/BernardMT-Condensed.woff2') format('woff2'), url('css/BernardMT-Condensed.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+a:link			{ text-decoration:none; color:#00ff00;  }
+a:visited 	{ text-decoration:none; color:#00ff00;  }
+a:hover			{ text-decoration:none; color:#ffffff;  }
+a:active		{ text-decoration:none; color:#008000;  }
+a.plain:link	  { text-decoration:none; color:#00ff00; font-size:12px; font-weight:normal }
+a.plain:visited { text-decoration:none; color:#00ff00; font-size:12px; font-weight:normal }
+a.plain:hover	  { text-decoration:none; color:#ffffff; font-size:12px; font-weight:normal }
+a.plain:active	{ text-decoration:none; color:#008000; font-size:12px; font-weight:normal }
+.plain			{ font-size:7pt }
+a.plainname		{ font-size:15pt; color:#f8f8fb;font-weight:normal }
+.header			{ text-decoration:none; color:#007b00; font-size:15px; font-weight:bold }
+.logob			{ font-family:Verdana, Arial, Helvetica, sans-serif; font-size:15pt; color:#007b00; }
+.logoa			{ font-family:Verdana, Arial, Helvetica, sans-serif; font-size:15pt; color:#00ff00; }
+select 			{ font-family:verdana; color:#00ff00; font-size:12; background:#212a34; border-style:outset;}
+small           { font-size: 14px; }
+smaller 	{ font-size: 6px; color:#00ff00 }
+.indented		{ padding-left: 1.5em; }
+img             { border: 0; }
+ul              { margin:0 0 0 0; padding:0; list-style: none; }
+li              { margin:0; padding-bottom: 1em; }
+.bigger {font-size: 22pt;  }
+#maincontainer{
+    /* width: 1460px; Width of main container */
+    width: 90%; 
+    margin: 0 auto; /*Center container on page*/
+    background: url(images/mainbg.gif)  repeat fixed center;
+}
+#topsection{
+    height: 30px; /*Height of top section*/
+    margin-left: -100px;
+}
+#topsection h1{
+    margin: 0;
+    padding: 0;
+}
+#contentwrapper{
+    float: left;
+    width: 100%;
+}
+#contentcolumn{
+    /* margin-right: 400px; Set right margin to RightColumnWidth */
+    margin-right: 20%;
+}
+#rightcolumn{
+    float: left;
+    /* width: 400px; Width of right column */
+    width: 20%;
+    /* margin-left: -300px; Set left margin to -(RightColumnWidth) */
+    margin-left: -15%;
+}
+/* #teasercolumn{
+float: left;
+    width: 200px;
+    margin-right: -200px; 
+}
+#papercolumn{
+    float: right;
+    width: 600px; 
+    margin-left: 200px; 
+} */
+#footer{
+    clear: left;
+    width: 100%;
+    text-align: left;
+    padding: 20px 0 10px;
+}
+#footer a{
+    color: #FFFF80;
+}
+.innertube{
+    margin: 10px; /*Margins for inner DIV inside each column (to provide padding)*/
+    margin-top: 0;
+}
+.papertitle {
+    color: #0ebb0e;
+    /* font-family: 'Bernard MT Condensed';  */
+    /* font-weight: normal;  */
+    /* font-style: normal; */
+    text-shadow: -2px 1px 2px black;
+    /* text-transform: uppercase; */
+}
+h2.bernard-header {
+    font-size: 26px;
+}
+h3.bernard-header {
+    font-size: 20px;
+}
+.left-nav ul li {
+    text-transform: uppercase;
+    padding-bottom: 0.8em;
+}
+
+.container {
+display: flex; /* Use flexbox for layout */
+}
+
+.left-column {
+flex: 1; /* Each column takes up equal space */
+padding: 10px; /* Add padding for spacing */
+}
+.right-column {
+flex: 3; /* Each column takes up equal space */
+padding: 20px; /* Add padding for spacing */
+}
+
+
+
+
+body {
+    font-size: 16px;
+    font-size-adjust:0.5;
+}
+
+.icon{
+vertical-align:middle;
+padding-right:5px;
+padding-top:2px;
+padding-bottom:2px;
+width: 32px;
+}
+
+br {
+margin-top:10px;
+}
+     
+     
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+
+pre {
+  font-size: smaller;
+}
+
+
+.authorstable{
+font-size: 110%;
+
+
+}
+
+.section {
+max-width:800px
+}
+
+sub {
+  vertical-align: sub;
+  font-size: 20%;
+}
+
+
+#venue {
+color: #737373;
+}
+
+#bibtex {
+max-width:800px
+}
+
+
+.whitebg {
+    background-color: white;
+ }
+
+ 
+#paperextra {
+color: #b94823;
+font-weight: bold;
+}
+    
+.code {
+    display: block;
+    margin-top: 0.8em;
+    padding: 0.25em 0.5em;
+    border: 1px solid #bebab0;
+    /* background: #faf8f0; */
+  }
+
+.code_pre {
+font-family: Consolas, "Droid Sans Mono", monospace;
+/* padding: 0;
+margin: 0; */
+/* display:-webkit-box; */
+line-height: 1.2em;
+/* white-space: pre-wrap; */
+white-space: -moz-pre-wrap;
+white-space: -o-pre-wrap;
+/* font-size: 0.75em; */
+}
