@@ -4,7 +4,7 @@ body{
     font-family:verdana,sans-serif; 
     font-size:12px;
     line-height: 1.5em;
-    background: #102129;
+    background: #090909;
     color: #FFF;
 }
 @font-face {
@@ -93,6 +93,8 @@ float: left;
     /* font-weight: normal;  */
     /* font-style: normal; */
     text-shadow: -2px 1px 2px black;
+    /* some space between rows */
+    line-height: 1.2em;
     /* text-transform: uppercase; */
 }
 h2.bernard-header {
@@ -204,4 +206,38 @@ line-height: 1.2em;
 white-space: -moz-pre-wrap;
 white-space: -o-pre-wrap;
 /* font-size: 0.75em; */
+}
+
+
+.authors {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.author { white-space: nowrap; }
+.authors .author + .author::before { content: ", "; } /* auto-commas */
+
+sup.affil {
+  font-size: 0.65em;
+  margin-left: 2px;
+  vertical-align: super;
+}
+
+.affiliations-inline {
+  display: flex;
+  flex-wrap: wrap;              /* keeps it one "row", wrapping only if too narrow */
+  gap: 0.5rem;                  /* space between items */
+  align-items: baseline;
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
+.affiliations-inline sup {
+  font-size: 0.7em;
+  margin-right: 0.15rem;
+  vertical-align: super;
+}
+.affiliations-inline .sep { opacity: 0.5; }
+
+/* Optional tighter look on mobile */
+@media (max-width: 520px) {
+  .affiliations-inline { gap: 0.35rem; }
 }

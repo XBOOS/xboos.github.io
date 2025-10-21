@@ -1,0 +1,98 @@
+
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="../paper.css"/>
+    
+    
+    <title>A Generalizable Light Transport 3D Embedding for Global Illumination</title>
+    
+    </head>
+    <body alink="#4c80b2" link="#000064" text="#404040" vlink="#000064">
+    
+    <!-- <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;"> -->
+      <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;" ></div>
+      <!-- <div style="text-align: center;max-width:900px;margin-left: auto;  margin-right: auto"> -->
+        
+        <div style="text-align: left;margin-left: auto;  margin-right: auto" class="section">
+          <!-- <div id="topsection">
+              <a href="../index.html" class="plainname">back to homepage</a>
+          </div> -->
+
+          <h1 class="papertitle">A generalizable light transport 3D embedding for global illumination</h1>
+        
+            <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
+            <span class="author"><a class="subtle" href="https://bingxu.tech" target="_blank">Bing Xu</a><sup>1,2</sup></span>
+            <span class="author"><a href="https://mukundvarmat.github.io/" target="_blank">Mukund Varma T</a><sup>1</sup></span>
+            <span class="author"><a href="https://galaxeaaa.github.io/" target="_blank">Cheng Wang</a><sup>1</sup></span>
+            <span class="author"><a href="https://cseweb.ucsd.edu/~tzli/" target="_blank">Tzu-Mao Li</a><sup>1</sup></span>
+            <span class="author"><a href="http://research.nvidia.com/labs/rtr/author/lifan-wu/" target="_blank">Lifan Wu</a><sup>2</sup></span>
+            <span class="author"><a href="http://research.nvidia.com/labs/rtr/author/bart-wronski/" target="_blank">Bart Wronski</a><sup>2</sup></span>
+            <span class="author"><a href="https://cseweb.ucsd.edu/~ravir/" target="_blank">Ravi Ramamoorthi</a><sup>1</sup></span>
+            <span class="author"><a href="https://research.nvidia.com/person/marco-salvi" target="_blank">Marco Salvi</a><sup>2</sup></span>
+            </div>
+
+            <!-- One-row affiliation legend -->
+            <div class="affiliations-inline" aria-label="Affiliations">
+            <span><sup>1</sup> University of California, San Diego, USA</span>
+            <span class="sep">•</span>
+            <span><sup>2</sup> NVIDIA, USA</span>
+            </div>
+        <!-- <br>SIGGRAPH<br> -->
+        
+      </div>
+      <br>
+      <div style="margin-left: auto;  margin-right: auto " class="section">
+        <div class="whitebg">
+          <img src="teaser.png" border="0" align="center"  style=' width: 800px'/>
+        </div>
+        <br>
+        
+          <h2>Abstract</h2> 
+          <p>Global illumination (GI) is essential for realistic rendering but remains computationally expensive due to the complexity of simulating indirect light transport. Recent neural methods for GI have focused on per-scene optimization with extensions to handle variations such as dynamic camera views or geometries. Meanwhile, cross-scene generalization efforts have largely remained confined in 2D screen space—such as neural denoising or G-buffer–based GI prediction—which often suffer from view inconsistency and limited spatial awareness.
+
+<br>In this paper, we learn a generalizable 3D light transport embedding that directly approximates global illumination from 3D scene configurations, without utilizing rasterized or path-traced illumination cues. We represent each scene as a point cloud with features and encode its geometric and material interactions into neural primitives by simulating global point-to-point long-range interactions with a scalable transformer. At render time, each query point retrieves only local primitives via nearest-neighbor search and adaptively aggregates their latent features through cross-attention to predict the desired rendering quantity.
+
+<br>We demonstrate results for estimating diffuse global illumination on a large indoor-scene dataset, generalizing across varying floor plans, geometry, textures, and local area lights. 
+We train the embedding on irradiance prediction and demonstrate that the model can be quickly re-targeted to new rendering tasks with limited fine-tuning.  We present preliminary results on spatial-directional incoming radiance field estimation to handle glossy materials, and use the normalized radiance field to jump-start path guiding for unbiased path tracing.
+These applications point toward a new pathway for integrating learned priors into rendering pipelines, demonstrating the capability of predicting complex global illumination in general scenes without explicit ray traced illumination cues.</p>            
+          <br>
+          
+        
+        
+        
+          <h2>Assets</h2>
+        <!-- <a href="../../papers/residual_path_integral_bing_final.pdf" target="_blank"><img src="../../images/icon_pdf.png"  class=icon>Paper (PDF)</a><br/> -->
+        <a href="" target="_blank"><img src="../../images/icon_pdf.png"  class=icon>Arxiv preprint</a> <br/>
+        <!-- <a href="https://docs.google.com/presentation/d/15r6YOjgVq7qFc0Mgb6__95jhA293gJxbwh-M0Sz6HIY/edit?usp=sharing"target="_blank"><img src="../../images/icon_pdf.png"  class=icon>slides</a> <br/> -->
+        <img src="../../images/icon_source.png" class=icon><a href="">Code (coming)</a><br/>  
+        <img src="../../images/icon_source.png" class=icon><a href="">Dataset (coming)</a><br/>        
+        <br/>			
+        <!-- <h2>Little talks, dirty paws</h2>
+      We hope to also implement a real-time version. From a practical standpoint, disregarding theoretical contributions, the immediate step to make this potentially feasible for the industry is to integrate it with 1) real-time solutions for camera movements which are also common senarios for applications;  2) various types of path reuse; and 3) a denoiser, preferablly talored for the residual rendering. The current residual-path-integral framework is orthogonal to those directions, but those puzzle parts will make it shippable to be a complete real (toy) product. Welcome any thoughts or collaborations if you are interested!<br>  -->
+      <!-- <div style='text-align:right'>-- Bing</div> -->
+        
+        <h2>Acknolwedgements</h2>
+        This work was support in part by NSF grants 2105806, 2212085 and the Ronald L. Graham Chair.  We also acknowledge gifts from Adobe, Google, Qualcomm and Rembrand, and the UC San Diego Center for Visual Computing. The authors would like to thank Aaron Lefohn and Chris Wyman for their support; Matt Pharr for valuable input and discussions along the way; Thomas Akenine-Möller, Jacob Munkberg, Jon Hasselgren and Zian Wang for their suggestions regarding the evaluation, dataset and training clusters.  
+        Bing owes particular thanks to Alex Trevithick for pointers to procedural scene generation and many helpful discussions; Zimo Wang and Nithin Raghavan for generously sharing cluster training quotas; Yang Zhou for proofreading and comments; and her fellow interns for helpful discussions in the early stage. 
+      <br>	<br>
+      <!-- <h2>BibTeX reference</h2>
+                  <div class="code_pre">
+                      <pre></pre>
+                  </div>		 -->
+
+        
+      </div> 
+    
+    
+    </div>
+    </div>
+    <div id="footer">
+      <div style="padding-bottom: 1.5em; text-align:center;">
+          <p id="legal">
+              <small>Bing Xu &copy; 2025&ndash;Redmond. All Rights Reserved.</small>
+          </p>
+      </div>
+  </div>
+</div>
+    </body></html>
+    

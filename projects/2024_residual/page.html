@@ -20,13 +20,40 @@
 
           <h1 class="papertitle">Residual path integrals for re-rendering</h1>
         
-        <div align="left"  class="authorstable">
+        <!-- <div align="left"  class="authorstable">
           <a class='subtle' href='https://bingxu.tech' target='_blank'>Bing Xu</a>, 
           <a class='subtle' href='https://cseweb.ucsd.edu/~tzli/' target='_blank'>Tzu-Mao Li</a>,
           <a href="http://iliyan.com/">Iliyan Georgiev</a>,
           <a class='subtle' href='https://www.linkedin.com/in/trevor-hedstrom-9abb6362/' target='_blank'>Trevor Hedstrom</a>,
           <a class='subtle' href='https://cseweb.ucsd.edu/~ravir/' target='_blank'>Ravi Ramamoorthi</a>
+        </div> -->
+        <!-- Authors -->
+        <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
+          <span class="author">
+            <a class="subtle" href="https://bingxu.tech" target="_blank">Bing Xu</a><sup class="affil">1</sup>
+          </span>
+          <span class="author">
+            <a class="subtle" href="https://cseweb.ucsd.edu/~tzli/" target="_blank">Tzu-Mao Li</a><sup class="affil">1</sup>
+          </span>
+          <span class="author">
+            <a href="http://iliyan.com/" target="_blank">Iliyan Georgiev</a><sup class="affil">2</sup>
+          </span>
+          <span class="author">
+            <a class="subtle" href="https://www.linkedin.com/in/trevor-hedstrom-9abb6362/" target="_blank">Trevor Hedstrom</a><sup class="affil">1</sup>
+          </span>
+          <span class="author">
+            <a class="subtle" href="https://cseweb.ucsd.edu/~ravir/" target="_blank">Ravi Ramamoorthi</a><sup class="affil">1</sup>
+          </span>
         </div>
+
+        <div class="affiliations-inline" aria-label="Affiliations">
+        <span><sup>1</sup> University of California, San Diego, USA</span>
+        <span class="sep">•</span>
+        <span><sup>2</sup> Adobe Research, UK</span>
+        <!-- add more as needed:
+        <span class="sep">•</span><span><sup>C</sup> Institution C</span>
+        -->
+      </div>
         <br>Computer Graphics Forum (Proceedings of Eurographics Symposium on Rendering 2024)<br>
         <span id="paperextra">Best Paper Award</span>
       </div>
@@ -51,27 +78,27 @@
         <img src="../../images/icon_source.png" class=icon><a href="">CPU Code (coming approximately after the siggraph deadline)</a><br/>        
         <img src="../../images/icon_source.png" class=icon>Real-time version (scheduled)<br/>
         <br/>			
-        <h2>Little talks, dirty paws</h2>
+        <h2>Little talks</h2>
       We hope to also implement a real-time version. From a practical standpoint, disregarding theoretical contributions, the immediate step to make this potentially feasible for the industry is to integrate it with 1) real-time solutions for camera movements which are also common senarios for applications;  2) various types of path reuse; and 3) a denoiser, preferablly talored for the residual rendering. The current residual-path-integral framework is orthogonal to those directions, but those puzzle parts will make it shippable to be a complete real (toy) product. Welcome any thoughts or collaborations if you are interested!<br> 
       <!-- <div style='text-align:right'>-- Bing</div> -->
         
         <h2>Acknolwedgements</h2>
         This work was funded in part by NSF grants 2105806, 2212085, 2110409,
-gifts from Adobe, Google, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing. We especially thank Shilin Zhu for countless discussions in the early stages of this project. We thank Rui Tang, Lifan Wu, Ling-Qi Yan, Fujun Luan, Alexandr Kuznetsov, Yash Belhe for earlier discussions; Xuanda Yang, Yang Zhou for later performance discussions; Varun Munagala for early visualization experiments, and the anonymous reviewers for their constructive feedback. 
-Ninja model is modified from the model by blendermagician on Blendswap; Shuriken model is created by RadialRonnie; Book model is created by AnyRPG and Lamp model is modified from the original one created by Manan Dhiman. 
-Sponza model courtesy of Marko Dabrovic and Mihovil Odak.
-Other scenes courtesy of Benedikt Bitterli. 
+        gifts from Adobe, Google, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing. We especially thank Shilin Zhu for countless discussions in the early stages of this project. We thank Rui Tang, Lifan Wu, Ling-Qi Yan, Fujun Luan, Alexandr Kuznetsov, Yash Belhe for earlier discussions; Xuanda Yang, Yang Zhou for later performance discussions; Varun Munagala for early visualization experiments, and the anonymous reviewers for their constructive feedback. 
+        Ninja model is modified from the model by blendermagician on Blendswap; Shuriken model is created by RadialRonnie; Book model is created by AnyRPG and Lamp model is modified from the original one created by Manan Dhiman. 
+        Sponza model courtesy of Marko Dabrovic and Mihovil Odak.
+        Other scenes courtesy of Benedikt Bitterli. 
       <br>	<br>
       <h2>BibTeX reference</h2>
                   <div class="code_pre">
                       <pre>@article{Xu:2023:ResidualPathIntegral,
-author = {Bing Xu and Tzu-Mao Li and Iliyan Georgiev and Trevor Hedstrom and Ravi Ramamoorthi},
-title = {Residual path integrals for re-rendering},
-journal = {Computer Graphics Forum (Proceedings of EGSR)},
-year = {2024},
-number = {4},
-volume = {43}
-}</pre>
+      author = {Bing Xu and Tzu-Mao Li and Iliyan Georgiev and Trevor Hedstrom and Ravi Ramamoorthi},
+      title = {Residual path integrals for re-rendering},
+      journal = {Computer Graphics Forum (Proceedings of EGSR)},
+      year = {2024},
+      number = {4},
+      volume = {43}
+  }</pre>
                   </div>		
 
         
