@@ -4,7 +4,8 @@ body{
     font-family:verdana,sans-serif; 
     font-size:12px;
     line-height: 1.5em;
-    background: #090909;
+    /* background: #090909; */
+    background: #181a1b;
     color: #FFF;
 }
 @font-face {
@@ -14,12 +15,12 @@ body{
     font-style: normal;
     font-display: swap;
 }
-a:link			{ text-decoration:none; color:#00ff00;  }
-a:visited 	{ text-decoration:none; color:#00ff00;  }
+a:link			{ text-decoration:none; color:#12eb12;  }
+a:visited 	{ text-decoration:none; color:#12eb12;  }
 a:hover			{ text-decoration:none; color:#ffffff;  }
 a:active		{ text-decoration:none; color:#008000;  }
-a.plain:link	  { text-decoration:none; color:#00ff00; font-size:12px; font-weight:normal }
-a.plain:visited { text-decoration:none; color:#00ff00; font-size:12px; font-weight:normal }
+a.plain:link	  { text-decoration:none; color:#12eb12; font-size:12px; font-weight:normal }
+a.plain:visited { text-decoration:none; color:#12eb12; font-size:12px; font-weight:normal }
 a.plain:hover	  { text-decoration:none; color:#ffffff; font-size:12px; font-weight:normal }
 a.plain:active	{ text-decoration:none; color:#008000; font-size:12px; font-weight:normal }
 .plain			{ font-size:7pt }
