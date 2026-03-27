@@ -255,25 +255,31 @@
 
     /* Two-column body: content | sidebar */
     #page-body {
-      display: flex;
-      align-items: flex-start;
-      gap: 30px;
+      display: grid;
+      grid-template-columns: 1fr 22%;
+      grid-template-rows: auto auto;
+      align-items: start;
+      gap: 0 30px;
     }
 
     #contentcolumn {
-      flex: 1 1 0;
+      grid-column: 1;
+      grid-row: 1 / 3;
       min-width: 0;
-      order: 1;
     }
 
-    #rightcolumn {
-      width: 20%;
-      min-width: 180px;
-      flex-shrink: 0;
-      order: 2;
+    #profile-section {
+      grid-column: 2;
+      grid-row: 1;
     }
 
-    #rightcolumn .innertube {
+    #news-section {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    #profile-section .innertube,
+    #news-section .innertube {
       margin-right: 0;
     }
 
@@ -376,34 +382,34 @@
     }
 
     /* ── Right sidebar ── */
-    #rightcolumn .profile-img {
+    .profile-img {
       width: 100%;
       display: block;
     }
 
     /* ── Mobile ── */
     @media (max-width: 700px) {
+      #maincontainer {
+        margin: 0 3%;
+      }
+
       #page-body {
+        display: flex;
         flex-direction: column;
+        gap: 0;
       }
 
-      #rightcolumn {
-        order: 1;
-        width: 100%;
-        box-sizing: border-box;
-      }
+      #profile-section { order: 1; }
+      #contentcolumn   { order: 2; }
+      #news-section    { order: 3; }
 
-      #rightcolumn .profile-img {
-        max-width: 260px;
-        margin: 0 auto;
+      #profile-section .profile-img {
+        max-width: 220px;
         display: block;
+        margin: 0 auto;
       }
 
-      #contentcolumn {
-        order: 2;
-        width: 100%;
-      }
-
+      /* Papers: teaser image on top, content below */
       .container {
         flex-direction: column;
       }
@@ -411,12 +417,8 @@
       .left-column {
         flex: none;
         width: 100%;
-        padding: 8px 0 4px;
-      }
-
-      .left-column img {
-        width: 100%;
-        height: auto;
+        max-width: 200px;
+        padding: 6px 0 4px;
       }
 
       .right-column {
@@ -424,12 +426,16 @@
       }
 
       #topnav a {
-        margin: 0 10px;
-        font-size: 13px;
+        margin: 0 8px;
+        font-size: 12px;
       }
 
       .bigger {
-        font-size: 16pt;
+        font-size: 14pt;
+      }
+
+      #topsection h1.bigger .title-break {
+        display: block;
       }
     }
   </style>
@@ -459,9 +465,9 @@
 
   <div id="maincontainer">
     <div id="topsection">
-      <h1 class="bigger">Bing Xu &mdash; Computer Graphics Research</h1>
+      <h1 class="bigger">Bing Xu &mdash;<span class="title-break"> Computer Graphics Research</span></h1>
       <p style="text-align:center">
-        <name><h1>徐 冰</h1></name>
+        <name><h1 class="bigger">徐 冰</h1></name>
       </p>
       Email: xubinggl@gmail.com<br><br>
       <a href="https://github.com/bing-xu-graphics" class="plain">Github</a> &nbsp/&nbsp
@@ -730,8 +736,8 @@
         </div>
       </div>
 
-      <!-- ── Right sidebar ── -->
-      <div id="rightcolumn">
+      <!-- ── Profile ── -->
+      <div id="profile-section">
         <div class="innertube">
           <img class="profile-img" alt="profile photo" src="images/portait.JPG">
           <div style="margin-top: 12px;">
@@ -741,22 +747,27 @@
                 Welcome discussions and collaborations related to those problems.
               </p>
             </div>
-
-            <h3 class="bernard-header">NO NEWS IS GOOD NEWS</h3>
-            <ul style="margin-bottom:10px;">
-              <li>11/2025 - Did blender ever help you? Time to help back. <a
-                  href="https://www.blender.org/news/give-back-to-blender-fundraiser-for-2026/" class="plain">Blender needs
-                  some funding.</a> I've started monthly donation. Let's do our part for 3D artistic tools if you hope to
-                keep a creative world.</li>
-              <li>04/04/2025 - Farewell, KDB, 17.</li>
-              <li>09/30/2024 - Sadly. Antoine Griezmann retired from the national team.</li>
-              <li>06/02/2024 - Updated the website with a new bg color.. Good for you if you find it ugly</li>
-              <li>06/01/2024 - Real Madrid won their 15th UCL trophy.. Modric will stay for another season</li>
-              <li>04/05/2024 - 30 years since Kurt Cobain died..</li>
-              <li>I don't need a news column if I don't have much news right.. PEACE!</li>
-              <li><a href="" class="plain">[Archive&hellip;]</a></li>
-            </ul>
           </div>
+        </div>
+      </div>
+
+      <!-- ── News ── -->
+      <div id="news-section">
+        <div class="innertube">
+          <h3 class="bernard-header">NO NEWS IS GOOD NEWS</h3>
+          <ul style="margin-bottom:10px;">
+            <li>11/2025 - Did blender ever help you? Time to help back. <a
+                href="https://www.blender.org/news/give-back-to-blender-fundraiser-for-2026/" class="plain">Blender needs
+                some funding.</a> I've started monthly donation. Let's do our part for 3D artistic tools if you hope to
+              keep a creative world.</li>
+            <li>04/04/2025 - Farewell, KDB, 17.</li>
+            <li>09/30/2024 - Sadly. Antoine Griezmann retired from the national team.</li>
+            <li>06/02/2024 - Updated the website with a new bg color.. Good for you if you find it ugly</li>
+            <li>06/01/2024 - Real Madrid won their 15th UCL trophy.. Modric will stay for another season</li>
+            <li>04/05/2024 - 30 years since Kurt Cobain died..</li>
+            <li>I don't need a news column if I don't have much news right.. PEACE!</li>
+            <li><a href="" class="plain">[Archive&hellip;]</a></li>
+          </ul>
         </div>
       </div>
 
