@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../paper.css"/>
+  <title>NeuSample: Importance Sampling for Neural Materials</title>
+</head>
+<body>
+
+  <div style="position:sticky;top:0;z-index:999;background:rgba(24,26,27,0.93);backdrop-filter:blur(6px);border-bottom:1px solid #007b00;padding:8px 20px;font-family:verdana,sans-serif;font-size:12px;">
+    <a href="../../index.html#research" style="color:#4a8a4a;text-decoration:none;font-size:12px;">← Bing Xu</a>
+    <span style="color:#007b00;margin:0 6px;">/</span>
+    <span style="color:#ffffff;">Research</span>
+  </div>
+
+  <!-- <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;"> -->
+    <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;" ></div>
+    <!-- <div style="text-align: center;max-width:900px;margin-left: auto;  margin-right: auto"> -->
+
+      <div style="text-align: left;margin-left: auto;  margin-right: auto" class="section">
+
+        <h1 class="papertitle">NeuSample: Importance Sampling for Neural Materials</h1>
+
+        <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
+          <span class="author">
+            <a class="subtle" href="https://bingxu.tech" target="_blank">Bing Xu</a><sup class="affil">1</sup>
+          </span>
+          <span class="author">
+            <a class="subtle" href="https://lwwu2.github.io/" target="_blank">Liwen Wu</a><sup class="affil">1</sup>
+          </span>
+          <span class="author">
+            <a href="http://miloshasan.net/" target="_blank">Miloš Hašan</a><sup class="affil">2</sup>
+          </span>
+          <span class="author">
+            <a href="https://luanfujun.com/" target="_blank">Fujun Luan</a><sup class="affil">2</sup>
+          </span>
+          <span class="author">
+            <a href="http://iliyan.com/" target="_blank">Iliyan Georgiev</a><sup class="affil">2</sup>
+          </span>
+          <span class="author">
+            <a href="https://cseweb.ucsd.edu/~zex014/" target="_blank">Zexiang Xu</a><sup class="affil">2</sup>
+          </span>
+          <span class="author">
+            <a class="subtle" href="https://cseweb.ucsd.edu/~ravir/" target="_blank">Ravi Ramamoorthi</a><sup class="affil">1</sup>
+          </span>
+        </div>
+
+        <div class="affiliations-inline" aria-label="Affiliations">
+          <span><sup>1</sup> University of California, San Diego, USA</span>
+          <span class="sep">•</span>
+          <span><sup>2</sup> Adobe Research</span>
+        </div>
+
+        <br>ACM Transactions on Graphics (Proceedings of SIGGRAPH 2023)<br>
+      </div>
+      <br>
+      <div style="margin-left: auto;  margin-right: auto " class="section">
+        <div class="whitebg">
+          <img src="teaser.png" border="0" style="max-width:100%;height:auto;display:block;"/>
+        </div>
+        <br>
+
+        <h2>Abstract</h2>
+        <p>Neural material representations have recently been proposed to augment the material appearance toolbox used in realistic rendering. These models are successful at tasks ranging from measured BTF compression, through efficient rendering of synthetic displaced materials with occlusions, to BSDF layering. However, importance sampling has been an after-thought in most neural material approaches, and has been handled by inefficient cosine-hemisphere sampling or mixing it with an additional simple analytic lobe. In this paper we fill that gap, by evaluating and comparing various pdf-learning approaches for sampling spatially varying neural materials, and proposing new variations of these approaches. We investigate three sampling approaches: analytic-lobe mixtures, normalizing flows, and histogram prediction. Within each type, we introduce improvements beyond previous work, and we extensively evaluate and compare these approaches in terms of sampling rate, wall-clock time, and final visual quality. Our versions of normalizing flows and histogram mixtures perform well and can be used in practical rendering systems, potentially facilitating the broader adoption of neural material models in production.</p>
+        <br>
+
+        <h2>Assets</h2>
+        <a href="../../papers/neusample_bing_2023.pdf" target="_blank"><img src="../../images/icon_pdf.png" class=icon>Paper (PDF, 46M)</a><br/>
+        <a href="https://github.com/bing-xu-graphics/neusample_release" target="_blank"><img src="../../images/icon_source.png" class=icon>Code</a><br/>
+        <a href="https://github.com/bing-xu-graphics/neusample_release" target="_blank"><img src="../../images/icon_source.png" class=icon>Material Assets</a><br/>
+        <br/>
+
+        <h2>BibTeX reference</h2>
+        <div class="code_pre">
+          <pre>@article{Xu:2023:NeuSample,
+  author  = {Bing Xu and Liwen Wu and Milo\v{s} Ha\v{s}an and Fujun Luan and Iliyan Georgiev and Zexiang Xu and Ravi Ramamoorthi},
+  title   = {NeuSample: Importance Sampling for Neural Materials},
+  journal = {ACM Transactions on Graphics (Proceedings of SIGGRAPH)},
+  year    = {2023},
+  volume  = {42},
+  number  = {4}
+}</pre>
+        </div>
+
+      </div>
+
+  </div>
+  <div id="footer">
+    <div style="padding-bottom: 1.5em; text-align:center;">
+      <p id="legal">
+        <small>Bing Xu &copy; 2023&ndash;San Diego. All Rights Reserved.</small>
+      </p>
+    </div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,751 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GDS3E1L80S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-GDS3E1L80S');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bing Xu Graphics Research</title>
+  <style type="text/css">
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: verdana, sans-serif;
+      font-size: 13px;
+      line-height: 1.5em;
+      background: #181a1b;
+      color: #FFF;
+    }
+
+    @font-face {
+      font-family: 'Bernard MT Condensed';
+      src: url('css/BernardMT-Condensed.woff2') format('woff2'), url('css/BernardMT-Condensed.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    a:link {
+      text-decoration: none;
+      color: #12eb12;
+      font-size: 14px;
+      font-weight: bold
+    }
+
+    a:visited {
+      text-decoration: none;
+      color: #12eb12;
+      font-size: 14px;
+      font-weight: bold
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: bold
+    }
+
+    a:active {
+      text-decoration: none;
+      color: #008000;
+      font-size: 14px;
+      font-weight: bold
+    }
+
+    a.plain:link {
+      text-decoration: none;
+      color: #12eb12;
+      font-size: 13px;
+      font-weight: normal
+    }
+
+    a.plain:visited {
+      text-decoration: none;
+      color: #12eb12;
+      font-size: 13px;
+      font-weight: normal
+    }
+
+    a.plain:hover {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: normal
+    }
+
+    a.plain:active {
+      text-decoration: none;
+      color: #008000;
+      font-size: 13px;
+      font-weight: normal
+    }
+
+    .plain {
+      font-size: 7pt
+    }
+
+    a.plainname {
+      font-size: 9pt;
+      color: #a1a1bc;
+      font-weight: normal
+    }
+
+    .header {
+      text-decoration: none;
+      color: #007b00;
+      font-size: 15px;
+      font-weight: bold
+    }
+
+    .logob {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 15pt;
+      color: #007b00;
+    }
+
+    .logoa {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      font-size: 15pt;
+      color: #00ff00;
+    }
+
+    select {
+      font-family: verdana;
+      color: #00ff00;
+      font-size: 12;
+      background: #212a34;
+      border-style: outset;
+    }
+
+    small {
+      font-size: 8px;
+    }
+
+    smaller {
+      font-size: 6px;
+      color: #00ff00
+    }
+
+    .indented {
+      padding-left: 1em;
+    }
+
+    img {
+      border: 0;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin: 0;
+      padding-bottom: 1em;
+    }
+
+    .whiteplain {
+      font-size: 7pt
+    }
+
+    a.whiteplain:link {
+      text-decoration: none;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: normal
+    }
+
+    a.whiteplain:visited {
+      text-decoration: none;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: normal
+    }
+
+    a.whiteplain:hover {
+      text-decoration: underline;
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: normal
+    }
+
+    .bigger {
+      font-size: clamp(16pt, 4vw, 22pt);
+      margin: 0;
+    }
+
+    /* ── Top nav ── */
+    #topnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(24, 26, 27, 0.93);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #007b00;
+      padding: 8px 0;
+      text-align: center;
+    }
+
+    #topnav a {
+      display: inline-block;
+      color: #12eb12;
+      font-family: 'Bernard MT Condensed', Verdana, sans-serif;
+      font-size: 15px;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 18px;
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    #topnav a:visited { color: #12eb12; }
+    #topnav a:hover   { color: #ffffff; border-bottom-color: #ffffff; }
+
+    #topnav a.active {
+      color: #ffffff;
+      border-bottom-color: #12eb12;
+    }
+
+    /* ── Page structure ── */
+    #maincontainer {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: url(images/mainbg.gif) repeat fixed center;
+    }
+
+    #topsection {
+      padding: 28px 10px 18px;
+    }
+
+    #topsection h1 {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Two-column body: content | sidebar */
+    #page-body {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    #contentcolumn {
+      flex: 1 1 0;
+      min-width: 0;
+      order: 1;
+    }
+
+    #rightcolumn {
+      width: 210px;
+      flex-shrink: 0;
+      order: 2;
+    }
+
+    #footer {
+      width: 100%;
+      text-align: center;
+      padding: 20px 0 10px;
+      border-top: 1px solid #0e2229;
+      margin-top: 20px;
+    }
+
+    #footer a {
+      color: #FFFF80;
+    }
+
+    .innertube {
+      margin: 10px;
+      margin-top: 0;
+    }
+
+    /* ── Section headers ── */
+    .bernard-header {
+      color: #008400;
+      font-family: 'Bernard MT Condensed';
+      font-weight: normal;
+      font-style: normal;
+      text-shadow: -2px 1px 2px black;
+      text-transform: uppercase;
+    }
+
+    h2.bernard-header {
+      font-size: 26px;
+    }
+
+    h3.bernard-header {
+      font-size: 20px;
+      border-top: 1px solid #0e2229;
+      padding-top: 10px;
+      margin-top: 14px;
+    }
+
+    .left-nav ul li {
+      text-transform: uppercase;
+      padding-bottom: 0.8em;
+    }
+
+    /* ── Paper entries ── */
+    .container {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .left-column {
+      flex: 0 0 130px;
+      padding: 10px 12px 10px 0;
+    }
+
+    .left-column img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .right-column {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 6px 0 6px 4px;
+    }
+
+    #paperextra {
+      color: #b94823;
+      font-weight: bold;
+    }
+
+    /* ── Right sidebar ── */
+    #rightcolumn .profile-img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 700px) {
+      #page-body {
+        flex-direction: column;
+      }
+
+      #rightcolumn {
+        order: 1;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #rightcolumn .profile-img {
+        max-width: 260px;
+        margin: 0 auto;
+        display: block;
+      }
+
+      #contentcolumn {
+        order: 2;
+        width: 100%;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      .left-column {
+        flex: none;
+        width: 100%;
+        padding: 8px 0 4px;
+      }
+
+      .left-column img {
+        height: auto;
+        max-height: 180px;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      .right-column {
+        padding: 0;
+      }
+
+      #topnav a {
+        margin: 0 10px;
+        font-size: 13px;
+      }
+
+      .bigger {
+        font-size: 16pt;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="topnav">
+    <a href="#bio">Bio</a>
+    <a href="#research">Research</a>
+    <a href="#art">Art</a>
+    <!-- <a href="#miscellany">Miscellany</a> -->
+  </div>
+
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PFZG57" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-PFZG57');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <div id="maincontainer">
+    <div id="topsection">
+      <h1 class="bigger">Bing Xu &mdash; Computer Graphics Research</h1>
+      <p style="text-align:center">
+        <name><h1>徐 冰</h1></name>
+      </p>
+      Email: xubinggl@gmail.com<br><br>
+      <a href="https://github.com/bing-xu-graphics" class="plain">Github</a> &nbsp/&nbsp
+      <a href="https://scholar.google.com/citations?user=Fv5ugPcAAAAJ&hl=en" class="plain">Scholar</a> &nbsp/&nbsp
+      <a href="https://www.linkedin.com/in/bing-xu-527a337b/" class="plain">LinkedIn</a> &nbsp/&nbsp
+      <a href="" class="plain">Blog</a> &nbsp/&nbsp
+      <a href="https://twitter.com/_bingxu" class="plain">Twitter</a>
+    </div>
+
+    <div id="page-body">
+
+      <!-- ── Main content ── -->
+      <div id="contentcolumn">
+        <div class="innertube">
+          <div class="indented left-nav">
+
+            <h2 class="bernard-header" id="bio">Bio</h2>
+            <ul>
+              I am a Research Scientist at <a href="https://research.nvidia.com/labs/rtr/" class="plain">NVIDIA</a>
+              Real-Time Graphics Research group, primarily working on physically-based rendering and neural rendering.
+              <br>
+              I obtained my PhD from <a href="http://visualcomputing.ucsd.edu/" class="plain">UC San Diego</a>,
+              where I was advised by Professor <a href="http://cseweb.ucsd.edu/~ravir/" class="plain">Ravi
+                Ramamoorthi</a> and worked closely with Professor <a href="https://cseweb.ucsd.edu/~tzli/"
+                class="plain">Tzu-Mao Li</a>.
+              Previously, I obtained my bachelor's degree in CS from the <a href="https://www.cs.hku.hk/"
+                class="plain">University of Hong Kong</a> and worked on knowledge-based question answering systems with
+              Professor <a href="https://www.cs.hku.hk/index.php/people/academic-staff/kao" class="plain">Benjamin
+                Kao</a>.
+
+              <br><br>During my PhD, I had the fortune to intern at several top research teams, working with amazing mentors and colleagues: <a
+                href="https://research.adobe.com/research/graphics-2d-3d/" class="plain">Adobe Graphics Research</a>
+              (2022, with <a href="https://luanfujun.com/" class="plain">Fujun Luan</a>, <a
+                href="http://miloshasan.net/" class="plain">Miloš Hašan</a> and <a href="http://iliyan.com/"
+                class="plain">Iliyan Georgiev</a>), <a href="https://tech.facebook.com/reality-labs/" class="plain">Meta
+                Reality Labs</a> (2023, with <a href="https://scholar.google.com/citations?user=xWD7ZRkAAAAJ&hl=en"
+                class="plain">Carl Marshall</a>)
+              and <a href="https://research.nvidia.com/labs/rtr/" class="plain">Nvidia Real Time Rendering</a> team
+              (2024-2025, with <a href="https://research.nvidia.com/person/marco-salvi" class="plain">Marco Salvi</a>),
+              Meta Reality Labs again (2025, with <a href="https://scholar.google.com/citations?user=z67HnEwAAAAJ&hl=en"
+                class="plain">Brian Budge</a>).
+              Prior to that, I had a couple of years of industry experience in offline rendering (developing our in-house renderer) and designer tools, where my manager Dr. <a
+                  href="https://scholar.google.com/citations?user=dwvfKSkAAAAJ&hl=en" class="plain">Rui Tang</a> first guided me into graphics research.
+            </ul>
+
+            <h2 class="bernard-header" id="research">Research</h2>
+            I am mainly interested in physically-based rendering, neural rendering and real-time graphics, especially
+            forward&amp;inverse light transport simulation, stochastic sampling, learning approaches for appearance
+            modelling and data-prior boosted light transport in general. Recently I'm very interested in optimization
+            problems and 3D geometric learning.<br><br>
+
+            <!--====================begin publication=============== -->
+            <ul>
+              <div class="container">
+                <div class="left-column">
+                  <img src="images/ltm.png" alt="LTM thumbnail">
+                </div>
+                <div class="right-column">
+                  <a href="projects/2025_ltm/page.html">
+                    <papertitle>A Generalizable Light Transport 3D Embedding for Global Illumination</papertitle>
+                  </a>
+                  <br>
+                  <strong>Bing Xu</strong>,
+                  <a href="https://mukundvarmat.github.io/" class="plain">Mukund Varma T</a>,
+                  <a href="https://galaxeaaa.github.io/" class="plain">Cheng Wang</a>,
+                  <a href="https://cseweb.ucsd.edu/~tzli/" class="plain">Tzu-Mao Li</a>,
+                  <a href="http://research.nvidia.com/labs/rtr/author/lifan-wu/" class="plain">Lifan Wu</a>,
+                  <a href="http://research.nvidia.com/labs/rtr/author/bart-wronski/" class="plain">Bart Wronski</a>,
+                  <a href="https://cseweb.ucsd.edu/~ravir/" class="plain">Ravi Ramamoorthi</a>,
+                  <a href="https://research.nvidia.com/person/marco-salvi" class="plain">Marco Salvi</a>
+                  <br><br>
+                  <a href="projects/2025_ltm/page.html" class="plain">project page</a> /
+                  <a href="papers/light_transport_model_bing_2025.pdf" class="plain">paper</a> /
+                  3D scenes &amp; code (coming)
+                  <p>We introduce a transformer-based framework for learning a generalizable 3D light transport
+                    embedding that directly approximates global illumination from 3D scene geometry, material
+                    properties and lighting, without rasterized or path-traced illumination cues.
+                    By capturing long-range spatial interactions through attention, our method produces
+                    view-independent results across a wide variety of indoor scenes without requiring per-scene
+                    training.</p>
+                </div>
+              </div>
+            </ul>
+            <!--====================end publication=============== -->
+
+            <!--====================begin publication=============== -->
+            <ul>
+              <div class="container">
+                <div class="left-column">
+                  <img src="images/residual_2024.PNG" alt="Residual thumbnail">
+                </div>
+                <div class="right-column">
+                  <a href="projects/2024_residual/page.html">
+                    <papertitle>Residual Path Integrals for Re-Rendering</papertitle>
+                  </a>
+                  <br>
+                  <strong>Bing Xu</strong>,
+                  <a href="https://cseweb.ucsd.edu/~tzli/" class="plain">Tzu-Mao Li</a>,
+                  <a href="http://iliyan.com/" class="plain">Iliyan Georgiev</a>,
+                  <a href="https://www.linkedin.com/in/trevor-hedstrom-9abb6362/" class="plain">Trevor Hedstrom</a>,
+                  <a href="https://cseweb.ucsd.edu/~ravir/" class="plain">Ravi Ramamoorthi</a>
+                  <br>
+                  <em>Computer Graphics Forum (Proceedings of Eurographics Symposium on Rendering), 2024</em>
+                  <br><span id="paperextra">Best Paper Award</span>
+                  <br>
+                  <a href="projects/2024_residual/page.html" class="plain">project page</a> /
+                  <a href="papers\residual_path_integral_bing_final.pdf" class="plain">paper</a> /
+                  <a href="https://docs.google.com/presentation/d/15r6YOjgVq7qFc0Mgb6__95jhA293gJxbwh-M0Sz6HIY/edit?usp=sharing"
+                    class="plain">slides</a> /
+                  <a href="" class="plain">code (coming)</a>
+                  <p>Incremental re-rendering of scenes in a common scenario where only a small portion is moving
+                    or edited (e.g. the main character hanging around in an open world).
+                    Formulating the difference between two frames as a (correlated) light-transport integral.
+                    Devising sampling strategies to focus on paths with non-zero residual-radiance contribution
+                    and tailoring appropriate path mappings.<br>
+                    <em>We welcome increased attention to the exploration and potential optimization of the
+                      residual path integral and, overall, the re-rendering problem. It is by essence <b>a finite
+                        difference renderer</b> and I'm also interested in exploring its applications in inverse
+                      rendering.</em></p>
+                </div>
+              </div>
+            </ul>
+            <!--====================end publication=============== -->
+
+            <!--====================begin publication=============== -->
+            <ul>
+              <div class="container">
+                <div class="left-column">
+                  <img src="images/isbsdf.png" alt="BSDF thumbnail">
+                </div>
+                <div class="right-column">
+                  <a href="https://fzy28.github.io/BSDF_diffusion_sampling_web/">
+                    <papertitle>BSDF Importance Sampling using a Diffusion Model</papertitle>
+                  </a>
+                  <br>
+                  <a href="https://fzy28.github.io/" class="plain">Ziyang Fu</a>,
+                  <a href="https://yashbelhe.github.io/" class="plain">Yash Belhe</a>,
+                  <a href="https://suikasibyl.github.io/" class="plain">Haolin Lu</a>,
+                  <a href="https://lwwu2.github.io/" class="plain">Liwen Wu</a>,
+                  <strong>Bing Xu</strong>,
+                  <a href="https://cseweb.ucsd.edu/~tzli/" class="plain">Tzu-Mao Li</a>
+                  <br>
+                  <em>ACM SIGGRAPH Asia, 2024</em>
+                  <br>
+                  <a href="https://fzy28.github.io/BSDF_diffusion_sampling_web/" class="plain">project page</a> /
+                  <a href="https://fzy28.github.io/BSDF_diffusion_sampling_web/main.pdf" class="plain">paper</a> /
+                  <a href="https://github.com/fzy28/BSDF_diffusion_sampling" class="plain">code</a>
+                  <p>BSDF importance sampling, using compact diffusion models to represent spherical domain
+                    probability density distributions.</p>
+                </div>
+              </div>
+            </ul>
+            <!--====================end publication=============== -->
+
+            <!--====================begin publication=============== -->
+            <ul>
+              <div class="container">
+                <div class="left-column">
+                  <img src="images/neusample.png" alt="NeuSample thumbnail">
+                </div>
+                <div class="right-column">
+                  <a href="https://cseweb.ucsd.edu/~viscomp/projects/neusample/">
+                    <papertitle>Neusample: Importance Sampling for Neural Materials</papertitle>
+                  </a>
+                  <br>
+                  <strong>Bing Xu</strong>,
+                  <a href="https://lwwu2.github.io/" class="plain">Liwen Wu</a>,
+                  <a href="http://miloshasan.net/" class="plain">Miloš Hašan</a>,
+                  <a href="https://luanfujun.com/" class="plain">Fujun Luan</a>,
+                  <a href="http://iliyan.com/" class="plain">Iliyan Georgiev</a>,
+                  <a href="https://cseweb.ucsd.edu/~zex014/" class="plain">Zexiang Xu</a>,
+                  <a href="https://cseweb.ucsd.edu/~ravir/" class="plain">Ravi Ramamoorthi</a>
+                  <br>
+                  <em>ACM SIGGRAPH, 2023</em>
+                  <br>
+                  <a href="https://cseweb.ucsd.edu/~viscomp/projects/neusample/" class="plain">project page</a> /
+                  <a href="https://cseweb.ucsd.edu/~viscomp/projects/neusample/assets/NeuSample.pdf"
+                    class="plain">paper</a> /
+                  <a href="https://github.com/bing-xu-graphics/neusample_release" class="plain">code</a>
+                  <p>A simple toolbox composed of three approaches to efficiently importance sample neural
+                    SVBRDFs, potentially facilitating the broader adoption of neural material models in
+                    production.</p>
+                </div>
+              </div>
+            </ul>
+            <!--====================end publication=============== -->
+
+            <!--====================begin publication=============== -->
+            <ul>
+              <div class="container">
+                <div class="left-column">
+                  <img src="images/yashtog.png" alt="BRDF Derivatives thumbnail">
+                </div>
+                <div class="right-column">
+                  <a href="https://yashbelhe.github.io/dbrdf/index.html">
+                    <papertitle>Importance Sampling BRDF Derivatives</papertitle>
+                  </a>
+                  <br>
+                  <a href="https://yashbelhe.github.io/" class="plain">Yash Belhe</a>,
+                  <strong>Bing Xu</strong>,
+                  <a href="http://people.csail.mit.edu/sbangaru/" class="plain">Sai Praveen Bangaru</a>,
+                  <a href="https://cseweb.ucsd.edu/~ravir/" class="plain">Ravi Ramamoorthi</a>,
+                  <a href="https://cseweb.ucsd.edu/~tzli/" class="plain">Tzu-Mao Li</a>
+                  <br>
+                  <em>ACM Transactions on Graphics (TOG), 2024</em>
+                  <br>
+                  <a href="https://yashbelhe.github.io/dbrdf/index.html" class="plain">project page</a> /
+                  <a href="https://yashbelhe.github.io/dbrdf/ImportanceSamplingBRDFDerivativesTOG.pdf"
+                    class="plain">paper</a>
+                  <p>Importance sampling real-valued derivatives, enabling better recovery of spatially varying
+                    textures through GD-based inverse rendering.</p>
+                </div>
+              </div>
+            </ul>
+            <!--====================end publication=============== -->
+
+            <!--====================begin publication=============== -->
+            <ul>
+              <div class="container">
+                <div class="left-column">
+                  <img src="images/teaser.jpg" alt="MC Denoising thumbnail">
+                </div>
+                <div class="right-column">
+                  <a href="http://adversarial.mcdenoising.org/">
+                    <papertitle>Adversarial Monte Carlo Denoising with Conditioned Auxiliary Feature Modulation</papertitle>
+                  </a>
+                  <br>
+                  <strong>Bing Xu</strong>,
+                  <a href="https://scholar.google.com/citations?user=oJjasIEAAAAJ&hl=en" class="plain">Junfei Zhang</a>,
+                  <a href="http://www.cad.zju.edu.cn/home/rwang/" class="plain">Rui Wang</a>,
+                  <a href="https://cg.cs.tsinghua.edu.cn/people/~kun/" class="plain">Kun Xu</a>,
+                  <a href="http://www.yongliangyang.net/" class="plain">Yong-liang Yang</a>,
+                  <a href="https://www.linkedin.com/in/chuan-li-a9474b63/" class="plain">Chuan Li</a>,
+                  <a href="https://scholar.google.com/citations?user=dwvfKSkAAAAJ&hl=en&oi=ao" class="plain">Rui Tang</a>
+                  <br>
+                  <em>ACM Transactions on Graphics (TOG), ACM SIGGRAPH Asia, 2019</em>
+                  <br>
+                  <a href="http://adversarial.mcdenoising.org/" class="plain">project page</a> /
+                  <a href="https://dl.acm.org/doi/10.1145/3355089.3356547" class="plain">paper</a> /
+                  <a href="https://github.com/mcdenoising/AdvMCDenoise" class="plain">code</a>
+                  <p>Denoising Monte Carlo renderings by better utilizing the first bounce auxiliary features and
+                    adversarial loss.</p>
+                </div>
+              </div>
+            </ul>
+            <!--====================end publication=============== -->
+
+            <h2 class="bernard-header" id="art" style="margin-bottom:5px;">Art</h2>
+            <p style="margin:0 0 20px 0;">I am an associate member of the Puget Sound Group Northwest Artists.
+              I mostly paint landscapes in the PNW and California, but also sketch random thoughts and emotions. Oil painting is my favorite medium, and I use acrylics or soft pastels for quick sketches.
+              Some of my work can be found in this <a href="./gallery.html">Gallery</a> (blatantly). These photos were taken casually, so the resolution may not be good.
+              Perhaps I will get more serious about it once my paintings start making money. You know, the best-case scenario I
+              can think of: after the painter's death.
+            </p>
+            I have always been a visual person and am born sensitive to colors. Expressing and communicating via pixels
+            are my choice of words. Painting is one form, ray tracing is another.
+
+            <h2 class="bernard-header" id="miscellany">Miscellany</h2>
+            <ul>
+              I used to play some soccer with our community amateur team when the sun was not too bright (what does this mean in
+              San Diego?). Now, sadly, I am slightly too old for that level of intensity.
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Right sidebar ── -->
+      <div id="rightcolumn">
+        <div class="innertube">
+          <img class="profile-img" alt="profile photo" src="images/portait.JPG">
+          <div style="margin-right: 0.5em; margin-top: 12px;">
+            <div style="border: 1px solid rgb(0, 255, 0); padding: 6px 8px; background-color: rgb(16, 33, 41);">
+              <p class="indented" style="margin:0;">Yes. The La Jolla beach you can't escape from in SD.<br><br>
+                Interested keywords: Light transport simulation; Importance sampling; Rendering; Numerical optimization.<br>
+                Welcome discussions and collaborations related to those problems.
+              </p>
+            </div>
+
+            <h3 class="bernard-header">NO NEWS IS GOOD NEWS</h3>
+            <ul style="margin-bottom:10px;">
+              <li>11/2025 - Did blender ever help you? Time to help back. <a
+                  href="https://www.blender.org/news/give-back-to-blender-fundraiser-for-2026/" class="plain">Blender needs
+                  some funding.</a> I've started monthly donation. Let's do our part for 3D artistic tools if you hope to
+                keep a creative world.</li>
+              <li>04/04/2025 - Farewell, KDB, 17.</li>
+              <li>09/30/2024 - Sadly. Antoine Griezmann retired from the national team.</li>
+              <li>06/02/2024 - Updated the website with a new bg color.. Good for you if you find it ugly</li>
+              <li>06/01/2024 - Real Madrid won their 15th UCL trophy.. Modric will stay for another season</li>
+              <li>04/05/2024 - 30 years since Kurt Cobain died..</li>
+              <li>I don't need a news column if I don't have much news right.. PEACE!</li>
+              <li><a href="" class="plain">[Archive&hellip;]</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end #page-body -->
+
+    <div id="footer">
+      <p id="legal">
+        I stole this website design from NIRVANA, which is (almost) my favorite band.
+        <br>
+        <small>Bing Xu &copy; Jun 2024&ndash; San Diego. All Rights Reserved.</small>
+      </p>
+    </div>
+
+  </div><!-- end #maincontainer -->
+
+  <script>
+    // Active nav highlight via IntersectionObserver
+    const sections = document.querySelectorAll('h2[id]');
+    const navLinks = document.querySelectorAll('#topnav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+
+</html>
