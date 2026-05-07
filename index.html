@@ -544,12 +544,39 @@
                   <a href="" class="plain">project page</a> /
                   <a href="papers/light_transformer_sig_2026.pdf" class="plain">paper</a> /
                   3D scenes &amp; code (coming)
-                  <p>We introduce a transformer-based framework for learning a generalizable 3D light transport
-                    embedding that directly approximates global illumination from 3D scene geometry, material
-                    properties and lighting, without rasterized or path-traced illumination cues.
-                    By capturing long-range spatial interactions through attention, our method produces
-                    view-independent results across a wide variety of indoor scenes without requiring per-scene
-                    training.</p>
+                  <p>We learn  a scalable 3D embedding with point clouds and linear-complexity transformers to overcome memory bottlenecks, enabling global light transport modeling on millions of triangles. 
+                    It features resolution-agnostic decoding, a local mechanism with constant per-pixel complexity that ensures view-consistent and generalizable global illumination through 3D supervision.
+
+
+                </div>
+              </div>
+            </ul>
+            <!--====================end publication=============== -->
+
+            <!--====================begin publication=============== -->
+            <ul>
+              <div class="container">
+                <div class="left-column">
+                  <img src="images/8dna.png" alt="8DNA thumbnail">
+                </div>
+                <div class="right-column">
+                  <a href="">
+                    <papertitle>8DNA: 8D Neural Asset Light Transport by Distribution Learning</papertitle>
+                  </a>
+                  <br>
+                  
+                  <a href="https://lwwu2.github.io/" class="plain">Liwen Wu</a>,
+                  <a href="https://suikasibyl.github.io/" class="plain">Haolin Lu</a>,
+                  <strong>Bing Xu</strong>,
+                  <a href="http://miloshasan.net/" class="plain">Miloš Hašan</a>,
+                  <a href="https://cseweb.ucsd.edu/~ravir/" class="plain">Ravi Ramamoorthi</a>
+                  <br>
+                  <em>ACM SIGGRAPH, 2026</em>
+                  <br>
+                  <a href="" class="plain">project page</a> /
+                  <a href="https://arxiv.org/pdf/2604.25129" class="plain">paper</a> 
+                  <p>We introduce 8D neural assets to pre-bake complex global illumination effects such as subsurface scattering and glossy interreflections into neural representations. 
+                    Unlike prior methods that assume far-field lighting and precompute light transport into 6D functions, 8DNA learns the full 8D light transport, enabling accurate rendering under near-field illumination.</p>
                 </div>
               </div>
             </ul>
