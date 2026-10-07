@@ -161,7 +161,8 @@ font-size: 110%;
 }
 
 .section {
-max-width:800px
+max-width:800px;
+width:calc(100% - 40px);
 }
 
 sub {
@@ -199,6 +200,7 @@ font-weight: bold;
 
 .code_pre {
 font-family: Consolas, "Droid Sans Mono", monospace;
+overflow-x: auto;
 /* padding: 0;
 margin: 0; */
 /* display:-webkit-box; */
@@ -214,7 +216,10 @@ white-space: -o-pre-wrap;
   font-size: 1rem;
   line-height: 1.5;
 }
-.author { white-space: nowrap; }
+.author {
+  display: inline-block;
+  white-space: nowrap;
+}
 .authors .author + .author::before { content: ", "; } /* auto-commas */
 
 sup.affil {
@@ -240,5 +245,8 @@ sup.affil {
 
 /* Optional tighter look on mobile */
 @media (max-width: 520px) {
+  .section { width: calc(100% - 24px); }
+  .papertitle { font-size: 1.6em; }
   .affiliations-inline { gap: 0.35rem; }
+  .affiliations-inline .sep { display: none; }
 }
