@@ -1,82 +1,208 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A scalable, generalizable 3D light transport embedding for global illumination.">
-  <link rel="stylesheet" href="../paper.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A generalizable light transport 3D embedding for global illumination.">
   <title>A Generalizable Light Transport 3D Embedding for Global Illumination</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+    :root{--bg:#181a1b;--panel:#1e2320;--line:#343b36;--text:#fff;--muted:#adb5af;--green:#41c95a}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:#fff;text-decoration:none;transition:color .15s}a:hover{color:var(--green)}
+    .nav{position:sticky;top:0;z-index:5;padding:9px 20px;border-bottom:1px solid #007b00;background:#181a1bee;backdrop-filter:blur(8px);font-size:12px}.nav a{color:#4a8a4a}.page{width:min(850px,calc(100% - 40px));margin:auto}
+    .hero{padding:68px 0 30px}h1{max-width:780px;margin:0 0 14px;color:var(--green);font-size:clamp(28px,4vw,38px);font-weight:600;line-height:1.12;letter-spacing:-.03em}.venue{margin:0 0 13px;color:#fff;font-size:17px;font-weight:600}.dek{max-width:720px;margin:0 0 20px;color:#dce2dd;font-size:20px;line-height:1.5}.authors{color:var(--muted);font-size:14px;line-height:1.6}.authors a{color:var(--muted)}.authors a:hover{color:var(--green)}.affiliations{margin-top:4px;color:var(--muted);font-size:14px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}.button{padding:8px 13px;border:1px solid #3c7747;border-radius:7px;font-size:14px;font-weight:500}.button.primary{background:var(--green);color:#071309}.teaser{display:block;width:100%;margin:0 0 40px;border:1px solid var(--line);border-radius:12px}
+    section{margin:0 0 64px}h2{margin:0 0 13px;font-size:23px;line-height:1.3;letter-spacing:-.02em}.lead{max-width:760px;margin:0 0 22px;color:#cbd1cc;font-size:17px}.tldr{padding:23px;border:1px solid #35683e;border-radius:12px;background:linear-gradient(135deg,#213226,#1a201c)}.tldr h2{margin-bottom:8px;color:var(--green)}.tldr p{margin:0;font-size:17px}
+    figure{margin:22px 0 0}figure img{display:block;width:100%;border-radius:9px;background:#fff}figcaption{margin-top:9px;color:var(--muted);font-size:13px}.story{margin:24px 0 0;padding-left:22px;border-left:2px solid #35683e}.story-step{position:relative;margin:0 0 20px}.story-step:last-child{margin-bottom:0}.story-step::before{content:"";position:absolute;left:-28px;top:8px;width:10px;height:10px;border:2px solid var(--green);border-radius:50%;background:var(--bg)}.story-step strong{display:block;margin-bottom:3px}.story-step p{margin:0;color:var(--muted)}
+    .journey{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:22px}.journey-item img{display:block;width:100%;border-radius:7px}.journey-item strong{display:block;margin-top:7px;font-size:13px;line-height:1.35}.journey-item span{display:block;color:var(--muted);font-size:12px}.journey-note{margin-top:18px;padding:16px 18px;border-left:3px solid var(--green);background:var(--panel);color:#d7ddd8}
+    .phases{margin:0 0 30px;border-top:1px solid var(--line)}.phase{display:grid;grid-template-columns:110px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid var(--line)}.phase-label{color:var(--green);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}.phase h3{margin:0 0 5px;font-size:17px}.phase p{margin:0;color:var(--muted)}.phase figure{margin-top:15px}.phase figure img{border:1px solid #252b27;background:#000}.phase figcaption{font-size:12px}
+    .phase-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}.phase-image img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:7px}.phase-image span{display:block;margin-top:4px;color:#909a93;font-size:11px}
+    .dataset-stats{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.stat{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#dce2dd;font-size:13px}
+    .dataset-figure{max-width:680px;margin-left:auto;margin-right:auto}.dataset-credit{text-align:center}.dataset-credit a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}.dataset-credit a:hover{color:var(--green)}.dataset-note{max-width:720px;margin:20px 0 0;padding:16px 18px;border-left:3px solid var(--green);background:var(--panel);color:#cbd1cc;font-size:14px}.dataset-note strong{color:#fff}
+    .wide-section{width:min(1180px,calc(100vw - 40px));margin-left:50%;transform:translateX(-50%)}.attention-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;margin-top:24px}.attention-overview{margin:0}.attention-overview img{aspect-ratio:16/9;object-fit:contain}.attention-player{overflow:hidden;margin:0;border:1px solid var(--line);border-radius:12px;background:#000}.attention-player img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;transition:opacity .2s}.attention-player img.changing{opacity:.25}.player-bar{display:flex;align-items:center;gap:12px;min-height:58px;padding:10px 13px;border-top:1px solid var(--line);background:#121513}.player-copy{flex:1;color:#d9dfda;font-size:13px;line-height:1.45}.player-count{color:var(--green);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}.player-button{border:1px solid #415047;border-radius:6px;background:transparent;color:#fff;padding:6px 10px;cursor:pointer}.player-button:hover{border-color:var(--green);color:var(--green)}
+    .experiment-player{overflow:hidden;margin-top:22px;border:1px solid var(--line);border-radius:12px;background:#121513}.experiment-roadmap{position:relative;display:grid;grid-template-columns:repeat(5,1fr);padding:15px 18px 13px;border-bottom:1px solid var(--line)}.experiment-roadmap::before{content:"";position:absolute;left:10%;right:10%;top:25px;height:1px;background:#465048}.roadmap-stop{position:relative;z-index:1;border:0;background:transparent;color:#7f8982;font:11px/1.25 Inter,sans-serif;cursor:pointer}.roadmap-stop::before{content:"";display:block;width:11px;height:11px;margin:5px auto 7px;border:2px solid #536057;border-radius:50%;background:#121513}.roadmap-stop.passed,.roadmap-stop.active{color:#dce2dd}.roadmap-stop.passed::before{border-color:#35683e;background:#35683e}.roadmap-stop.active::before{border-color:var(--green);background:var(--green);box-shadow:0 0 0 4px #41c95a20}.roadmap-stop:hover{color:var(--green)}.experiment-panel{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(220px,.75fr);min-height:360px}.experiment-panel img{display:block;width:100%;height:100%;object-fit:contain;background:#000}.experiment-copy{display:flex;flex-direction:column;justify-content:center;padding:24px}.experiment-kicker{color:var(--green);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}.experiment-copy h3{margin:7px 0 8px;font-size:20px;line-height:1.3}.experiment-copy p{margin:0;color:var(--muted);font-size:14px}.experiment-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 13px;border-top:1px solid var(--line)}.experiment-stage-name{color:var(--muted);font-size:12px}
+    .design-config{margin:20px 0 0;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted);font-size:13px}.design-config strong{color:var(--green)}.design-questions{margin-top:24px;border-top:1px solid var(--line)}.design-question{padding:20px 0;border-bottom:1px solid var(--line)}.design-question h3{margin:0 0 7px;color:#fff;font-size:18px}.design-question p{max-width:750px;margin:0;color:var(--muted);font-size:14px}.design-question .answer{color:#dce2dd}.design-question .detail{margin-top:6px;font-size:12px}.design-question a{color:var(--green)}.content-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}.content-card{padding:18px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}.content-card h3{margin:0 0 6px;font-size:16px}.content-card p{margin:0;color:var(--muted);font-size:14px}.limitations .content-card{border-color:#4c4434}.future-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;margin:22px 0 0;padding:0;list-style:none}.future-list li{padding:15px 0;border-top:1px solid var(--line)}.future-list strong{display:block;margin-bottom:3px}.future-list span{color:var(--muted);font-size:14px}.collab-callout{margin-top:24px;padding:22px;border:1px solid #35683e;border-radius:12px;background:linear-gradient(135deg,#213226,#1a201c)}.collab-callout h3{margin:0 0 6px;font-size:18px}.collab-callout p{margin:0;color:#d9dfda}.collab-callout a{color:var(--green);font-weight:600}.collab-callout a:hover{color:#8fec9f}
+    .comparison-stage{padding:14px;border:1px solid var(--line);border-radius:12px;background:#121513}.comparison-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.comparison-card{position:relative;aspect-ratio:1;overflow:hidden;border-radius:8px;background:#0d0f0e}.comparison-card img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}.comparison-card .prediction{clip-path:inset(0 calc(100% - var(--split,50%)) 0 0)}.comparison-card::after{content:"";position:absolute;top:0;bottom:0;left:var(--split,50%);width:2px;background:#fff;box-shadow:0 0 0 1px #0005;transform:translateX(-1px)}.comparison-label{position:absolute;z-index:2;top:8px;padding:3px 7px;border-radius:5px;background:#0b0d0bcc;font-size:11px}.comparison-label.ours{left:8px}.comparison-label.reference{right:8px}.comparison-control{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-top:13px;color:var(--muted);font-size:12px}.comparison-control input{width:100%;accent-color:var(--green)}
+    .details-section{padding-top:8px}.asset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.asset{display:flex;align-items:center;min-height:54px;padding:10px 14px;border:1px solid #35683e;border-radius:8px;background:var(--panel);color:var(--green);font-weight:500}.asset:hover{border-color:var(--green);background:#213226}.asset.disabled{border-color:var(--line);color:var(--muted);font-weight:400}.code{overflow:auto;padding:15px 17px;border:1px solid var(--line);border-radius:8px;background:#111412}.code pre{margin:0;font:12px/1.5 Consolas,monospace}.ack{padding-top:27px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}footer{padding:0 0 55px;color:#6f7972;font-size:12px}
+    @media(max-width:750px){.page{width:calc(100% - 24px)}.wide-section{width:calc(100vw - 24px)}.hero{padding-top:35px}.journey{grid-template-columns:1fr 1fr}.phase{grid-template-columns:1fr;gap:4px}.phase-gallery{grid-template-columns:1fr 1fr}.attention-grid,.asset-grid,.experiment-panel,.content-grid,.future-list{grid-template-columns:1fr}.comparison-row{grid-template-columns:1fr 1fr}.experiment-panel{min-height:0}.experiment-panel img{aspect-ratio:16/9}.experiment-copy{padding:18px}section{margin-bottom:48px}}
+  </style>
 </head>
 <body>
-
-  <div style="position:sticky;top:0;z-index:999;background:rgba(24,26,27,0.93);backdrop-filter:blur(6px);border-bottom:1px solid #007b00;padding:8px 20px;font-family:verdana,sans-serif;font-size:12px;">
-    <a href="../../index.html#research" style="color:#4a8a4a;text-decoration:none;font-size:12px;">&larr; Bing Xu</a>
-    <span style="color:#007b00;margin:0 6px;">/</span>
-    <span style="color:#ffffff;">Research</span>
-  </div>
-
-  <main>
-    <div style="max-width:1200px;margin:0 auto;margin-top:60px;text-align:justify;"></div>
-
-    <header style="text-align:left;margin-left:auto;margin-right:auto;" class="section">
-      <h1 class="papertitle">A Generalizable Light Transport 3D Embedding for Global Illumination</h1>
-
-      <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
-        <span class="author"><a class="subtle" href="https://bingxu.tech" target="_blank" rel="noopener">Bing Xu</a><sup class="affil">1,2</sup></span>
-        <span class="author"><a href="https://mukundvarmat.github.io/" target="_blank" rel="noopener">Mukund Varma T</a><sup class="affil">1</sup></span>
-        <span class="author"><a href="https://galaxeaaa.github.io/" target="_blank" rel="noopener">Cheng Wang</a><sup class="affil">1</sup></span>
-        <span class="author"><a href="https://cseweb.ucsd.edu/~tzli/" target="_blank" rel="noopener">Tzu-Mao Li</a><sup class="affil">1</sup></span>
-        <span class="author"><a href="https://research.nvidia.com/labs/rtr/author/lifan-wu/" target="_blank" rel="noopener">Lifan Wu</a><sup class="affil">2</sup></span>
-        <span class="author"><a href="https://research.nvidia.com/labs/rtr/author/bart-wronski/" target="_blank" rel="noopener">Bartlomiej Wronski</a><sup class="affil">2</sup></span>
-        <span class="author"><a href="https://cseweb.ucsd.edu/~ravir/" target="_blank" rel="noopener">Ravi Ramamoorthi</a><sup class="affil">1</sup></span>
-        <span class="author"><a href="https://research.nvidia.com/person/marco-salvi" target="_blank" rel="noopener">Marco Salvi</a><sup class="affil">2</sup></span>
-      </div>
-
-      <div class="affiliations-inline" aria-label="Affiliations">
-        <span><sup>1</sup> University of California, San Diego, USA</span>
-        <span class="sep">&bull;</span>
-        <span><sup>2</sup> NVIDIA, USA</span>
-      </div>
-
-      <p>ACM SIGGRAPH 2026</p>
+  <div class="nav"><a href="../../index.html#research">← Bing Xu</a> &nbsp;/&nbsp; Research</div>
+  <main class="page">
+    <header class="hero">
+      <h1>A Generalizable Light Transport 3D Embedding for Global Illumination</h1>
+      <div class="venue">ACM SIGGRAPH 2026</div>
+      <p class="dek">Can a network learn how light moves through a room it has never seen?</p>
+      <div class="authors"><a href="https://bingxu.tech">Bing Xu</a><sup>1,2</sup>, <a href="https://mukundvarmat.github.io/">Mukund Varma T</a><sup>1</sup>, <a href="https://galaxeaaa.github.io/">Cheng Wang</a><sup>1</sup>, <a href="https://cseweb.ucsd.edu/~tzli/">Tzu-Mao Li</a><sup>1</sup>, <a href="https://research.nvidia.com/labs/rtr/author/lifan-wu/">Lifan Wu</a><sup>2</sup>, <a href="https://research.nvidia.com/labs/rtr/author/bart-wronski/">Bartlomiej Wronski</a><sup>2</sup>, <a href="https://cseweb.ucsd.edu/~ravir/">Ravi Ramamoorthi</a><sup>1</sup>, <a href="https://research.nvidia.com/person/marco-salvi">Marco Salvi</a><sup>2</sup></div>
+      <div class="affiliations"><sup>1</sup> University of California, San Diego &nbsp;•&nbsp; <sup>2</sup> NVIDIA</div>
+      <div class="hero-actions"><a class="button primary" href="../../papers/light_transformer_sig_2026.pdf" target="_blank" rel="noopener">See the paper</a><a class="button" href="https://doi.org/10.1145/3799902.3811095" target="_blank" rel="noopener">DOI</a><a class="button" href="#assets">Code &amp; assets</a><a class="button" href="#bibtex">BibTeX</a></div>
     </header>
 
-    <div style="margin-left:auto;margin-right:auto;" class="section">
-      <div class="whitebg">
-        <img src="../../images/ltm_new.png" alt="The method maps 3D scene assets to a light transport embedding and predicts global illumination matching the reference." style="width:100%;height:auto;display:block;">
-      </div>
+    <img class="teaser" src="assets/teaser.png" alt="Light transport prediction results">
 
+    <section class="tldr">
+      <h2>TL;DR</h2>
+      <p>Turn a scene into points, let a transformer propagate light information between them, then decode illumination only where it is needed. No per-scene training. No screen-space illumination input.</p>
+    </section>
+
+    <section>
+      <h2>Teach a transformer to bounce light</h2>
+      <p class="lead">We first turn the raw 3D inputs into a point-based intermediate representation, with features such as position, normal, material properties, and emission for points on light sources. A global encoder then captures long-range light transport in 3D, while local decoders answer only the rendering queries we need.</p>
+      <figure><img src="assets/pipeline.png" alt="Light transport embedding pipeline"><figcaption>Scene inputs → light transport embedding → local query decoders.</figcaption></figure>
+    </section>
+
+    <section id="design-choices">
+      <h2>Design choices</h2>
+      <p class="lead">For this rather large system, the design space is big. We made a few design decisions along the way. Each of them could be potentially improved.</p>
+      <p class="design-config"><strong>Default configuration:</strong> 20k scene points · 5k embedding anchors · 2M training queries · 32 neighbors per query · 128D hidden features · 42M parameters</p>
+      <div class="design-questions">
+        <div class="design-question"><h3>Why use points?</h3><p class="answer">Points decouple the network's sampling density from the original mesh topology. We can sample textured surfaces where detail is needed and represent emissive and non-emissive geometry in the same format. Triangle vertices used without mesh connectivity are also one valid realization of this point representation.</p><p class="detail">This format is simple to batch across scenes and gives latent codes explicit anchors in 3D space.</p></div>
+        <div class="design-question"><h3>Why use a transformer?</h3><p class="answer">Light reaching one surface can depend on geometry, materials, and lights far across the room. Attention lets distant scene points exchange information, while stacking layers repeatedly propagates that information through the scene. A linear-complexity point transformer also gives us a practical way to scale this exchange.</p><p class="detail">This resembles recursive propagation in the Neumann-series view of light transport. Transformers are only one of many choices for 3D learning, and we do not claim they are the best one. Other scalable backbones are worth trying.</p></div>
+        <div class="design-question"><h3>How many scene and query points are enough?</h3><p class="answer">We use 20k scene points to represent the input and roughly 2M query points for supervision. Beyond 20k scene points, improvements became small on our indoor benchmark. Query coverage depends more on scene complexity: about 200k was sufficient for a Cornell box, while complex rooms benefited from 2M.</p><p class="detail">Scene-point ablation: 5k: 28.51 dB · 10k: 30.94 dB · 20k: 34.57 dB.</p></div>
+        <div class="design-question"><h3>Why not let every point attend to every other point?</h3><p class="answer">The most intuitive choice is a vanilla transformer with full attention. It worked in our early experiments, but at 20k scene points it exceeded 80 GB of training memory. We instead condense local information into 5k anchors, then use serialized point attention to propagate information across the room with linear complexity.</p><p class="detail">The scalable encoder used about 21 GB at batch size 3. <a href="#experiment-journey">See how the architecture changed in our experiment journey below.</a></p></div>
+        <div class="design-question"><h3>Why decode from only 32 nearby points?</h3><p class="answer"><strong>Decoding is strictly local.</strong> A query never attends to every scene point. The encoder has already carried global light information into the embedding, so each query retrieves only 32 nearby latent codes. Learned local attention is cheaper than global decoding and avoids the hard boundaries produced by naive nearest-neighbor interpolation.</p><p class="detail">k=8: 26.96 dB · k=32: 34.57 dB · k=48: 34.71 dB. Quality largely saturates at 32.</p></div>
+        <div class="design-question"><h3>Why separate scene points from query points?</h3><p class="answer">The 20k scene points define a reusable light transport embedding. Query points are separate locations where we ask for illumination, such as the surface hits of camera rays. Each query is decoded independently from its local neighbors, so changing the camera or image resolution does not require changing the scene representation.</p><p class="detail">Encode the scene once, then evaluate any number of query points at any view or resolution.</p></div>
+        <div class="design-question"><h3>Why supervise query points instead of images?</h3><p class="answer">Image supervision couples training to selected cameras and pixel grids. We instead distribute query points over each scene, teaching the embedding about the 3D environment rather than a fixed collection of views.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>A dataset built for learning light transport</h2>
+      <p class="lead">Existing datasets were not designed for scene-level, 3D-supervised global illumination. We built a procedural indoor dataset that preserves the whole path from floor plan to the points seen by the network.</p>
+      <div class="dataset-stats"><span class="stat">13,900 scenes</span><span class="stat">≈2 million query points / scene</span><span class="stat">1,024 rays / point</span><span class="stat">Diverse layouts, geometry, and textures</span></div>
+      <figure class="dataset-figure"><img src="assets/dataset.png" alt="Dataset generation pipeline"><figcaption class="dataset-credit">Floor plans → meshes → texture atlases → textured assets → scene points. Built with procedural generation based on <a href="https://infinigen.org/">Infinigen</a>, with rendering integration through <a href="https://github.com/NVIDIAGameWorks/Falcor">Falcor</a>.</figcaption></figure>
+      <p class="dataset-note"><strong>A note from 2025.</strong> A substantial part of this project was complete by May 2025, before LLMs and coding agents became this capable. With today's models and Blender MCP, we can build more structured 3D datasets, improve asset and scene validation, and iterate on the generation pipeline much faster.</p>
+    </section>
+
+    <section class="wide-section">
+      <h2>Visualizing attention importance</h2>
+      <p class="lead">Light transport repeatedly propagates radiance between scene locations. Stacked attention also repeatedly exchanges information between tokens. This analogy motivated us to ask whether the learned attention structure would reveal transport-like relationships.</p>
+      <p class="lead">We pull attention scores from a trained layer to see which scene points contribute to two focus points. More solid colors indicate higher importance.</p>
+      <div class="attention-grid">
+        <figure class="attention-overview"><img src="assets/attention-overview.png" alt="Attention importance visualization"><figcaption>Yellow points have higher importance; red markers indicate the queried scene points.</figcaption></figure>
+        <div class="attention-player">
+          <img id="attention-frame" alt="Animated attention-importance visualization">
+          <div class="player-bar"><button class="player-button" id="attention-previous" type="button" aria-label="Previous attention frame">←</button><div class="player-copy"><div class="player-count" id="attention-count"></div><div id="attention-copy"></div></div><button class="player-button" id="attention-toggle" type="button">Pause</button><button class="player-button" id="attention-next" type="button" aria-label="Next attention frame">→</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wide-section">
+      <h2>Prediction comparison</h2>
+      <p class="lead">Drag once to compare all four held-out scenes.</p>
+      <div class="comparison-stage">
+        <div class="comparison-row" id="comparison-row">
+          <div class="comparison-card"><img class="reference" src="assets/comparison-1-reference.png" alt="Path-traced reference for scene 1"><img class="prediction" src="assets/comparison-1-prediction.png" alt="Our prediction for scene 1"><span class="comparison-label ours">Ours</span><span class="comparison-label reference">Reference</span></div>
+          <div class="comparison-card"><img class="reference" src="assets/comparison-2-reference.png" alt="Path-traced reference for scene 2"><img class="prediction" src="assets/comparison-2-prediction.png" alt="Our prediction for scene 2"><span class="comparison-label ours">Ours</span><span class="comparison-label reference">Reference</span></div>
+          <div class="comparison-card"><img class="reference" src="assets/comparison-3-reference.png" alt="Path-traced reference for scene 3"><img class="prediction" src="assets/comparison-3-prediction.png" alt="Our prediction for scene 3"><span class="comparison-label ours">Ours</span><span class="comparison-label reference">Reference</span></div>
+          <div class="comparison-card"><img class="reference" src="assets/comparison-4-reference.png" alt="Path-traced reference for scene 4"><img class="prediction" src="assets/comparison-4-prediction.png" alt="Our prediction for scene 4"><span class="comparison-label ours">Ours</span><span class="comparison-label reference">Reference</span></div>
+        </div>
+        <label class="comparison-control"><span>Ours</span><input id="comparison-slider" type="range" min="0" max="100" value="50" aria-label="Reveal prediction or path-traced reference"><span>Path-traced reference</span></label>
+      </div>
+    </section>
+
+    <section id="experiment-journey">
+      <h2>What failed may be more important than what worked</h2>
+      <p class="lead">We wanted to document the experiment journey, especially what did not work. You can find what worked in the paper.</p>
+      <div class="experiment-player">
+        <div class="experiment-roadmap" id="experiment-roadmap" aria-label="Experiment roadmap"></div>
+        <div class="experiment-panel"><img id="experiment-image" alt="Experiment journey slide"><div class="experiment-copy"><div class="experiment-kicker" id="experiment-kicker"></div><h3 id="experiment-title"></h3><p id="experiment-text"></p></div></div>
+        <div class="experiment-controls"><button class="player-button" id="experiment-previous" type="button">← Previous</button><span class="experiment-stage-name" id="experiment-stage-name"></span><button class="player-button" id="experiment-next" type="button">Next →</button></div>
+      </div>
+      <h3>Then the network had to catch up</h3>
+      <div class="journey">
+        <div class="journey-item"><img src="assets/architecture-1.png" alt="Vanilla transformer result"><strong>Vanilla transformer</strong><span>Promising, but quadratic and hard to scale.</span></div>
+        <div class="journey-item"><img src="assets/architecture-2.png" alt="Light Transport Encoder result"><strong>+ scalable encoder</strong><span>Memory problem solved; but quality drops.</span></div>
+        <div class="journey-item"><img src="assets/architecture-3.png" alt="Full model result"><strong>+ local query decoder</strong><span>Learned aggregation recovers fidelity.</span></div>
+        <div class="journey-item"><img src="assets/architecture-4.png" alt="Reference result"><strong>Reference</strong><span>Path-traced target.</span></div>
+      </div>
+    </section>
+
+    <section class="limitations">
+      <h2>Limitations</h2>
+      <p class="lead">The model generalizes within the indoor distribution it was trained on. Several hard cases remain.</p>
+      <div class="content-grid">
+        <div class="content-card"><h3>Distribution shifts</h3><p>Rare texture tones can cause color shifts. Lighting from an adjacent room is also difficult when similar layouts are scarce in training.</p></div>
+        <div class="content-card"><h3>Occluded samples</h3><p>Points hidden beneath geometry can bleed dark latent codes into visible regions. Better sampling, pruning, or larger local neighborhoods can help.</p></div>
+        <div class="content-card"><h3>Dynamic sequences</h3><p>There is no explicit temporal constraint, so animated scenes may flicker. The current embedding is recomputed after scene changes.</p></div>
+        <div class="content-card"><h3>Glossy transport is preliminary</h3><p>We ran initial glossy-scene experiments on a smaller focused dataset by adding a Directional Radiance Decoder and fine-tuning the encoder. The current 32 × 32 directional histogram is discrete and low resolution. We compared it with spherical harmonics; compact bases such as Spherical Gaussians and Anisotropic Spherical Gaussians are promising directions for future work.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Future work</h2>
+      <p class="lead">Full generalizability means more kinds of scenes and more kinds of light transport effects: caustics, SDS paths, and beyond. Is expanding the data a sustainable way to cover the entire rendering parameter space? I am afraid not.</p>
+      <ul class="future-list">
+        <li><strong>Beyond indoor transport</strong><span>Outdoor scenes, multi-room environments, participating media, translucency, and sharper specular effects.</span></li>
+        <li><strong>Dynamic embeddings</strong><span>Update only the regions affected by moving geometry, materials, or lights instead of encoding the full scene again.</span></li>
+        <li><strong>High-performance inference</strong><span>Hardware-aware kernels, compact embeddings, fused local decoding, and partial scene updates for interactive rendering.</span></li>
+        <li><strong>More efficient learning</strong><span>Sample-efficient training and broader coverage without scaling data and compute at the same rate.</span></li>
+        <li><strong>Data plus physics</strong><span>Combine learned priors with physical structure such as transport linearity and neural operators.</span></li>
+        <li><strong>Broader visual priors</strong><span>Connect scalable 3D transport models with 2D foundation models to reach more in-the-wild scene distributions.</span></li>
+      </ul>
+      <div class="collab-callout"><h3>Want to push one of these directions?</h3><p>If any of these questions interest you, we would love to collaborate on rendering systems, 3D datasets, dynamic neural GI, physics-grounded learning, or high-performance inference. Feel free to email me or Marco about future collaboration.</p></div>
+    </section>
+
+    <section class="details-section">
       <h2>Abstract</h2>
       <p>Global illumination (GI) is essential for realism but remains computationally expensive. While per-scene neural methods lack generalization and screen-space approaches inherently suffer from view inconsistency, prior 3D neural rendering methods face a severe scalability barrier, restricting them to small, object-centric meshes. To overcome these trade-offs, we introduce a generalizable light transport 3D embedding that predicts global illumination directly from 3D scene configurations without rasterized or path-traced illumination cues, per-scene retraining, or screen-space limitations.</p>
       <p>We employ a point-based representation to decouple our embedding from the original scene topology, then utilize a linear-complexity transformer to encode long-range light transport. This design scales to environments with millions of triangles, enabling the first generalizable GI learning on complex, high-fidelity indoor scenes, far beyond prior limits. To achieve this, we enforce a local query mechanism where rendering queries are processed independently under 3D supervision. This ensures constant complexity per pixel relative to scene size, yielding view-consistent and resolution-agnostic rendering without the memory bottlenecks typical of globally coupled attention. We further demonstrate versatility by re-targeting the encoder with limited fine-tuning, presenting preliminary results on spatial-directional radiance field prediction for glossy materials and validating transfer to downstream rendering tasks.</p>
+    </section>
 
+    <section id="assets">
       <h2>Assets</h2>
-      <a href="../../papers/light_transformer_sig_2026.pdf" target="_blank" rel="noopener"><img src="../../images/icon_pdf.png" class="icon" alt="">Paper (PDF)</a><br>
-      <a href="https://doi.org/10.1145/3799902.3811095" target="_blank" rel="noopener"><img src="../../images/icon_pdf.png" class="icon" alt="">DOI</a><br>
-      <a href="https://drive.google.com/file/d/1jjCbvhvSe8uHVRF-8KND2QTOVOl_dWhO/view?usp=sharing" target="_blank" rel="noopener"><img src="../../images/icon_source.png" class="icon" alt="">Model code</a><br>
-      <img src="../../images/icon_source.png" class="icon" alt="">Scene scripts (coming this week)<br>
+      <div class="asset-grid"><a class="asset" href="../../papers/light_transformer_sig_2026.pdf" target="_blank" rel="noopener">Paper (PDF)</a><a class="asset" href="https://doi.org/10.1145/3799902.3811095" target="_blank" rel="noopener">DOI</a><a class="asset" href="https://github.com/bing-xu-graphics/light_transformer" target="_blank" rel="noopener">Code &amp; weights</a><a class="asset" href="https://github.com/bing-xu-graphics/light_transformer/tree/main/dataset_helper" target="_blank" rel="noopener">Scene scripts</a></div>
+    </section>
 
-      <h2>Acknowledgments</h2>
-      <p>This work was supported in part by NSF grants 2212085, 2105806, 2100237, 2120019, 2127544, and ONR grant N00014-23-1-2526. We also acknowledge support from Apple, gifts from Adobe, Google, Activision, and Qualcomm, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing. Ramamoorthi acknowledges a part-time appointment at NVIDIA. The authors would like to thank Aaron Lefohn and Chris Wyman for their support; Matt Pharr for valuable input along the way; Thomas Akenine-M&ouml;ller, Jacob Munkberg, Jon Hasselgren and Zian Wang for their suggestions regarding the evaluation, dataset and training clusters; Milo&scaron; Ha&scaron;an and Benedikt Bitterli for valuable discussions; and the anonymous reviewers for constructive comments. Bing owes particular thanks to Alex Trevithick for pointers to procedural scene generation and many helpful discussions; Zimo Wang and Nithin Raghavan for generously sharing cluster training quotas; Yang Zhou for proofreading and comments; and her fellow interns for helpful discussions in the early stages.</p>
-
-      <h2>BibTeX reference</h2>
-      <div class="code_pre">
-        <pre>@inproceedings{Xu:2026:LightTransportEmbedding,
+    <section id="bibtex"><h2>BibTeX reference</h2><div class="code"><pre>@inproceedings{Xu:2026:LightTransportEmbedding,
   author    = {Bing Xu and Mukund Varma T and Cheng Wang and Tzu-Mao Li and
                Lifan Wu and Bartlomiej Wronski and Ravi Ramamoorthi and Marco Salvi},
   title     = {A Generalizable Light Transport 3D Embedding for Global Illumination},
   booktitle = {ACM SIGGRAPH Conference Papers},
   year      = {2026},
   doi       = {10.1145/3799902.3811095}
-}</pre>
-      </div>
-    </div>
-  </main>
+}</pre></div></section>
 
-  <footer id="footer">
-    <div style="padding-bottom:1.5em;text-align:center;">
-      <p id="legal"><small>Bing Xu &copy; 2026&ndash;Redmond. All Rights Reserved.</small></p>
-    </div>
-  </footer>
+    <section class="ack"><h2>Acknowledgments</h2><p>This work was supported in part by NSF grants 2212085, 2105806, 2100237, 2120019, 2127544, and ONR grant N00014-23-1-2526. We also acknowledge support from Apple, gifts from Adobe, Google, Activision, and Qualcomm, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing. Ramamoorthi acknowledges a part-time appointment at NVIDIA. The authors would like to thank Aaron Lefohn and Chris Wyman for their support; Matt Pharr for valuable input along the way; Thomas Akenine-M&ouml;ller, Jacob Munkberg, Jon Hasselgren, and Zian Wang for their suggestions regarding the evaluation, dataset, and training clusters; Milo&scaron; Ha&scaron;an and Benedikt Bitterli for valuable discussions; and the anonymous reviewers for constructive comments. Bing owes particular thanks to Alex Trevithick for pointers to procedural scene generation and many helpful discussions; Zimo Wang and Nithin Raghavan for generously sharing cluster training quotas; Yang Zhou for proofreading and comments; and her fellow interns for helpful discussions in the early stages.</p></section>
+    <footer>Bing Xu &copy; 2026. All rights reserved.</footer>
+  </main>
+  <script>
+    const comparisonRow=document.getElementById('comparison-row'),comparisonSlider=document.getElementById('comparison-slider');
+    comparisonSlider.oninput=()=>comparisonRow.style.setProperty('--split',`${comparisonSlider.value}%`);
+
+    const attentionFrames=[1,2,3,4,5,6,7].map(n=>`assets/attention-${n}.png`);
+    const attentionScripts=[
+      'Pick a point on the ceiling, next to the light source.',
+      'Pull its attention scores: solid colors mean higher importance.',
+      'First, the points on the light source contribute strongly.',
+      'Then four spatial clusters emerge elsewhere in the room.',
+      'Now move the focus point to a wall inside the hallway.',
+      'The light source disappears from the important set because it is occluded.',
+      'Four new wall clusters remain, likely corresponding to indirect bounces.'
+    ];
+    const attentionImage=document.getElementById('attention-frame'),attentionCopy=document.getElementById('attention-copy'),attentionCount=document.getElementById('attention-count'),attentionToggle=document.getElementById('attention-toggle');
+    let attentionIndex=0,attentionPlaying=true,attentionTimer;
+    attentionFrames.forEach(src=>{const img=new Image();img.src=src});
+    function showAttention(i){attentionIndex=(i+attentionFrames.length)%attentionFrames.length;attentionImage.classList.add('changing');setTimeout(()=>{attentionImage.src=attentionFrames[attentionIndex];attentionCopy.textContent=attentionScripts[attentionIndex];attentionCount.textContent=`Step ${attentionIndex+1} / ${attentionFrames.length}`;attentionImage.classList.remove('changing')},120)}
+    function scheduleAttention(){clearInterval(attentionTimer);if(attentionPlaying)attentionTimer=setInterval(()=>showAttention(attentionIndex+1),2800)}
+    document.getElementById('attention-previous').onclick=()=>{showAttention(attentionIndex-1);scheduleAttention()};
+    document.getElementById('attention-next').onclick=()=>{showAttention(attentionIndex+1);scheduleAttention()};
+    attentionToggle.onclick=()=>{attentionPlaying=!attentionPlaying;attentionToggle.textContent=attentionPlaying?'Pause':'Play';scheduleAttention()};
+    showAttention(0);scheduleAttention();
+
+    const experiments=[
+      {image:'assets/experiment-1.png',label:'Ambient occlusion',kicker:'Stage 1 / 5',title:'Start with the smallest question',text:'Back in summer 2024, we did not know whether light transport could be learned at all. Matt suggested that we start with ambient occlusion, a local, geometry-only test. Even simple networks learned it.'},
+      {image:'assets/experiment-2.png',label:'Cornell boxes (bring color back)',kicker:'Stage 2 / 5',title:'Bring color back',text:'Here we brought color and shading back. We failed a few times, but random Cornell boxes were the first point where predicted colors converged to the right values.'},
+      {image:'assets/experiment-3.png',label:'Indoor scenes',kicker:'Stage 3 / 5',title:'Leave the box',text:'We curated roughly 14,000 procedural indoor scenes based on Infinigen, with varied floor plans and furniture. First: geometry and simple materials.'},
+      {image:'assets/experiment-4.png',label:'Failure',kicker:'Stage 4 / 5',title:'The useful failure',text:'As soon as we switched to realistic indoor scenes, the Cornell-box model completely failed. That failure made the lesson clear: the dataset mattered, but network design was the key.'},
+      {image:'assets/experiment-5.png',label:'Textures',kicker:'Stage 5 / 5',title:'Bring textures back',text:'After rebuilding the model for indoor scenes, we added spatially varying textures. The problem space became larger, and generalization became harder again.'}
+    ];
+    const experimentImage=document.getElementById('experiment-image'),experimentKicker=document.getElementById('experiment-kicker'),experimentTitle=document.getElementById('experiment-title'),experimentText=document.getElementById('experiment-text'),experimentRoadmap=document.getElementById('experiment-roadmap'),experimentStageName=document.getElementById('experiment-stage-name');
+    let experimentIndex=0;
+    experiments.forEach((item,i)=>{const button=document.createElement('button');button.className='roadmap-stop';button.type='button';button.textContent=item.label;button.setAttribute('aria-label',`Show ${item.label} stage`);button.onclick=()=>showExperiment(i);experimentRoadmap.appendChild(button)});
+    function showExperiment(i){experimentIndex=(i+experiments.length)%experiments.length;const item=experiments[experimentIndex];experimentImage.src=item.image;experimentKicker.textContent=item.kicker;experimentTitle.textContent=item.title;experimentText.textContent=item.text;experimentStageName.textContent=item.label;[...experimentRoadmap.children].forEach((stop,j)=>{stop.classList.toggle('active',j===experimentIndex);stop.classList.toggle('passed',j<experimentIndex)})}
+    document.getElementById('experiment-previous').onclick=()=>showExperiment(experimentIndex-1);document.getElementById('experiment-next').onclick=()=>showExperiment(experimentIndex+1);showExperiment(0);
+  </script>
 </body>
 </html>
