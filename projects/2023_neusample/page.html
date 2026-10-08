@@ -58,11 +58,15 @@
 
     <section>
       <h2>A neural material is not renderer-ready until it can sample itself</h2>
-      <p class="lead">Neural materials can reproduce complex spatially varying appearance, including displacement, anisotropy, and layered reflectance. But a Monte Carlo renderer needs three operations: evaluate the material, sample a direction, and evaluate that sample's probability.</p>
-      <p class="lead">The first operation received most of the attention. Without the other two, a renderer falls back to cosine sampling or a rough analytic approximation and spends rays in directions where the material contributes little.</p>
-      <figure class="paper-figure light">
-        <img src="assets/neural-material-pipeline.png" alt="Neural material architecture and the learned NeuSample sampling interface">
-      </figure>
+      <div class="motivation-layout">
+        <div>
+          <p class="lead">Neural materials can reproduce complex spatially varying appearance, including displacement, anisotropy, and layered reflectance. But a Monte Carlo renderer needs three operations: evaluate the material, sample a direction, and evaluate that sample's probability.</p>
+          <p class="lead">The first operation received most of the attention. Without the other two, a renderer falls back to cosine sampling or a rough analytic approximation and spends rays in directions where the material contributes little.</p>
+        </div>
+        <figure class="paper-figure light pipeline-figure">
+          <img src="assets/neural-material-pipeline.png" alt="Neural material architecture and the learned NeuSample sampling interface">
+        </figure>
+      </div>
     </section>
 
     <section>
@@ -85,13 +89,6 @@
         </div>
         <div class="method-dots" id="method-dots" aria-label="Choose a sampling method"></div>
       </div>
-    </section>
-
-    <section>
-      <figure class="paper-figure scene-figure">
-        <img src="assets/multi-material-scene.png" alt="Scene rendered with multiple neural materials and global illumination">
-        <figcaption>A scene with several neural materials, global illumination, and the normalizing-flow sampler.</figcaption>
-      </figure>
     </section>
 
     <section>
@@ -161,33 +158,16 @@
   </main>
   <script>
     const methodScenes = [
-      {
-        src: "assets/analytic-mixture.png",
-        alt: "Analytic-lobe mixture architecture",
-        title: "Analytic-lobe mixture",
-        caption: "A small MLP predicts one Lambertian and two anisotropic Gaussian lobes."
-      },
-      {
-        src: "assets/normalizing-flow.png",
-        alt: "Lightweight normalizing-flow architecture",
-        title: "Normalizing flow",
-        caption: "Conditional spline transforms warp a simple base distribution into a complex sampling distribution."
-      },
-      {
-        src: "assets/histogram-mixture.png",
-        alt: "Histogram-mixture sampling architecture",
-        title: "Histogram mixture",
-        caption: "Shared basis histograms are learned with an MLP, then baked for fast sampling at inference time."
-      }
+      { src: "assets/analytic-mixture.png", alt: "Analytic-lobe mixture architecture", title: "Analytic-lobe mixture", caption: "A small MLP predicts one Lambertian and two anisotropic Gaussian lobes." },
+      { src: "assets/normalizing-flow.png", alt: "Lightweight normalizing-flow architecture", title: "Normalizing flow", caption: "Conditional spline transforms warp a simple base distribution into a complex sampling distribution." },
+      { src: "assets/histogram-mixture.png", alt: "Histogram-mixture sampling architecture", title: "Histogram mixture", caption: "Shared basis histograms are learned with an MLP, then baked for fast sampling at inference time." }
     ];
-
     const methodFrame = document.getElementById("method-frame");
     const methodTitle = document.getElementById("method-title");
     const methodCaption = document.getElementById("method-caption");
     const methodCount = document.getElementById("method-count");
     const methodDots = document.getElementById("method-dots");
     let methodIndex = 0;
-
     function showMethod(index) {
       methodIndex = (index + methodScenes.length) % methodScenes.length;
       const method = methodScenes[methodIndex];
@@ -201,7 +181,6 @@
         dot.setAttribute("aria-current", dotIndex === methodIndex ? "true" : "false");
       });
     }
-
     methodScenes.forEach((method, index) => {
       const dot = document.createElement("button");
       dot.type = "button";
@@ -209,7 +188,6 @@
       dot.addEventListener("click", () => showMethod(index));
       methodDots.appendChild(dot);
     });
-
     document.getElementById("method-prev").addEventListener("click", () => showMethod(methodIndex - 1));
     document.getElementById("method-next").addEventListener("click", () => showMethod(methodIndex + 1));
     showMethod(0);
