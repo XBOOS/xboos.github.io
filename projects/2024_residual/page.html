@@ -97,6 +97,13 @@
     </section>
 
     <section>
+      <h2>Why path mapping matters</h2>
+      <p class="lead">Sampling an affected path is only half of the problem. We still need to evaluate corresponding paths in the old and new scenes. Dynamic geometry makes this difficult: a path can hit the moved object, cross its ghost position, become occluded, or diverge after the edit.</p>
+      <p class="lead">We spent substantial effort on path mappings related to shift mappings in gradient-domain rendering. We extended existing operators to dynamic scenes, introduced mappings tailored to our samplers, and used reconnection, rejection, and two-way mapping to keep the estimator correlated and unbiased. We call them path mappings because the mapped path is not produced by shifting the target pixel.</p>
+      <p class="paper-pointer">The operators, Jacobians, and failure cases are detailed in <a href="../../papers/residual_path_integral_bing_final.pdf#page=7" target="_blank" rel="noopener">Section 5 of the paper</a>.</p>
+    </section>
+
+    <section>
       <h2>From a residual to the new frame</h2>
       <p class="lead">We combine dynamic and ghost sampling techniques with multiple importance sampling, estimate the signed residual, and add it to the old frame. The framework also handles material edits as a simpler case where the dynamic and ghost objects coincide.</p>
       <div class="result-player" aria-label="Rendering result scenes">

@@ -94,6 +94,20 @@ section {
   line-height: 1.65;
 }
 
+.paper-pointer {
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.paper-pointer a {
+  color: var(--green);
+}
+
+.paper-pointer a:hover {
+  color: #8fec9f;
+}
+
 .tldr {
   padding: 23px;
   border: 1px solid #35683e;
@@ -341,6 +355,10 @@ footer {
   padding: 0 0 55px;
   color: #6f7972;
   font-size: 12px;
+}
+
+.acknowledgments h2 {
+  color: #fff;
 }
 
 @media (max-width: 650px) {
