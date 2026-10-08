@@ -10,6 +10,14 @@ body{
     background: #181a1b;
     color: #FFF;
 }
+
+:root {
+    --project-bg: #181a1b;
+    --project-text: #ffffff;
+    --project-muted: #adb5af;
+    --project-accent: #41c95a;
+    --project-line: #343b36;
+}
 @font-face {
     font-family: 'Bernard MT Condensed';
     src: url('css/BernardMT-Condensed.woff2') format('woff2'), url('css/BernardMT-Condensed.woff') format('woff');
@@ -91,16 +99,18 @@ float: left;
     margin-top: 0;
 }
 .papertitle {
-    color:#41c95a;
-    font-size:28px;
+    max-width:780px;
+    margin:0 0 14px;
+    color:var(--project-accent);
+    font-size:clamp(28px,4vw,38px);
     font-weight:600;
     /* font-family: 'Bernard MT Condensed';  */
     /* font-weight: normal;  */
     /* font-style: normal; */
     text-shadow: -2px 1px 2px black;
     /* some space between rows */
-    line-height:1.2;
-    letter-spacing:-0.02em;
+    line-height:1.12;
+    letter-spacing:-0.03em;
     /* text-transform: uppercase; */
 }
 h2.bernard-header {
@@ -171,9 +181,10 @@ width:calc(100% - 40px);
 }
 
 h2 {
-font-size:21px;
+font-size:23px;
 font-weight:600;
 line-height:1.3;
+letter-spacing:-0.02em;
 }
 
 sub {
@@ -224,9 +235,14 @@ white-space: -o-pre-wrap;
 
 
 .authors {
-  font-size: 15px;
-  line-height: 1.5;
+  color: var(--project-muted);
+  font-size: 14px;
+  line-height: 1.6;
 }
+.authors a:link,
+.authors a:visited { color: var(--project-muted); }
+.authors a:hover,
+.authors a:active { color: var(--project-accent); }
 .author {
   display: inline-block;
   white-space: nowrap;
@@ -244,7 +260,8 @@ sup.affil {
   flex-wrap: wrap;              /* keeps it one "row", wrapping only if too narrow */
   gap: 0.5rem;                  /* space between items */
   align-items: baseline;
-  font-size: 15px;
+  color: var(--project-muted);
+  font-size: 14px;
   margin-top: 0.25rem;
 }
 .affiliations-inline sup {
@@ -254,10 +271,49 @@ sup.affil {
 }
 .affiliations-inline .sep { opacity: 0.5; }
 
+.project-header {
+  padding-top: 68px;
+  padding-bottom: 30px;
+}
+
+.venue-line {
+  margin-top: 13px;
+  color: var(--project-text);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.project-teaser {
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 1px solid var(--project-line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.project-teaser img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.acknowledgments {
+  margin-top: 48px;
+  padding-top: 27px;
+  border-top: 1px solid var(--project-line);
+  color: var(--project-muted);
+  font-size: 14px;
+}
+
+.acknowledgments h2 {
+  color: var(--project-muted);
+}
+
 /* Optional tighter look on mobile */
 @media (max-width: 520px) {
   .section { width: calc(100% - 24px); }
   .papertitle { font-size: 25px; }
+  .project-header { padding-top: 35px; }
   .affiliations-inline { gap: 0.35rem; }
   .affiliations-inline .sep { display: none; }
 }

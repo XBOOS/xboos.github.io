@@ -1,121 +1,239 @@
-
-
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../paper.css"/>
-    <title>Residual path integrals for re-rendering</title>
-    </head>
-    <body>
-
-    <div style="position:sticky;top:0;z-index:999;background:rgba(24,26,27,0.93);backdrop-filter:blur(6px);border-bottom:1px solid #007b00;padding:8px 20px;font-size:12px;">
-      <a href="../../index.html#research" style="color:#4a8a4a;text-decoration:none;font-size:12px;">← Bing Xu</a>
-      <span style="color:#007b00;margin:0 6px;">/</span>
-      <span style="color:#ffffff;">Research</span>
-    </div>
-
-    <!-- <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;"> -->
-      <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;" ></div>
-      <!-- <div style="text-align: center;max-width:900px;margin-left: auto;  margin-right: auto"> -->
-
-        <div style="text-align: left;margin-left: auto;  margin-right: auto" class="section">
-
-          <h1 class="papertitle">Residual path integrals for re-rendering</h1>
-        
-        <!-- <div align="left"  class="authorstable">
-          <a class='subtle' href='https://bingxu.tech' target='_blank'>Bing Xu</a>, 
-          <a class='subtle' href='https://cseweb.ucsd.edu/~tzli/' target='_blank'>Tzu-Mao Li</a>,
-          <a href="http://iliyan.com/">Iliyan Georgiev</a>,
-          <a class='subtle' href='https://www.linkedin.com/in/trevor-hedstrom-9abb6362/' target='_blank'>Trevor Hedstrom</a>,
-          <a class='subtle' href='https://cseweb.ucsd.edu/~ravir/' target='_blank'>Ravi Ramamoorthi</a>
-        </div> -->
-        <!-- Authors -->
-        <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
-          <span class="author">
-            <a class="subtle" href="https://bingxu.tech" target="_blank">Bing Xu</a><sup class="affil">1</sup>
-          </span>
-          <span class="author">
-            <a class="subtle" href="https://cseweb.ucsd.edu/~tzli/" target="_blank">Tzu-Mao Li</a><sup class="affil">1</sup>
-          </span>
-          <span class="author">
-            <a href="http://iliyan.com/" target="_blank">Iliyan Georgiev</a><sup class="affil">2</sup>
-          </span>
-          <span class="author">
-            <a class="subtle" href="https://www.linkedin.com/in/trevor-hedstrom-9abb6362/" target="_blank">Trevor Hedstrom</a><sup class="affil">1</sup>
-          </span>
-          <span class="author">
-            <a class="subtle" href="https://cseweb.ucsd.edu/~ravir/" target="_blank">Ravi Ramamoorthi</a><sup class="affil">1</sup>
-          </span>
-        </div>
-
-        <div class="affiliations-inline" aria-label="Affiliations">
-        <span><sup>1</sup> University of California, San Diego, USA</span>
-        <span class="sep">•</span>
-        <span><sup>2</sup> Adobe Research, UK</span>
-        <!-- add more as needed:
-        <span class="sep">•</span><span><sup>C</sup> Institution C</span>
-        -->
-      </div>
-        <br>Computer Graphics Forum (Proceedings of Eurographics Symposium on Rendering 2024)<br>
-        <span id="paperextra">Best Paper Award</span>
-      </div>
-      <br>
-      <div style="margin-left: auto;  margin-right: auto " class="section">
-        <div class="whitebg">
-          <img src="teaser.png" border="0" style="max-width:100%;height:auto;display:block;"/>
-        </div>
-        <br>
-        
-          <h2>Abstract</h2> 
-          <p>Conventional rendering techniques are primarily designed and optimized for single-frame rendering. In practical applications, such as scene editing and animation rendering, users frequently encounter scenes where only a small portion is modified between consecutive frames. In this paper, we develop a novel approach to incremental re-rendering of scenes with dynamic objects, where only a small part of a scene moves from one frame to the next. We formulate the difference (or residual) in the image between two frames as a (correlated) light-transport integral which we call the residual path integral. Efficient numerical solution of this integral then involves (1) devising importance sampling strategies to focus on paths with non-zero residual-transport contributions and (2) choosing appropriate mappings between the native path spaces of the two frames. We introduce a set of path importance sampling strategies that trace from the moving object(s) which are the sources of residual energy. We explore path mapping strategies that generalize those from gradient-domain path tracing to our importance sampling techniques specially for dynamic scenes. Additionally, our formulation can be applied to material editing as a simpler special case. We demonstrate speed-ups over previous correlated sampling of path differences and over rendering the new frame independently. Our formulation brings new insights into the re-rendering problem and paves the way for devising new types of sampling techniques and path mappings with different trade-offs.</p>            
-          <br>
-          
-        
-        
-        
-          <h2>Assets</h2>
-        <a href="../../papers/residual_path_integral_bing_final.pdf" target="_blank"><img src="../../images/icon_pdf.png"  class=icon>Paper (PDF, 18M)</a><br/>
-        <a href="https://arxiv.org/abs/2406.16302" target="_blank"><img src="../../images/icon_pdf.png"  class=icon>Arxiv preprint</a> <br/>
-        <a href="https://docs.google.com/presentation/d/15r6YOjgVq7qFc0Mgb6__95jhA293gJxbwh-M0Sz6HIY/edit?usp=sharing"target="_blank"><img src="../../images/icon_pdf.png"  class=icon>slides</a> <br/>
-        <img src="../../images/icon_source.png" class=icon><a href="">CPU Code (coming approximately after the siggraph deadline)</a><br/>        
-        <img src="../../images/icon_source.png" class=icon>Real-time version (scheduled)<br/>
-        <br/>
-        <h2>BibTeX reference</h2>
-        <div class="code_pre">
-          <pre>@article{Xu:2023:ResidualPathIntegral,
-  author = {Bing Xu and Tzu-Mao Li and Iliyan Georgiev and Trevor Hedstrom and Ravi Ramamoorthi},
-  title = {Residual path integrals for re-rendering},
-  journal = {Computer Graphics Forum (Proceedings of EGSR)},
-  year = {2024},
-  number = {4},
-  volume = {43}
-}</pre>
-        </div>
-
-        <h2>Little talks</h2>
-      We hope to also implement a real-time version. From a practical standpoint, disregarding theoretical contributions, the immediate step to make this potentially feasible for the industry is to integrate it with 1) real-time solutions for camera movements which are also common senarios for applications;  2) various types of path reuse; and 3) a denoiser, preferablly talored for the residual rendering. The current residual-path-integral framework is orthogonal to those directions, but those puzzle parts will make it shippable to be a complete real (toy) product. Welcome any thoughts or collaborations if you are interested!<br> 
-      <!-- <div style='text-align:right'>-- Bing</div> -->
-        
-        <h2>Acknolwedgements</h2>
-        This work was funded in part by NSF grants 2105806, 2212085, 2110409,
-        gifts from Adobe, Google, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing. We especially thank Shilin Zhu for countless discussions in the early stages of this project. We thank Rui Tang, Lifan Wu, Ling-Qi Yan, Fujun Luan, Alexandr Kuznetsov, Yash Belhe for earlier discussions; Xuanda Yang, Yang Zhou for later performance discussions; Varun Munagala for early visualization experiments, and the anonymous reviewers for their constructive feedback. 
-        Ninja model is modified from the model by blendermagician on Blendswap; Shuriken model is created by RadialRonnie; Book model is created by AnyRPG and Lamp model is modified from the original one created by Manan Dhiman. 
-        Sponza model courtesy of Marko Dabrovic and Mihovil Odak.
-        Other scenes courtesy of Benedikt Bitterli. 
-      <br>	<br>
-        
-      </div> 
-    
-    
-    </div>
-    </div>
-    <div id="footer">
-      <div style="padding-bottom: 1.5em; text-align:center;">
-          <p id="legal">
-              <small>Bing Xu &copy; Jul 2024&ndash;Redmond. All Rights Reserved.</small>
-          </p>
-      </div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Residual path integrals for incremental re-rendering of scenes with small changes.">
+  <link rel="stylesheet" href="../paper.css">
+  <link rel="stylesheet" href="page.css">
+  <title>Residual Path Integrals for Re-rendering</title>
+</head>
+<body class="project-page">
+  <div style="position:sticky;top:0;z-index:999;background:rgba(24,26,27,0.93);backdrop-filter:blur(6px);border-bottom:1px solid #007b00;padding:8px 20px;font-size:12px;">
+    <a href="../../index.html#research" style="color:#4a8a4a;text-decoration:none;font-size:12px;">&larr; Bing Xu</a>
+    <span style="color:#007b00;margin:0 6px;">/</span>
+    <span style="color:#ffffff;">Research</span>
   </div>
-</div>
-    </body></html>
-    
+
+  <main class="page">
+    <header class="hero">
+      <h1 class="papertitle">Residual Path Integrals for Re-rendering</h1>
+      <div class="venue-line">Computer Graphics Forum (Proceedings of the Eurographics Symposium on Rendering 2024)</div>
+      <div id="paperextra">🏆 Best Paper Award</div>
+      <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
+        <span class="author"><a href="https://bingxu.tech" target="_blank" rel="noopener">Bing Xu</a><sup class="affil">1</sup></span>
+        <span class="author"><a href="https://cseweb.ucsd.edu/~tzli/" target="_blank" rel="noopener">Tzu-Mao Li</a><sup class="affil">1</sup></span>
+        <span class="author"><a href="http://iliyan.com/" target="_blank" rel="noopener">Iliyan Georgiev</a><sup class="affil">2</sup></span>
+        <span class="author"><a href="https://www.linkedin.com/in/trevor-hedstrom-9abb6362/" target="_blank" rel="noopener">Trevor Hedstrom</a><sup class="affil">1</sup></span>
+        <span class="author"><a href="https://cseweb.ucsd.edu/~ravir/" target="_blank" rel="noopener">Ravi Ramamoorthi</a><sup class="affil">1</sup></span>
+      </div>
+      <div class="affiliations-inline" aria-label="Affiliations">
+        <span><sup>1</sup> University of California, San Diego, USA</span>
+        <span class="sep">&bull;</span>
+        <span><sup>2</sup> Adobe Research, UK</span>
+      </div>
+
+      <div class="hero-actions">
+        <a class="button primary" href="../../papers/residual_path_integral_bing_final.pdf" target="_blank" rel="noopener">See the paper</a>
+        <a class="button" href="https://arxiv.org/abs/2406.16302" target="_blank" rel="noopener">arXiv</a>
+        <a class="button" href="https://docs.google.com/presentation/d/15r6YOjgVq7qFc0Mgb6__95jhA293gJxbwh-M0Sz6HIY/edit?usp=sharing" target="_blank" rel="noopener">Slides</a>
+        <a class="button" href="#bibtex">BibTeX</a>
+      </div>
+    </header>
+
+    <div class="teaser-shell">
+      <img src="teaser.png" alt="Residual path integral rendering results">
+      <img class="teaser-label-overlay top" src="teaser.png" alt="" aria-hidden="true">
+      <img class="teaser-label-overlay bottom" src="teaser.png" alt="" aria-hidden="true">
+    </div>
+
+    <section class="tldr">
+      <h2>TL;DR</h2>
+      <p>Write the new image as the old image plus a residual. Then spend samples on paths affected by the edit instead of tracing the unchanged scene again.</p>
+    </section>
+
+    <section>
+      <h2>Most of the frame did not change</h2>
+      <p class="origin-story">Before my PhD, I worked on an in-house offline renderer for interior design. One day, I was browsing our company database and found piles of images that artists had discarded after changing a scene design. Most of those renderings were simply wasted. That made me wonder whether we could reuse them when the scene changed instead of rendering the next image from scratch.</p>
+      <p class="lead">The same pattern appears far beyond interior design. In movies, animation, and interactive scene design, a frame often differs from the previous one in only a small region. Path tracing ignores that fact and starts over. The image difference has much lower energy than the full image, but only if we can estimate it without wasting samples on paths whose contribution is exactly zero.</p>
+      <figure class="story-figure">
+        <img src="assets/story-difference.png" alt="Old frame, new frame, and their low-energy difference">
+        <figcaption>Moving one chair changes direct visibility, shadows, and indirect illumination, but most light paths remain unchanged.</figcaption>
+      </figure>
+      <aside class="term-note">
+        <strong>How do you read a residual image?</strong>
+        <p>A residual is signed. Positive values add radiance and negative values remove it. Add the residual to the old frame and you recover the new frame. In this sense, our method is essentially a finite-difference renderer.</p>
+      </aside>
+    </section>
+
+    <section>
+      <h2>Render only the affected paths</h2>
+      <p class="lead">A path is dynamic when it contains a vertex on a moving object or an edge that crosses the object's old, ghost position. Every other path cancels in the residual integral. This turns re-rendering into a smaller sampling problem.</p>
+      <figure class="story-figure">
+        <img src="assets/story-key-idea.png" alt="Only paths affected by moving objects contribute to the residual">
+      </figure>
+
+      <figure class="story-figure">
+        <img src="assets/dynamic-and-ghost-paths.png" alt="Dynamic paths that hit the moved object or pass through its old ghost position">
+        <figcaption>A path contributes when it hits the dynamic object or crosses the object's old, ghost position.</figcaption>
+      </figure>
+
+      <aside class="term-note">
+        <strong>What is a ghost object?</strong>
+        <p>We came up with this slightly playful term for where a dynamic object used to be. It encapsulates paths whose visibility changes because they pass through the object's former position.</p>
+      </aside>
+
+      <div class="idea-grid">
+        <article class="idea-card">
+          <h3>Find dynamic paths directly</h3>
+          <p>Start from the moving object or its ghost surface. This guarantees a dynamic path instead of waiting for an ordinary camera or light path to hit the edited region.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Map paths between two scenes</h3>
+          <p>Path and shift mappings connect samples in the old and new scenes. A large part of this work went into designing, deriving, and testing mappings tailored to moving geometry.</p>
+        </article>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>From a residual to the new frame</h2>
+      <p class="lead">We combine dynamic and ghost sampling techniques with multiple importance sampling, estimate the signed residual, and add it to the old frame. The framework also handles material edits as a simpler case where the dynamic and ghost objects coincide.</p>
+      <div class="result-player" aria-label="Rendering result scenes">
+        <img id="result-frame" src="assets/result-ninja.png" alt="Ninja scene showing the old frame, path-traced new frame, residual, and incremental result">
+        <div class="result-controls">
+          <button class="result-button" id="result-prev" type="button" aria-label="Previous scene">&larr;</button>
+          <div class="result-copy" aria-live="polite">
+            <strong id="result-title">Moving geometry: Ninja</strong>
+            <span id="result-caption">The residual follows the moved ninja and shurikens while preserving their global lighting changes.</span>
+          </div>
+          <span class="result-count" id="result-count">1 / 3</span>
+          <button class="result-button" id="result-next" type="button" aria-label="Next scene">&rarr;</button>
+        </div>
+        <div class="result-dots" id="result-dots" aria-label="Choose a scene"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Rendering dissection</h2>
+      <figure class="story-figure">
+        <img src="assets/story-sampling.png" alt="Dissection of dynamic and ghost path sampling techniques before and after multiple importance sampling">
+        <figcaption>Different sampling techniques expose different parts of the dynamic path space. Multiple importance sampling combines them into the residual estimator.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Limitations and open directions</h2>
+      <p class="lead">The method is strongest when the edit occupies a small part of path space. Each limitation also points to an open problem.</p>
+      <h3 class="direction-label">Current limitations</h3>
+      <ul class="open-list">
+        <li><strong>Large moving regions.</strong> As dynamic objects affect more paths, the advantage shrinks. In the worst case, every path is dynamic.</li>
+        <li><strong>Camera and light motion.</strong> The current formulation targets rigid-object movement and material edits, not dynamic cameras or lights.</li>
+        <li><strong>Uneven noise.</strong> Residual energy is spatially concentrated, so noise can be non-uniform and may need a renderer-aware denoiser.</li>
+        <li><strong>Glossy visibility.</strong> Visible glossy objects remain difficult, especially when small geometric changes alter high-frequency transport.</li>
+      </ul>
+      <h3 class="direction-label">Open directions</h3>
+      <ul class="open-list">
+        <li>Sample proportionally to the actual difference integrand.</li>
+        <li>Design better path and shift mappings, and optimize sampling and mapping jointly.</li>
+        <li>Extend the framework to deformable motion, moving cameras, and changing lights.</li>
+        <li>Combine residual sampling with real-time path reuse and denoising.</li>
+        <li>Combine residual path sampling with the ReSTIR line of work.</li>
+      </ul>
+      <div class="collab">
+        <h3>Open to collaboration</h3>
+        <p>Feel free to drop me an email if you are interested in any of these directions.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Abstract</h2>
+      <p>Conventional rendering techniques are primarily designed and optimized for single-frame rendering. In practical applications, such as scene editing and animation rendering, users frequently encounter scenes where only a small portion is modified between consecutive frames. In this paper, we develop a novel approach to incremental re-rendering of scenes with dynamic objects, where only a small part of a scene moves from one frame to the next. We formulate the difference (or residual) in the image between two frames as a (correlated) light-transport integral which we call the residual path integral. Efficient numerical solution of this integral then involves (1) devising importance sampling strategies to focus on paths with non-zero residual-transport contributions and (2) choosing appropriate mappings between the native path spaces of the two frames. We introduce a set of path importance sampling strategies that trace from the moving object(s) which are the sources of residual energy. We explore path mapping strategies that generalize those from gradient-domain path tracing to our importance sampling techniques specially for dynamic scenes. Additionally, our formulation can be applied to material editing as a simpler special case. We demonstrate speed-ups over previous correlated sampling of path differences and over rendering the new frame independently. Our formulation brings new insights into the re-rendering problem and paves the way for devising new types of sampling techniques and path mappings with different trade-offs.</p>
+    </section>
+
+    <section id="assets">
+      <h2>Assets</h2>
+      <div class="asset-grid">
+        <a class="asset" href="../../papers/residual_path_integral_bing_final.pdf" target="_blank" rel="noopener">Paper (PDF)</a>
+        <a class="asset" href="https://arxiv.org/abs/2406.16302" target="_blank" rel="noopener">arXiv preprint</a>
+        <a class="asset" href="https://docs.google.com/presentation/d/15r6YOjgVq7qFc0Mgb6__95jhA293gJxbwh-M0Sz6HIY/edit?usp=sharing" target="_blank" rel="noopener">Slides</a>
+        <div class="asset disabled">CPU code (coming)</div>
+      </div>
+    </section>
+
+    <section id="bibtex">
+      <h2>BibTeX reference</h2>
+      <div class="code_pre"><pre>@article{Xu:2023:ResidualPathIntegral,
+  author  = {Bing Xu and Tzu-Mao Li and Iliyan Georgiev and Trevor Hedstrom and Ravi Ramamoorthi},
+  title   = {Residual Path Integrals for Re-rendering},
+  journal = {Computer Graphics Forum (Proceedings of EGSR)},
+  year    = {2024},
+  volume  = {43},
+  number  = {4}
+}</pre></div>
+    </section>
+
+    <section class="acknowledgments">
+      <h2>Acknowledgments</h2>
+      <p>This work was funded in part by NSF grants 2105806, 2212085, 2110409, gifts from Adobe, Google, the Ronald L. Graham Chair and the UC San Diego Center for Visual Computing. We especially thank Shilin Zhu for countless discussions in the early stages of this project. We thank Rui Tang, Lifan Wu, Ling-Qi Yan, Fujun Luan, Alexandr Kuznetsov, Yash Belhe for earlier discussions; Xuanda Yang, Yang Zhou for later performance discussions; Varun Munagala for early visualization experiments, and the anonymous reviewers for their constructive feedback. Ninja model is modified from the model by blendermagician on Blendswap; Shuriken model is created by RadialRonnie; Book model is created by AnyRPG and Lamp model is modified from the original one created by Manan Dhiman. Sponza model courtesy of Marko Dabrovic and Mihovil Odak. Other scenes courtesy of Benedikt Bitterli.</p>
+    </section>
+
+    <footer>Bing Xu &copy; 2024. All rights reserved.</footer>
+  </main>
+  <script>
+    const resultScenes = [
+      {
+        src: "assets/result-ninja.png",
+        alt: "Ninja scene showing the old frame, path-traced new frame, residual, and incremental result",
+        title: "Moving geometry: Ninja",
+        caption: "The residual follows the moved ninja and shurikens while preserving their global lighting changes."
+      },
+      {
+        src: "assets/result-dining-room.png",
+        alt: "Dining room showing the old frame, path-traced new frame, residual, and incremental result",
+        title: "Moving geometry: Dining room",
+        caption: "A small object move changes visibility and indirect illumination across the room."
+      },
+      {
+        src: "assets/result-material-edit.png",
+        alt: "Living room showing an old frame, path-traced material edit, residual, and incremental result",
+        title: "Material edit",
+        caption: "Changing one material produces a compact residual that still carries its indirect lighting effect."
+      }
+    ];
+
+    const resultFrame = document.getElementById("result-frame");
+    const resultTitle = document.getElementById("result-title");
+    const resultCaption = document.getElementById("result-caption");
+    const resultCount = document.getElementById("result-count");
+    const resultDots = document.getElementById("result-dots");
+    let resultIndex = 0;
+
+    function showResult(index) {
+      resultIndex = (index + resultScenes.length) % resultScenes.length;
+      const scene = resultScenes[resultIndex];
+      resultFrame.src = scene.src;
+      resultFrame.alt = scene.alt;
+      resultTitle.textContent = scene.title;
+      resultCaption.textContent = scene.caption;
+      resultCount.textContent = `${resultIndex + 1} / ${resultScenes.length}`;
+      [...resultDots.children].forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === resultIndex);
+        dot.setAttribute("aria-current", dotIndex === resultIndex ? "true" : "false");
+      });
+    }
+
+    resultScenes.forEach((scene, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Show ${scene.title}`);
+      dot.addEventListener("click", () => showResult(index));
+      resultDots.appendChild(dot);
+    });
+
+    document.getElementById("result-prev").addEventListener("click", () => showResult(resultIndex - 1));
+    document.getElementById("result-next").addEventListener("click", () => showResult(resultIndex + 1));
+    showResult(0);
+  </script>
+</body>
+</html>
