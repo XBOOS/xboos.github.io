@@ -1,95 +1,218 @@
-<!DOCTYPE html>
-<html><head><meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../paper.css"/>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="NeuSample learns practical importance samplers for spatially varying neural materials.">
+  <link rel="stylesheet" href="../paper.css">
+  <link rel="stylesheet" href="page.css">
   <title>NeuSample: Importance Sampling for Neural Materials</title>
 </head>
-<body>
+<body class="project-page">
+  <div class="nav"><a href="../../index.html#research">&larr; Bing Xu</a><span>/</span><strong>Research</strong></div>
 
-  <div style="position:sticky;top:0;z-index:999;background:rgba(24,26,27,0.93);backdrop-filter:blur(6px);border-bottom:1px solid #007b00;padding:8px 20px;font-size:12px;">
-    <a href="../../index.html#research" style="color:#4a8a4a;text-decoration:none;font-size:12px;">← Bing Xu</a>
-    <span style="color:#007b00;margin:0 6px;">/</span>
-    <span style="color:#ffffff;">Research</span>
-  </div>
-
-  <!-- <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;"> -->
-    <div style="max-width:1200px; margin: 0 auto;  margin-top: 60px; text-align: justify;" ></div>
-    <!-- <div style="text-align: center;max-width:900px;margin-left: auto;  margin-right: auto"> -->
-
-      <div style="text-align: left;margin-left: auto;  margin-right: auto" class="section">
-
-        <h1 class="papertitle">NeuSample: Importance Sampling for Neural Materials</h1>
-
-        <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
-          <span class="author">
-            <a class="subtle" href="https://bingxu.tech" target="_blank">Bing Xu</a><sup class="affil">1</sup>
-          </span>
-          <span class="author">
-            <a class="subtle" href="https://lwwu2.github.io/" target="_blank">Liwen Wu</a><sup class="affil">1</sup>
-          </span>
-          <span class="author">
-            <a href="http://miloshasan.net/" target="_blank">Miloš Hašan</a><sup class="affil">2</sup>
-          </span>
-          <span class="author">
-            <a href="https://luanfujun.com/" target="_blank">Fujun Luan</a><sup class="affil">2</sup>
-          </span>
-          <span class="author">
-            <a href="http://iliyan.com/" target="_blank">Iliyan Georgiev</a><sup class="affil">2</sup>
-          </span>
-          <span class="author">
-            <a href="https://cseweb.ucsd.edu/~zex014/" target="_blank">Zexiang Xu</a><sup class="affil">2</sup>
-          </span>
-          <span class="author">
-            <a class="subtle" href="https://cseweb.ucsd.edu/~ravir/" target="_blank">Ravi Ramamoorthi</a><sup class="affil">1</sup>
-          </span>
-        </div>
-
-        <div class="affiliations-inline" aria-label="Affiliations">
-          <span><sup>1</sup> University of California, San Diego, USA</span>
-          <span class="sep">•</span>
-          <span><sup>2</sup> Adobe Research</span>
-        </div>
-
-        <br>ACM Transactions on Graphics (Proceedings of SIGGRAPH 2023)<br>
+  <main class="page">
+    <header class="hero">
+      <h1 class="papertitle">NeuSample: Importance Sampling for Neural Materials</h1>
+      <div class="venue-line">ACM SIGGRAPH 2023</div>
+      <div class="authors" role="contentinfo" aria-label="Authors and affiliations">
+        <span class="author"><a href="https://bingxu.tech" target="_blank" rel="noopener">Bing Xu</a><sup class="affil">1</sup></span>
+        <span class="author"><a href="https://lwwu2.github.io/" target="_blank" rel="noopener">Liwen Wu</a><sup class="affil">1</sup></span>
+        <span class="author"><a href="http://miloshasan.net/" target="_blank" rel="noopener">Milo&scaron; Ha&scaron;an</a><sup class="affil">2</sup></span>
+        <span class="author"><a href="https://luanfujun.com/" target="_blank" rel="noopener">Fujun Luan</a><sup class="affil">2</sup></span>
+        <span class="author"><a href="http://iliyan.com/" target="_blank" rel="noopener">Iliyan Georgiev</a><sup class="affil">2</sup></span>
+        <span class="author"><a href="https://cseweb.ucsd.edu/~zex014/" target="_blank" rel="noopener">Zexiang Xu</a><sup class="affil">2</sup></span>
+        <span class="author"><a href="https://cseweb.ucsd.edu/~ravir/" target="_blank" rel="noopener">Ravi Ramamoorthi</a><sup class="affil">1</sup></span>
       </div>
-      <br>
-      <div style="margin-left: auto;  margin-right: auto " class="section">
-        <div class="whitebg">
-          <img src="teaser.png" border="0" style="max-width:100%;height:auto;display:block;"/>
+      <div class="affiliations-inline" aria-label="Affiliations">
+        <span><sup>1</sup> University of California, San Diego, USA</span><span class="sep">&bull;</span><span><sup>2</sup> Adobe Research</span>
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" href="../../papers/neusample_bing_2023.pdf" target="_blank" rel="noopener">See the paper</a>
+        <a class="button" href="https://doi.org/10.1145/3588432.3591524" target="_blank" rel="noopener">DOI</a>
+        <a class="button" href="https://github.com/bing-xu-graphics/neusample_release" target="_blank" rel="noopener">Code &amp; materials</a>
+        <a class="button" href="#bibtex">BibTeX</a>
+      </div>
+    </header>
+
+    <section class="tldr">
+      <h2>TL;DR</h2>
+      <p>We provide a toolbox for importance sampling spatially varying neural materials. Pick a method according to the complexity of your materials.</p>
+    </section>
+
+    <section>
+      <div class="video-grid">
+        <figure>
+          <video controls playsinline preload="metadata">
+            <source src="assets/example-neural-materials.mp4" type="video/mp4">
+          </video>
+          <figcaption>Example neural materials.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <figure class="teaser">
+      <img src="teaser.png" alt="Equal-time comparisons of neural-material importance sampling methods">
+      <figcaption>Equal-time rendering comparison. A better sampler must reduce noise without costing more time than it saves.</figcaption>
+    </figure>
+
+    <section>
+      <h2>A neural material is not renderer-ready until it can sample itself</h2>
+      <p class="lead">Neural materials can reproduce complex spatially varying appearance, including displacement, anisotropy, and layered reflectance. But a Monte Carlo renderer needs three operations: evaluate the material, sample a direction, and evaluate that sample's probability.</p>
+      <p class="lead">The first operation received most of the attention. Without the other two, a renderer falls back to cosine sampling or a rough analytic approximation and spends rays in directions where the material contributes little.</p>
+      <figure class="paper-figure light">
+        <img src="assets/neural-material-pipeline.png" alt="Neural material architecture and the learned NeuSample sampling interface">
+      </figure>
+    </section>
+
+    <section>
+      <h2>Three ways to learn where to sample</h2>
+      <div class="method-list">
+        <article class="method-row"><h3>Analytic-lobe mixtures</h3><p>Fast and easy to integrate, but a few Lambertian and Gaussian lobes cannot represent every shifted, anisotropic, or multi-modal highlight.</p></article>
+        <article class="method-row"><h3>Normalizing flows</h3><p>Expressive, normalized, and invertible. Our lightweight spline flow handles difficult distributions well, but its inference cost matters in simpler scenes.</p></article>
+        <article class="method-row"><h3>Histogram mixtures</h3><p>Predict weights, rotations, and latent coordinates for shared basis histograms, then bake the result into a tensor for efficient rendering. This is our default recommendation.</p></article>
+      </div>
+      <div class="method-player" aria-label="Sampling method gallery">
+        <div class="method-stage"><img id="method-frame" src="assets/analytic-mixture.png" alt="Analytic-lobe mixture architecture"></div>
+        <div class="method-controls">
+          <button class="method-button" id="method-prev" type="button" aria-label="Previous sampling method">&larr;</button>
+          <div class="method-copy" aria-live="polite">
+            <strong id="method-title">Analytic-lobe mixture</strong>
+            <span id="method-caption">A small MLP predicts one Lambertian and two anisotropic Gaussian lobes.</span>
+          </div>
+          <span class="method-count" id="method-count">1 / 3</span>
+          <button class="method-button" id="method-next" type="button" aria-label="Next sampling method">&rarr;</button>
         </div>
-        <br>
+        <div class="method-dots" id="method-dots" aria-label="Choose a sampling method"></div>
+      </div>
+    </section>
 
-        <h2>Abstract</h2>
-        <p>Neural material representations have recently been proposed to augment the material appearance toolbox used in realistic rendering. These models are successful at tasks ranging from measured BTF compression, through efficient rendering of synthetic displaced materials with occlusions, to BSDF layering. However, importance sampling has been an after-thought in most neural material approaches, and has been handled by inefficient cosine-hemisphere sampling or mixing it with an additional simple analytic lobe. In this paper we fill that gap, by evaluating and comparing various pdf-learning approaches for sampling spatially varying neural materials, and proposing new variations of these approaches. We investigate three sampling approaches: analytic-lobe mixtures, normalizing flows, and histogram prediction. Within each type, we introduce improvements beyond previous work, and we extensively evaluate and compare these approaches in terms of sampling rate, wall-clock time, and final visual quality. Our versions of normalizing flows and histogram mixtures perform well and can be used in practical rendering systems, potentially facilitating the broader adoption of neural material models in production.</p>
-        <br>
+    <section>
+      <figure class="paper-figure scene-figure">
+        <img src="assets/multi-material-scene.png" alt="Scene rendered with multiple neural materials and global illumination">
+        <figcaption>A scene with several neural materials, global illumination, and the normalizing-flow sampler.</figcaption>
+      </figure>
+    </section>
 
-        <h2>Assets</h2>
-        <a href="../../papers/neusample_bing_2023.pdf" target="_blank"><img src="../../images/icon_pdf.png" class=icon>Paper (PDF, 46M)</a><br/>
-        <a href="https://github.com/bing-xu-graphics/neusample_release" target="_blank"><img src="../../images/icon_source.png" class=icon>Code</a><br/>
-        <a href="https://github.com/bing-xu-graphics/neusample_release" target="_blank"><img src="../../images/icon_source.png" class=icon>Material Assets</a><br/>
-        <br/>
+    <section>
+      <h2>Limitations and open directions</h2>
+      <ul class="direction-list">
+        <li><strong>Per-material training.</strong> The sampler must currently be trained and precomputed for each neural material.</li>
+        <li><strong>Simple materials.</strong> Extra inference can outweigh better sampling when an analytic lobe already describes the material well.</li>
+        <li><strong>Rapidly changing lobes.</strong> Histogram mixtures can miss rare, abrupt changes across nearby material conditions.</li>
+        <li><strong>Beyond BRDFs.</strong> Extending the projected-hemisphere formulation to full BSDFs remains open.</li>
+        <li><strong>Beyond materials.</strong> The same conditional sampling ideas may help path guiding, complex luminaires, and portal sampling.</li>
+      </ul>
+    </section>
 
-        <h2>BibTeX reference</h2>
-        <div class="code_pre">
-          <pre>@article{Xu:2023:NeuSample,
+    <section>
+      <h2>Abstract</h2>
+      <p>Neural material representations have recently been proposed to augment the material appearance toolbox used in realistic rendering. These models are successful at tasks ranging from measured BTF compression, through efficient rendering of synthetic displaced materials with occlusions, to BSDF layering. However, importance sampling has been an after-thought in most neural material approaches, and has been handled by inefficient cosine-hemisphere sampling or mixing it with an additional simple analytic lobe. In this paper we fill that gap, by evaluating and comparing various pdf-learning approaches for sampling spatially varying neural materials, and proposing new variations of these approaches. We investigate three sampling approaches: analytic-lobe mixtures, normalizing flows, and histogram prediction. Within each type, we introduce improvements beyond previous work, and we extensively evaluate and compare these approaches in terms of sampling rate, wall-clock time, and final visual quality. Our versions of normalizing flows and histogram mixtures perform well and can be used in practical rendering systems, potentially facilitating the broader adoption of neural material models in production.</p>
+    </section>
+
+    <section>
+      <h2>Recent work on neural material sampling</h2>
+      <p class="lead">Recent projects explore closely related neural-material representations and sampling strategies.</p>
+      <div class="related-list">
+        <a href="https://research.nvidia.com/labs/rtr/neural_appearance_models/" target="_blank" rel="noopener">
+          <strong>Real-Time Neural Appearance Models</strong>
+          <span>NVIDIA brought neural material evaluation, importance sampling, and filtering together in a real-time path tracer.</span>
+        </a>
+        <a href="https://fzy28.github.io/BSDF_diffusion_sampling_web/" target="_blank" rel="noopener">
+          <strong>BSDF Importance Sampling Using a Diffusion Model</strong>
+          <span>Ziyang et al. extended neural sampling to full BSDFs, including transmission and difficult specular materials.</span>
+        </a>
+        <a href="https://arxiv.org/abs/2505.08998" target="_blank" rel="noopener">
+          <strong>Neural BRDF Importance Sampling by Reparameterization</strong>
+          <span>Liwen et al. learn a direct sampling warp, avoiding the constraints of invertible networks and multi-step inference.</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="assets">
+      <h2>Assets</h2>
+      <div class="asset-grid">
+        <a class="asset" href="../../papers/neusample_bing_2023.pdf" target="_blank" rel="noopener">Paper (PDF)</a>
+        <a class="asset" href="https://doi.org/10.1145/3588432.3591524" target="_blank" rel="noopener">ACM Digital Library</a>
+        <a class="asset" href="https://github.com/bing-xu-graphics/neusample_release" target="_blank" rel="noopener">Code</a>
+        <a class="asset" href="https://github.com/bing-xu-graphics/neusample_release" target="_blank" rel="noopener">Material assets</a>
+      </div>
+    </section>
+
+    <section id="bibtex">
+      <h2>BibTeX reference</h2>
+      <div class="code_pre"><pre>@article{Xu:2023:NeuSample,
   author  = {Bing Xu and Liwen Wu and Milo\v{s} Ha\v{s}an and Fujun Luan and Iliyan Georgiev and Zexiang Xu and Ravi Ramamoorthi},
   title   = {NeuSample: Importance Sampling for Neural Materials},
   journal = {ACM Transactions on Graphics (Proceedings of SIGGRAPH)},
   year    = {2023},
   volume  = {42},
-  number  = {4}
-}</pre>
-        </div>
+  number  = {4},
+  doi     = {10.1145/3588432.3591524}
+}</pre></div>
+    </section>
 
-      </div>
+    <section class="acknowledgments">
+      <h2>Acknowledgments</h2>
+      <p>This work was partly funded by NSF grants 2105806, 2212085, 2110409, gifts from Adobe and Google, the Ronald L. Graham Chair, and the UC San Diego Center for Visual Computing. We thank Krishna Mullia and Alexandr Kuznetsov for their help with NeuMIP and the anonymous reviewers for their constructive feedback. We used free 3D models from Turbosquid authored by users CGuru, BehTab, Neilvan and poker82.</p>
+    </section>
 
-  </div>
-  <div id="footer">
-    <div style="padding-bottom: 1.5em; text-align:center;">
-      <p id="legal">
-        <small>Bing Xu &copy; 2023&ndash;San Diego. All Rights Reserved.</small>
-      </p>
-    </div>
-  </div>
-</div>
-</body></html>
+    <footer>Bing Xu &copy; 2023. All rights reserved.</footer>
+  </main>
+  <script>
+    const methodScenes = [
+      {
+        src: "assets/analytic-mixture.png",
+        alt: "Analytic-lobe mixture architecture",
+        title: "Analytic-lobe mixture",
+        caption: "A small MLP predicts one Lambertian and two anisotropic Gaussian lobes."
+      },
+      {
+        src: "assets/normalizing-flow.png",
+        alt: "Lightweight normalizing-flow architecture",
+        title: "Normalizing flow",
+        caption: "Conditional spline transforms warp a simple base distribution into a complex sampling distribution."
+      },
+      {
+        src: "assets/histogram-mixture.png",
+        alt: "Histogram-mixture sampling architecture",
+        title: "Histogram mixture",
+        caption: "Shared basis histograms are learned with an MLP, then baked for fast sampling at inference time."
+      }
+    ];
+
+    const methodFrame = document.getElementById("method-frame");
+    const methodTitle = document.getElementById("method-title");
+    const methodCaption = document.getElementById("method-caption");
+    const methodCount = document.getElementById("method-count");
+    const methodDots = document.getElementById("method-dots");
+    let methodIndex = 0;
+
+    function showMethod(index) {
+      methodIndex = (index + methodScenes.length) % methodScenes.length;
+      const method = methodScenes[methodIndex];
+      methodFrame.src = method.src;
+      methodFrame.alt = method.alt;
+      methodTitle.textContent = method.title;
+      methodCaption.textContent = method.caption;
+      methodCount.textContent = `${methodIndex + 1} / ${methodScenes.length}`;
+      [...methodDots.children].forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === methodIndex);
+        dot.setAttribute("aria-current", dotIndex === methodIndex ? "true" : "false");
+      });
+    }
+
+    methodScenes.forEach((method, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.setAttribute("aria-label", `Show ${method.title}`);
+      dot.addEventListener("click", () => showMethod(index));
+      methodDots.appendChild(dot);
+    });
+
+    document.getElementById("method-prev").addEventListener("click", () => showMethod(methodIndex - 1));
+    document.getElementById("method-next").addEventListener("click", () => showMethod(methodIndex + 1));
+    showMethod(0);
+  </script>
+</body>
+</html>
